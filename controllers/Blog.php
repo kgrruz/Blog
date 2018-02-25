@@ -60,6 +60,7 @@ class Blog extends Front_Controller{
         Template::set_block('sub_nav_menu', '_menu_module');
         Template::render('mod_index');
 
+
     }
 
 
