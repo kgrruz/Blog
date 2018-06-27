@@ -48,6 +48,11 @@ class Blog_model extends BF_Model{
 			'field' => 'body_post',
 			'label' => 'lang:blog_field_body',
 			'rules' => 'required',
+		),
+		array(
+			'field' => 'roles_access[]',
+			'label' => 'lang:blog_roles_access',
+			'rules' => 'required',
 		)
 	);
 	protected $insert_validation_rules  = array();

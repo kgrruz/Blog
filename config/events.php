@@ -21,4 +21,10 @@
 	THE SOFTWARE.
 */
 
-$config = array();
+$config['insert_post_blog'][] = array(
+        'module'     => 'blog',
+        'filepath'   => 'controllers',
+        'filename'   => 'Events_category.php',
+        'class'  => 'Events_category',
+        'method'     => '_add_to_categ'
+    );

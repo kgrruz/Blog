@@ -58,7 +58,15 @@ class Comments_model extends BF_Model{
         parent::__construct();
     }
 
+    public function get_comments($id_user,$qp){
 
+    $this->db->select("blog_comments.id as id,parent,created,modified,content,file_url,file_mime_type,creator,users.display_name as fullname,photo_avatar as profile_picture_url,created_by_admin,upvote_count,user_has_upvoted,IF(creator = {$id_user},1,0) as created_by_current_user");
+    $this->db->from("blog_comments");
+    $this->db->join("users","users.id = blog_comments.creator");
+    $this->db->where("post_id",$qp);
+    return $this->db->get()->result();
+
+    }
 
 
     public function register_files_up($upload_data, $idq, $idu)

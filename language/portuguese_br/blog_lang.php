@@ -27,6 +27,9 @@ $lang['blog_delete_record']   = 'Excluir este(a) Post';
 $lang['blog_delete_confirm']  = 'Você tem certeza que deseja excluir este(a) post?';
 $lang['blog_edit_heading']    = 'Editar Post';
 $lang['blog_empty_posts']    = 'Blog sem postagens.';
+$lang['blog_roles']    = 'Acessível a ';
+$lang['blog_enable_comments']    = 'Permitir comentários';
+$lang['blog_enable_attach']    = 'Permitir upload nos comentários';
 
 // Create/Edit Buttons
 $lang['blog_action_edit']   = 'Editar Post';
@@ -60,3 +63,5 @@ $lang['blog_field_upload_picture'] = 'Enviar imagem preview';
 $lang['blog_field_picture'] = 'Imagem prévia';
 $lang['blog_field_description'] = 'Conteúdo do Post';
 $lang['blog_field_category'] = 'categoria';
+$lang['blog_roles_access'] = 'Grupos de acesso ao post';
+$lang['blog_field_body'] = 'Conteúdo do post';

@@ -10,29 +10,29 @@
         <div class="col-lg-8 pt-0 mt-4">
 
           <div class="card pt-0">
-          <div class="card-body pt-0">
+          <div class="card-body pt-0 pb-0">
 
           <h1 class="mt-4"><?php echo ucfirst($post->title_post); ?></h1>
 
           <!-- Author -->
           <p class="lead">
-           <?php echo lang('blog_post_created_by'); ?>
-        <?php echo anchor('partner/'.$post->username,$post->display_name); ?>
+           <?php echo ut_date($post->created_on,'F j, Y H:i'); ?>
+      <?php echo user_avatar($post->photo_avatar,$post->email,20,'rounded thumb_nav',true,'thumbs'); ?>  <?php echo anchor('partner/'.$post->username,$post->display_name); ?>
+
+      <?php foreach($categs_post as $categ){ ?>
+      <span class="badge badge-info"><?php echo $categ->name_category; ?></span>
+    <?php } ?>
+
           </p>
 
           <hr>
 
-          <!-- Date/Time -->
-          <p>  <?php echo ut_date($post->created_on,'F j, Y H:i'); ?></p>
-
-          <hr>
-
           <!-- Post Content -->
-          <p class="lead"><?php echo html_entity_decode($post->body_post); ?></p>
+          <div class="lead post_body"><?php echo html_entity_decode($post->body_post); ?></div>
         </div>
         </div>
 
-
+<?php if($post->enable_comments){ ?>
           <!-- Comments Form -->
           <div class="card my-4">
             <h5 class="card-header">Deixe seu comentário:</h5>
@@ -42,7 +42,7 @@
 
             </div>
           </div>
-
+<?php } ?>
 
 
         </div>
@@ -55,53 +55,32 @@
           <div class="card my-4">
             <h5 class="card-header">Procurar</h5>
             <div class="card-body">
+              <?php echo form_open('blog/index'); ?>
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Procurar por...">
+                <input type="text" class="form-control rounded-0" maxlength="20"  name="search" placeholder="Procurar por...">
                 <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="button">Buscar!</button>
+                  <button class="btn btn-success rounded-0" type="submit"><?php echo lang('bf_search'); ?></button>
                 </span>
               </div>
+              <?php echo form_close(); ?>
             </div>
           </div>
 
           <!-- Categories Widget -->
           <div class="card my-4">
-            <h5 class="card-header">Categorias</h5>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="#">Empreendimento</a>
-                    </li>
-                    <li>
-                      <a href="#">Contabilidade</a>
-                    </li>
-                    <li>
-                      <a href="#">Dicas gerais</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="#">Técnicas de preparo</a>
-                    </li>
-                    <li>
-                      <a href="#">Mercado</a>
-                    </li>
-                    <li>
-                      <a href="#">Atualizações</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+            <h5 class="card-header"><?php echo lang('category_area_title'); ?></h5>
+
+                 <ul class="list-group list-group-flush">
+                    <?php foreach($tree['items'] as $groupp){ ?>
+               <li class="list-group-item">
+                    <?php echo str_repeat('&nbsp', $this->nested_set->getNodeLevel($groupp)*4); ?>
+                    <?php echo anchor('blog/categp/'.$groupp['id_category'],ucfirst($groupp['name_category'])); ?>
+                  </li>
+                  <?php } ?>
+                </ul>
+
             </div>
           </div>
-
-
-
-        </div>
 
       </div>
       <!-- /.row -->
@@ -109,10 +88,10 @@
     </div>
     <!-- /.container -->
 <script>
-
+var enable = <?php echo ($post->enable_comments)? 'true':'false'; ?>;
 var uid = <?php echo $current_user->id; ?>;
 var id_refer = <?php echo $post->id_post; ?>;
 var author = <?php echo $post->created_by; ?>;
-
+var enable_attach = <?php echo ($post->enable_attach)? 'true':'false'; ?>;
 
 </script>
