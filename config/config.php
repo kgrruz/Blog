@@ -8,6 +8,6 @@ $config['module_config'] = array(
 	'label'       => array('english'=>'Blog','portuguese_br'=>'Blog'),
 	'route'       => 'blog',
 	'visible_module' => true,
-	'version'		=> '0.0.1',
+	'version'		=> '1.0.1',
 	'author'		=> 'admin',
 );
