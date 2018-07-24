@@ -24,7 +24,7 @@ http://viima.github.io/jquery-comments/*/
 	-moz-appearance: none;
 	-ms-appearance: none;
 	appearance: none;
-
+	color:#333 !important;
 	vertical-align: top;
 	border-radius: 0;
 	margin: 0;
@@ -540,7 +540,7 @@ http://viima.github.io/jquery-comments/*/
 }
 
 .jquery-comments ul.main li.comment .actions > * {
-	color: #999;
+	color: #fff !important;
 	font-weight: bold;
 }
 

@@ -28,3 +28,19 @@ $config['insert_post_blog'][] = array(
         'class'  => 'Events_category',
         'method'     => '_add_to_categ'
     );
+
+    $config['show_email_prefs'][] = array(
+            'module'     => 'blog',
+            'filepath'   => 'controllers',
+            'filename'   => 'Blog.php',
+            'class'  => 'Blog',
+            'method'     => 'emails_prefs'
+        );
+
+    $config['get_notifications_user'][] = array(
+            'module'     => 'blog',
+            'filepath'   => 'controllers',
+            'filename'   => 'Blog.php',
+            'class'  => 'Blog',
+            'method'     => '_get_user_notif'
+        );

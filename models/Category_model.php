@@ -107,7 +107,7 @@ class Category_model extends BF_Model{
 	  function count_items_in_categ($categ){
 
     $this->db->select('id_join_category');
-    $this->db->from('items_categories');
+    $this->db->from('blog_categs');
     $this->db->where('category_id',$categ);
 		return $this->db->get()->num_rows();
 

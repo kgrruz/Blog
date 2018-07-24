@@ -16,13 +16,11 @@ class Comments extends Front_Controller{
      * @return void
      */
     public function __construct(){
+
         parent::__construct();
 
-        $this->load->library('users/auth');
-        $this->auth->restrict();
-        $this->set_current_user();
-
 				$this->load->model('blog/comments_model');
+				$this->load->model('blog/blog_model');
 
         }
 
@@ -31,6 +29,8 @@ class Comments extends Front_Controller{
 							if (!$this->input->is_ajax_request()) {
 									exit('No direct script access allowed');
 							}
+
+              $this->authenticate();
 
 							$qp = $this->uri->segment(4);
 							$id_user = $this->session->userdata('user_id');
@@ -54,7 +54,11 @@ class Comments extends Front_Controller{
 									exit('No direct script access allowed');
 							}
 
+              $this->authenticate();
+
 							$this->load->config('blog/comments');
+
+              if(!$this->blog_model->check_enable_comment($this->input->post('qp'))){ exit(json_encode(array('status'=>false,'message'=>'lang:blog_block_comment')));  }
 
 							$post = array(
     						'modified'=>date('Y-m-d H:i:s'),
@@ -63,9 +67,6 @@ class Comments extends Front_Controller{
     						'creator'=>$this->session->userdata('user_id')
 						);
 
-            $post['fullname'] = $this->current_user->display_name;
-            $post['created_by_current_user'] = true;
-            $post['profile_picture_url'] = $this->input->post('profile_picture_url');
 
 							if ($this->input->post('parent') != '') {
 									$post['parent'] = $this->input->post('parent');
@@ -77,24 +78,35 @@ class Comments extends Front_Controller{
 									$this->db->insert('blog_comments', $post);
 									$insert_id = $this->db->insert_id();
 									$post['id'] = $insert_id;
-
-							$this->output->set_output(json_encode($post));
+                  $post['status'] = true;
 
 				  	}else if($this->input->post('action') == 'edit'){
 
                   $post['content'] = word_censor(strip_tags($this->input->post('content')), config_item('badwords'), '!#_+#@');
                   $this->db->where('id',$this->input->post('id'));
-                	 $this->db->update('blog_comments', array('content'=>$post['content']));
-
-                   $post['status'] = true;
-
-                   $this->output->set_output(json_encode($post));
+                	$this->db->update('blog_comments', array('content'=>$post['content'],'modified'=>date('Y-m-d H:i:s',strtotime($this->input->post('modified')))));
+                  $post['status'] = true;
+                  $post['id'] = $this->input->post('id');
           }
+
+          $post['fullname'] = $this->current_user->display_name;
+          $post['created_by_current_user'] = true;
+          $post['profile_picture_url'] = $this->input->post('profile_picture_url');
+
+          $this->output->set_output(json_encode($post));
+
 				}
 
 
 					public function deleteComments()
 					{
+
+            if (!$this->input->is_ajax_request()) {
+                exit('No direct script access allowed');
+            }
+
+            $this->authenticate();
+
 							if ($this->input->post('id')) {
 									$this->db->where('id', $this->input->post('id'));
 									$this->db->delete('blog_comments');
@@ -107,14 +119,20 @@ class Comments extends Front_Controller{
 
 					public function uploadAttachments(){
 
+            if (!$this->input->is_ajax_request()) {
+                exit('No direct script access allowed');
+            }
+
             $this->authenticate();
+
+            if(!$this->blog_model->check_enable_attach($this->input->post('qp'))){ exit(json_encode(array('status'=>false,'message'=>'lang:blog_block_attach')));  }
 
 							if (!empty($_FILES['file']['name'])) {
 
                       $path = Modules::path('blog','uploads/comments');
 
 											$config['upload_path'] =  $path;
-											$config['allowed_types'] = 'doc|docx|xls|xlsx|pdf|jpeg|png|gif|jpg|zip|rar|7z|mp4';
+											$config['allowed_types'] = 'doc|pdf|jpeg|png|gif|jpg|zip|rar';
 											$config['max_size']     = '10240';
 											$config['max_width'] = '1024';
 											$config['max_height'] = '768';
@@ -166,8 +184,12 @@ class Comments extends Front_Controller{
               $this->load->helper('file');
               $path = Modules::path('blog','uploads/comments').'/'.$file;
 
-              header('Content-Type: '.get_mime_by_extension($path));
+              header('Content-Type: '.get_mime_by_extension($file));
+              header('Content-length: '.filesize($path));
+              header('Content-Disposition: inline; filename="'.$file.'";'); //<-- sends filename header
               readfile($path);
+              die();
+              exit;
 
             }
 

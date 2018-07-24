@@ -12,7 +12,7 @@
       <table id="table_categories" class="table table-sm nowrap" cellspacing="0" width="100%">
     <thead>
         <tr>
-<th></th>
+
 <th></th>
             <th><?php echo lang('category_column_name'); ?></th>
               <th></th>
@@ -32,17 +32,16 @@
           <input type="checkbox" name="checked[]" value="<?php echo $category['id_category']; ?>" />
         <?php } ?>
        </td>
-        <td>  <img class="img-fluid rounded" src="<?php echo base_url(); ?>images/<?php echo $category['image_category']; ?>?module=item&assets=assets/images/categories/thumbs&width=25" >
-</td>
+        
         <td>
       <?php echo str_repeat('&nbsp;', $this->nested_set->getNodeLevel($category)*4); ?>
-        <?php echo anchor('item/category/profile/'.$category['slug_category'],$category['name_category']); ?></td>
+        <?php echo anchor('blog/category/profile/'.$category['slug_category'],$category['name_category']); ?></td>
         <td><?php echo ellipsize($category['desc_category'],60); ?></td>
         <td class="text-center"><span class="badge badge-pill badge-primary"><?php echo $this->category_model->count_items_in_categ($category['id_category']); ?></span></td>
         <td><?php echo date('d/m/Y',strtotime($category['created_on'])); ?></td>
         <td>
           <?php if($category['id_category'] != 1){ ?>
-          <?php echo anchor('item/category/edit/'.$category['slug_category'],'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          <?php echo anchor('blog/category/edit/'.$category['slug_category'],'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
       ','class="btn btn-sm btn-secondary"'); ?>  <?php } ?></td>
       </tr>
       <?php } ?>

@@ -1,6 +1,6 @@
 
 
-<div class="card border-0">
+
       <?php echo form_open_multipart($this->uri->uri_string(), 'class="form-horizontal"'); ?>
 
     <?php
@@ -21,8 +21,9 @@ $id = isset($post->id_post) ? $post->id_post : '';
 
 ?>
 <div class="row">
-  <div class="col-md-7">
-
+  <div class="col-md-8">
+    <div class="card border-0">
+    <div class="card-body">
 
             <div class="form-group<?php echo form_error('title_post') ? ' error' : ''; ?>">
                 <?php echo form_label(lang('blog_field_name') . lang('bf_form_label_required'), 'title_post', array('class' => 'control-label')); ?>
@@ -34,7 +35,7 @@ $id = isset($post->id_post) ? $post->id_post : '';
 
 
             <div class="form-group<?php echo form_error('category') ? ' error' : ''; ?>">
-                <?php echo form_label(lang('item_field_category') . lang('bf_form_label_required'), 'category', array('class' => 'col-form-label')); ?>
+                <?php echo form_label(lang('blog_field_category') . lang('bf_form_label_required'), 'category', array('class' => 'col-form-label')); ?>
 
       <select id='category' class="form-control form-control-sm" multiple name='category[]'  >
             <?php foreach($tree['items'] as $groupp){ ?>
@@ -64,8 +65,17 @@ $id = isset($post->id_post) ? $post->id_post : '';
 
             </div>
         </div>
+        <div class="card-footer">
 
-        <div class="col-md-5">
+                      <input type='submit' name='save' class='btn btn-primary' value="<?php echo lang('blog_action_create'); ?>" />
+                      <?php echo lang('bf_or'); ?>
+                      <?php echo anchor('blog', lang('blog_cancel'), 'class="btn btn-warning"'); ?>
+
+                    </div>
+        </div>
+        </div>
+
+        <div class="col-md-4">
 
           <div class="card mb-3">
             <div class="card-header">
@@ -86,17 +96,14 @@ $id = isset($post->id_post) ? $post->id_post : '';
             </div>
             <div class="card-body">
 
-              <label for="exampleFormControlFile1" class="btn btn-primary btn-sm" ><i class="fa fa-image"></i> <?php echo lang('blog_field_upload_picture'); ?></label>
-              <input type="file" class="form-control-file" style="display: none" id="exampleFormControlFile1" name="preview_image">
+              <label for="exampleFormControlFile1" style="display:none" class="btn btn-primary btn-sm" ><i class="fa fa-image"></i> <?php echo lang('blog_field_upload_picture'); ?></label>
+              <input type="file" class="form-control-file" xid="exampleFormControlFile1" name="preview_image">
 
             </div>
           </div>
         </div>
         </div>
 
-            <input type='submit' name='save' class='btn btn-primary' value="<?php echo lang('blog_action_create'); ?>" />
-            <?php echo lang('bf_or'); ?>
-            <?php echo anchor('blog', lang('blog_cancel'), 'class="btn btn-warning"'); ?>
 
     <?php echo form_close(); ?>
 

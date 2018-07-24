@@ -5,10 +5,10 @@
  */
 class Category extends Front_Controller{
 
-    protected $permissionCreate = 'Category.Content.Create';
-    protected $permissionDelete = 'Category.Content.Delete';
-    protected $permissionEdit   = 'Category.Content.Edit';
-    protected $permissionView   = 'Category.Content.View';
+    protected $permissionCreate = 'Blog.Content.Create';
+    protected $permissionDelete = 'Blog.Content.Delete';
+    protected $permissionEdit   = 'Blog.Content.Edit';
+    protected $permissionView   = 'Blog.Content.View';
 
     /**
      * Constructor
@@ -20,6 +20,7 @@ class Category extends Front_Controller{
         parent::__construct();
 
         $this->load->model('blog/category_model');
+        $this->load->model('blog/blog_model');
 
         $this->lang->load('blog/blog');
         $this->lang->load('blog/category');
@@ -74,33 +75,32 @@ class Category extends Front_Controller{
 
           if (empty($id)) {
               Template::set_message(lang('category_invalid_id'), 'error');
-              redirect('item/category');
+              redirect('blog/category');
           }
 
           if($category = $this->category_model->find_by('slug_category',$id)){
 
-
             $offset = $this->uri->segment(5);
-            $where = array('items.deleted'=>0,'items_categories.category_id'=>$category->id_category);
+            $where = array('blog_posts.deleted'=>0,'blog_categs.category_id'=>$category->id_category);
 
-            $this->item_model->join('items_categories','items_categories.item_id = items.id_item','left');
-            $this->item_model->order_by('name_item','asc');
-            $this->item_model->group_by('id_item');
-            $this->item_model->limit($this->limit, $offset)->where($where);
-            $itens = $this->item_model->find_all();
+            $this->blog_model->join('blog_categs','blog_categs.blog_post_id = blog_posts.id_post','left');
+            $this->blog_model->order_by('title_post','asc');
+            $this->blog_model->group_by('id_post');
+            $this->blog_model->limit($this->limit, $offset)->where($where);
+            $posts = $this->blog_model->find_all();
 
             $this->load->library('pagination');
 
-            $this->pager['base_url']    = base_url()."item/category/profile/".$category->slug_category."/";
+            $this->pager['base_url']    = base_url()."blog/category/profile/".$category->slug_category."/";
             $this->pager['per_page']    = $this->limit;
 
-            $this->item_model->join('items_categories','items_categories.item_id = items.id_item','left');
-            $this->pager['total_rows']  = $this->item_model->where($where)->count_all();
+            $this->blog_model->join('blog_categs','blog_categs.blog_post_id = blog_posts.id_post','left');
+            $this->pager['total_rows']  = $this->blog_model->where($where)->count_all();
             $this->pager['uri_segment'] = 5;
 
             $this->pagination->initialize($this->pager);
 
-            Template::set('itens',$itens);
+            Template::set('posts',$posts);
             Template::set('toolbar_title', $category->name_category);
             Template::set('categ', $category);
             Template::render();
@@ -108,46 +108,11 @@ class Category extends Front_Controller{
           }else{
 
             Template::set_message(lang('category_invalid_id'), 'error');
-            redirect('item/category');
+            redirect('blog/category');
           }
     }
 
-    public function send_pic(){
 
-      $upload_path = Modules::path('item','assets/images/categories/');
-
-      $config = array(
-       'upload_path' => $upload_path,
-       'allowed_types' => "*",
-       'encrypt_name' => true,
-       'max_size' => 2048, // Can be set to particular file size , here it is 2 MB(2048 Kb)
-       'max_height' => 2000,
-       'max_width' => 2000,
-       'min_height'=> 300,
-       'min_width' => 300
-     );
-
-     $this->load->library('upload',$config);
-
-     if ($this->upload->do_upload('category_pic')) {
-
-       $image_data = $this->upload->data();
-
-        $this->load->library('users/image_op');
-
-        $this->image_op->padronize($upload_path,$image_data,300,200,50);
-
-            $this->db->where('id_category',$this->input->post('id_category'));
-            $this->db->update('categories',array('image_category'=>$image_data['file_name']));
-            $this->output->set_output(json_encode(array('status'=>true,'message'=>lang('us_profile_avatar_send_success'),'classe'=>'alert-success','image'=>$image_data['file_name'])));
-
-     }else{
-
-   $error = array('error' => $this->upload->display_errors());
-   $this->output->set_output(json_encode(array('message'=>$error['error'],'classe'=>'alert-danger','image'=>false)));
-
-}
-}
 
     /*
     **

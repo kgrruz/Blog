@@ -53,8 +53,9 @@ if($('#post_editor').length){
 
 }
 
+ if($('.post_body').length){
 
-$('.post_body a').each(function() { 
+$('.post_body a').each(function() {
 
    var a = new RegExp(base_url);
    if (!a.test($(this).attr('href'))){
@@ -62,6 +63,12 @@ $('.post_body a').each(function() {
    }
 
  });
+
+
+   $(".post_body img").addClass("img-fluid");
+
+
+   }
 
 
 

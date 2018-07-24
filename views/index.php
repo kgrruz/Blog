@@ -1,14 +1,11 @@
 
-    <div class="card border-0">
-
-
  <div class="container-fluid">
    <div class="row">
 
   <!-- Blog Entries Column -->
        <div class="col-md-8">
 
-         <h1 class="my-4"><?php echo lang('blog_area_title'); ?> <?php echo html_escape($this->settings_lib->item('site.title')); ?>
+         <h1><?php echo lang('blog_area_title'); ?> <?php echo html_escape($this->settings_lib->item('site.title')); ?>
            <small><?php echo lang('blog_list'); ?></small>
          </h1>
 
@@ -34,21 +31,28 @@
          <ul class="pagination justify-content-center mb-4">
            <?php echo $this->pagination->create_links(); ?>
          </ul>
-<?php } else{ ?><div class="card-text"><?php echo lang('blog_empty_posts'); ?></div> <?php } ?>
+     <?php } else{ ?>
+  <div class="card border-0">
+        <div class="card-body">
+          <div class="card-text"><?php echo lang('blog_empty_posts'); ?></div>
+        </div>
+      </div>
+    <?php } ?>
        </div>
+
 
        <!-- Sidebar Widgets Column -->
        <div class="col-md-4" style="position: sticky">
 
          <!-- Search Widget -->
-         <div class="card my-4">
-           <h5 class="card-header">Procurar</h5>
+         <div class="card">
+           <h5 class="card-header"><?php echo lang('blog_search'); ?></h5>
            <div class="card-body">
              <?php echo form_open('blog/index'); ?>
              <div class="input-group">
-               <input type="text" class="form-control rounded-0" maxlength="20" name="search" placeholder="Procurar por...">
+               <input type="text" class="form-control rounded-0" maxlength="20" name="search" placeholder="<?php echo lang('blog_search_placeholder'); ?>">
                <span class="input-group-btn">
-                 <button class="btn btn-success rounded-0" type="submit"><?php echo lang('bf_search'); ?></button>
+                 <button class="btn btn-success rounded-0" type="submit"><?php echo lang('blog_search'); ?></button>
                </span>
              </div>
              <?php echo form_close(); ?>
@@ -61,9 +65,9 @@
 
                  <ul class="list-group list-group-flush">
                     <?php foreach($tree['items'] as $groupp){ ?>
-               <li class="list-group-item">
+               <li class="list-group-item <?php echo check_url('blog/categp/'.$groupp['slug_category'],true); ?>">
                     <?php echo str_repeat('&nbsp', $this->nested_set->getNodeLevel($groupp)*4); ?>
-                    <?php echo anchor('blog/categp/'.$groupp['id_category'],ucfirst($groupp['name_category'])); ?>
+                    <?php echo anchor('blog/categp/'.$groupp['slug_category'],ucfirst($groupp['name_category'])); ?>
                   </li>
                   <?php } ?>
                 </ul>

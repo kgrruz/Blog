@@ -48,7 +48,15 @@ class Blog extends Front_Controller{
         $this->authenticate($this->permissionView);
 
         $offset = $this->uri->segment(3);
-        $term = $this->uri->segment(4,$this->input->post('search'));
+
+        if($this->input->post('search') != NULL ){
+          $search_text = $this->input->post('search');
+          $this->session->set_userdata(array("search"=>$search_text));
+        }else{
+        if($this->session->userdata('search') != NULL and $this->uri->segment(2) == 'index'){
+          $search_text = $this->session->userdata('search');
+        }else{  $this->session->unset_userdata('search'); }
+      }
 
         $where = array('blog_posts.deleted'=>0);
 
@@ -56,14 +64,14 @@ class Blog extends Front_Controller{
         $this->blog_model->order_by('blog_posts.created_on','desc');
         $this->blog_model->join('users','blog_posts.created_by  = users.id','left');
         $this->blog_model->limit(6, $offset)->where($where);
-        if($term){ $this->blog_model->like('title_post',$term); }
+        if(isset($search_text)){ $this->blog_model->like('title_post',$search_text); }
         $posts = $this->blog_model->find_all();
 
         $this->load->library('pagination');
 
-        $this->pager['base_url']    = base_url()."blog/index/".$offset."/".$term;
+        $this->pager['base_url']    = base_url()."blog/index/";
         $this->pager['per_page']    = 6;
-        if($term){ $this->blog_model->like('title_post',$term); }
+        if(isset($search_text)){ $this->blog_model->like('title_post',$search_text); }
         $this->pager['total_rows']  = $this->blog_model->where($where)->count_all();
         $this->pager['uri_segment'] = 3;
 
@@ -83,41 +91,57 @@ class Blog extends Front_Controller{
 
     }
 
-    public function categp($id_categ){
+    public function categp($id){
 
-        $this->authenticate($this->permissionView);
+      $this->authenticate($this->permissionView);
 
-        $offset = $this->uri->segment(4);
+          $id = $this->uri->segment(3);
 
-        $where = array('blog_posts.deleted'=>0,'blog_categs.category_id'=>$id_categ);
+          if (empty($id)) {
+              Template::set_message(lang('category_invalid_id'), 'error');
+              redirect('blog');
+          }
 
-        $this->blog_model->select("title_post,slug_post,preview_image,blog_posts.created_on as created_on,photo_avatar,email,display_name,username,blog_posts.deleted as deleted");
-        $this->blog_model->join('users','blog_posts.created_by = users.id','left');
-        $this->blog_model->join('blog_categs','blog_categs.blog_post_id = blog_posts.id_post','left');
-        $this->blog_model->order_by('blog_posts.created_on','desc');
-        $this->blog_model->group_by('blog_posts.id_post');
-        $this->blog_model->limit(6, $offset)->where($where);
-        $posts = $this->blog_model->find_all();
+          if($category = $this->category_model->find_by('slug_category',$id)){
 
-        $this->load->library('pagination');
+            $offset = $this->uri->segment(4);
+            $where = array('blog_posts.deleted'=>0,'blog_categs.category_id'=>$category->id_category);
 
-        $this->pager['base_url']    = base_url()."blog/filter_categ/".$id_categ."/".$offset."/";
-        $this->pager['per_page']    = 6;
+            $this->blog_model->join('blog_categs','blog_categs.blog_post_id = blog_posts.id_post','left');
+            $this->blog_model->join('users','blog_posts.created_by  = users.id','left');
+            $this->blog_model->order_by('blog_posts.created_on','desc');
+            $this->blog_model->group_by('id_post');
+            $this->blog_model->limit(6, $offset)->where($where);
+            $posts = $this->blog_model->find_all();
 
-        $this->blog_model->select("title_post,blog_posts.created_on as created_on,blog_posts.deleted as deleted");
-        $this->blog_model->group_by('blog_posts.id_post');
-        $this->blog_model->join('blog_categs','blog_categs.blog_post_id = blog_posts.id_post','left');
+            $this->load->library('pagination');
 
-        $this->pager['total_rows']  =  $this->blog_model->where($where)->count_all();
-        $this->pager['uri_segment'] = 4;
+            $this->pager['base_url']    = base_url()."blog/catep/".$category->slug_category."/";
+            $this->pager['per_page']    = 6;
 
-        $this->pagination->initialize($this->pager);
+            $this->blog_model->join('blog_categs','blog_categs.blog_post_id = blog_posts.id_post','left');
+            $this->pager['total_rows']  = $this->blog_model->where($where)->count_all();
+            $this->pager['uri_segment'] = 4;
 
-        Template::set('posts',$posts);
-        Template::set('toolbar_title', lang('blog_list'));
-        Template::set_view('index');
-        Template::set_block('sub_nav_menu', '_menu_module');
-        Template::render('mod_index');
+            $this->pagination->initialize($this->pager);
+
+            $this->load->library('blog/Nested_set');
+            $this->nested_set->setControlParams('blog_categories','lft','rgt','id_category','parent_category','name_category');
+            $parent_node = $this->nested_set->getNodeWhere(array('id_category'=>1));
+            $tree = $this->nested_set->getSubTree($parent_node);
+            Template::set('tree', $tree);
+
+            Template::set('posts',$posts);
+            Template::set_view('blog/index');
+            Template::set_block('sub_nav_menu', '_menu_module');
+            Template::set('toolbar_title', $category->name_category);
+            Template::render('mod_index');
+
+          }else{
+
+            Template::set_message(lang('category_invalid_id'), 'error');
+            redirect('blog');
+          }
 
 
     }
@@ -213,10 +237,14 @@ class Blog extends Front_Controller{
               $data_insert = array('blog_post_id'=>$insert_id,'data'=>$_POST,'created_by'=>$this->current_user->id);
 
                 Events::trigger('insert_post_blog',$data_insert);
+
                 $blog = $this->blog_model->find($insert_id);
 
                 $id_act = log_activity($this->auth->user_id(), lang('blog_act_create_record') . ': ' . anchor('blog/post/'.$blog->slug_post,$blog->title_post), 'blog');
-                log_notify($this->user_model->get_id_users_role('id',$this->input->post('roles_access')), $id_act);
+                $ids = $this->user_model->get_id_users_role('id',$this->input->post('roles_access'));
+                log_notify($ids, $id_act);
+
+                $this->send_blog_email($ids,$blog);
 
                 Template::set_message(lang('blog_create_success'), 'success');
                 Template::redirect('blog');
@@ -305,7 +333,40 @@ class Blog extends Front_Controller{
     //--------------------------------------------------------------------------
     // !PRIVATE METHODS
     //--------------------------------------------------------------------------
+    private function send_blog_email($ids,$blog){
 
+      $this->load->library('emailer/emailer');
+
+      $ids = explode(',',$ids);
+
+      foreach($ids as $id){
+
+      if(has_email_prefname('blog_new_post',$id) and $this->online->is_online($id)){
+
+      $data = array(
+          'to'      => $this->user_model->find($id)->email,
+          'subject' => $blog->title_post,
+          'message' => $this->load->view(
+              '_emails/blog_email',
+              array('blog' => $blog),
+              true
+          ),
+       );
+
+      if ($this->emailer->send($data,true)) {
+
+          Template::set_message(lang('blog_send_email_success'), 'success');
+
+      } else {
+
+          Template::set_message(lang('blog_send_email_error') . $this->emailer->error, 'danger');
+
+      }
+
+    }
+
+    }
+  }
     /**
      * Save the data.
      *
@@ -460,6 +521,42 @@ class Blog extends Front_Controller{
 
     		 ob_end_flush();
      }
+
+     public function _get_user_notif(&$payload){
+
+         $this->lang->load('forum/topic');
+
+         $notifications = $this->notification_model->get_user_notifications('blog');
+
+         foreach($notifications->result() as $not){
+
+           array_push($payload['data'],
+           array(
+           'photo_avatar'=>$not->photo_avatar,
+           'activity'=>$not->activity,
+           'display_name'=>$not->display_name,
+           'email'=>$not->email,
+           'created_on'=>$not->created_on,
+           'username'=>$not->username
+         ));
+
+         }
+       }
+
+       public function emails_prefs(&$data){
+
+     		$this->db->select('*');
+     		$this->db->from('email_preferences');
+     		$this->db->where('module','blog');
+     		$result = $this->db->get();
+
+     		foreach($result->result() as $p){
+
+     			array_push($data['prefs'],array("id_pref"=>$p->preference_id,"name"=>lang($p->preference_name),"desc"=>lang($p->preference_desc)));
+
+     		}
+
+     	}
 
 
 

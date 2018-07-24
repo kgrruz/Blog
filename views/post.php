@@ -7,7 +7,7 @@
       <div class="row">
 
         <!-- Post Content Column -->
-        <div class="col-lg-8 pt-0 mt-4">
+        <div class="col-lg-8 pt-0">
 
           <div class="card pt-0">
           <div class="card-body pt-0 pb-0">
@@ -35,7 +35,7 @@
 <?php if($post->enable_comments){ ?>
           <!-- Comments Form -->
           <div class="card my-4">
-            <h5 class="card-header">Deixe seu comentário:</h5>
+            <h5 class="card-header"><?php echo lang('blog_lets_comment'); ?></h5>
             <div class="card-body">
 
 <div id="comments-container"> </div>
@@ -52,14 +52,14 @@
         <div class="col-md-4">
 
           <!-- Search Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Procurar</h5>
+          <div class="card">
+            <h5 class="card-header"><?php echo lang('blog_search'); ?></h5>
             <div class="card-body">
               <?php echo form_open('blog/index'); ?>
               <div class="input-group">
-                <input type="text" class="form-control rounded-0" maxlength="20"  name="search" placeholder="Procurar por...">
+                <input type="text" class="form-control rounded-0" maxlength="20" name="search" placeholder="<?php echo lang('blog_search_placeholder'); ?>">
                 <span class="input-group-btn">
-                  <button class="btn btn-success rounded-0" type="submit"><?php echo lang('bf_search'); ?></button>
+                  <button class="btn btn-success rounded-0" type="submit"><?php echo lang('blog_search'); ?></button>
                 </span>
               </div>
               <?php echo form_close(); ?>
@@ -74,7 +74,7 @@
                     <?php foreach($tree['items'] as $groupp){ ?>
                <li class="list-group-item">
                     <?php echo str_repeat('&nbsp', $this->nested_set->getNodeLevel($groupp)*4); ?>
-                    <?php echo anchor('blog/categp/'.$groupp['id_category'],ucfirst($groupp['name_category'])); ?>
+                    <?php echo anchor('blog/categp/'.$groupp['slug_category'],ucfirst($groupp['name_category'])); ?>
                   </li>
                   <?php } ?>
                 </ul>

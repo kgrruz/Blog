@@ -32,7 +32,7 @@ if (typeof id_refer !== 'undefined' && enable == true) {
          oldestText: 'Mais antigos',
          popularText: 'Mais popular',
          attachmentsText: 'Mostrar anexos',
-         sendText: 'Comentário',
+         sendText: 'Enviar Comentário',
          replyText: 'Responder',
          editText: 'Modificar',
          editedText: 'Modificado',
@@ -52,7 +52,7 @@ if (typeof id_refer !== 'undefined' && enable == true) {
      oldestText: 'Viejo',
      popularText: 'Más popular',
      attachmentsText: 'Mostrar archivos adjuntos',
-     sendText: 'Comentario',
+     sendText: 'Enviar comentário',
      replyText: 'Answer',
      editText: 'Modificar' ,
      editedText: 'Modificado',
@@ -123,7 +123,6 @@ if (typeof id_refer !== 'undefined' && enable == true) {
   },
     putComment: function(commentJSON, success, error) {
 
-
       commentJSON[csrf_name] = csrf;
       commentJSON.qp = id_refer;
       commentJSON.created_by = author;
@@ -139,10 +138,8 @@ if (typeof id_refer !== 'undefined' && enable == true) {
       error: error
   });
 
-
     },
     deleteComment: function(commentJSON, success, error) {
-
 
       commentJSON[csrf_name] = csrf;
       commentJSON.qp = id_refer;

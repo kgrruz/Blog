@@ -68,6 +68,24 @@ class Blog_model extends BF_Model{
         parent::__construct();
     }
 
+    public function check_enable_comment($id_post){
+
+      $this->db->select('enable_comments');
+      $this->db->from('blog_posts');
+      $this->db->where('id_post',$id_post);
+      return $this->db->get()->row()->enable_comments;
+
+    }
+
+    public function check_enable_attach($id_post){
+
+      $this->db->select('enable_attach');
+      $this->db->from('blog_posts');
+      $this->db->where('id_post',$id_post);
+      return $this->db->get()->row()->enable_attach;
+
+    }
+
 
 
 
