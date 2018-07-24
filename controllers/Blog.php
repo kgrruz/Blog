@@ -116,7 +116,7 @@ class Blog extends Front_Controller{
 
             $this->load->library('pagination');
 
-            $this->pager['base_url']    = base_url()."blog/catep/".$category->slug_category."/";
+            $this->pager['base_url']    = base_url()."blog/categp/".$category->slug_category."/";
             $this->pager['per_page']    = 6;
 
             $this->blog_model->join('blog_categs','blog_categs.blog_post_id = blog_posts.id_post','left');
