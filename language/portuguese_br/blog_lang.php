@@ -30,13 +30,16 @@ $lang['blog_empty_posts']    = 'Blog sem postagens.';
 $lang['blog_roles']    = 'Acessível a ';
 $lang['blog_enable_comments']    = 'Permitir comentários';
 $lang['blog_enable_attach']    = 'Permitir upload nos comentários';
+$lang['blog_send_email_success']    = 'Email enviado com sucesso.';
+$lang['blog_lets_comment']    = 'Deixe seu comentário:';
+
 
 // Create/Edit Buttons
 $lang['blog_action_edit']   = 'Editar Post';
 $lang['blog_action_create']   = 'Enviar Post';
 
 // Activities
-$lang['blog_act_create_record'] = 'Adicionou post';
+$lang['blog_act_create_record'] = 'Enviou post';
 $lang['blog_act_edit_record'] = 'Atualizado registro com ID';
 $lang['blog_act_delete_record'] = 'Excluído registro com ID';
 
@@ -48,7 +51,7 @@ $lang['blog_errors_message']    = 'Por favor corrija os erros a seguir:';
 $lang['blog_column_created']  = 'Criado';
 $lang['blog_column_deleted']  = 'Excluído';
 $lang['blog_column_modified'] = 'Atualizado';
-$lang['blog_column_name'] = 'Item';
+$lang['blog_column_name'] = 'Post';
 $lang['blog_column_description'] = 'Descrição';
 $lang['blog_column_price'] = 'Preço';
 
@@ -62,6 +65,14 @@ $lang['blog_field_name'] = 'Titúlo do Post';
 $lang['blog_field_upload_picture'] = 'Enviar imagem preview';
 $lang['blog_field_picture'] = 'Imagem prévia';
 $lang['blog_field_description'] = 'Conteúdo do Post';
-$lang['blog_field_category'] = 'categoria';
+$lang['blog_field_category'] = 'Categoria';
 $lang['blog_roles_access'] = 'Grupos de acesso ao post';
 $lang['blog_field_body'] = 'Conteúdo do post';
+
+$lang['blog_search'] = 'Buscar';
+$lang['blog_search_placeholder'] = 'Procure por posts...';
+
+
+// email prefs
+$lang['blog_new_post']    = 'Novo post no blog';
+$lang['blog_new_post_desc']    = 'Receba uma notificação a cada novo post no blog';
