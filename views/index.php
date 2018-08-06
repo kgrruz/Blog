@@ -1,5 +1,5 @@
 
- <div class="container-fluid">
+
    <div class="row">
 
   <!-- Blog Entries Column -->
@@ -77,7 +77,4 @@
 
 
        </div>
-       </div>
-       </div>
-
        </div>

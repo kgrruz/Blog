@@ -1,4 +1,5 @@
- <div class="container-fluid"><ul class="nav nav-pills flex-column flex-sm-row card-header-tabs mb-2">
+
+   <ul class="nav nav-pills flex-column flex-sm-row card-header-tabs mb-3">
   <?php if($this->auth->has_permission('Blog.Content.View')){ ?>
   <li class="nav-item">
    <?php echo anchor('blog',lang('blog_area_title'),'class="nav-link '.check_url('blog',true).check_url('blog/index',true).'"'); ?>
@@ -14,4 +15,3 @@
   </li>
   <?php } ?>
 </ul>
-</div>

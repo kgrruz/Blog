@@ -8,8 +8,8 @@
 
 <?php echo form_open(); ?>
 
-      <div class="table-responsive ">
-      <table id="table_categories" class="table table-sm nowrap" cellspacing="0" width="100%">
+      <div class="table-responsive">
+      <table id="table_categories" class="table nowrap" cellspacing="0" width="100%">
     <thead>
         <tr>
 
@@ -32,7 +32,7 @@
           <input type="checkbox" name="checked[]" value="<?php echo $category['id_category']; ?>" />
         <?php } ?>
        </td>
-        
+
         <td>
       <?php echo str_repeat('&nbsp;', $this->nested_set->getNodeLevel($category)*4); ?>
         <?php echo anchor('blog/category/profile/'.$category['slug_category'],$category['name_category']); ?></td>
