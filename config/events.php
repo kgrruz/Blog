@@ -37,6 +37,14 @@ $config['insert_post_blog'][] = array(
             'method'     => 'emails_prefs'
         );
 
+        $config['after_end_create_user'][] = array(
+                'module'     => 'blog',
+                'filepath'   => 'controllers',
+                'filename'   => 'Blog.php',
+                'class'  => 'Blog',
+                'method'     => 'default_email_prefs'
+            );
+
     $config['get_notifications_user'][] = array(
             'module'     => 'blog',
             'filepath'   => 'controllers',

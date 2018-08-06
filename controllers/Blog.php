@@ -569,6 +569,28 @@ class Blog extends Front_Controller{
 
      	}
 
+      public function default_email_prefs($data){
+
+      $this->db->select('preference_id');
+      $this->db->from('email_preferences');
+      $this->db->where('module','blog');
+      $prefs_mod = $this->db->get();
+
+      if($prefs_mod->num_rows()){
+
+      foreach($prefs_mod->result() as $pref){
+
+        $data = array(
+              'id_email_pref'=>$pref->preference_id,
+              'id_user_pref'=>$data
+            );
+
+       $this->db->insert('email_pref_users',$data);
+
+      }
+     }
+    }
+
 
 
 }
