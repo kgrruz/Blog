@@ -46,7 +46,6 @@ class Blog extends Front_Controller{
     public function index(){
 
         $this->authenticate($this->permissionView);
-
         $offset = $this->uri->segment(3);
 
         if($this->input->post('search') != NULL ){
