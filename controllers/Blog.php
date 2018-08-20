@@ -106,13 +106,17 @@ class Blog extends Front_Controller{
           if($category = $this->category_model->find_by('slug_category',$id)){
 
             $offset = $this->uri->segment(4);
+
+            $find_in_set = "FIND_IN_SET(".$this->current_user->role_id.", ".$this->db->dbprefix."blog_posts.roles_access)";
+
             $where = array('blog_posts.deleted'=>0,'blog_categs.category_id'=>$category->id_category);
 
+            $this->blog_model->select("title_post,slug_post,preview_image,blog_posts.created_on as created_on,blog_posts.created_by as created_by, email,display_name,photo_avatar,username");
             $this->blog_model->join('blog_categs','blog_categs.blog_post_id = blog_posts.id_post','left');
             $this->blog_model->join('users','blog_posts.created_by  = users.id','left');
             $this->blog_model->order_by('blog_posts.created_on','desc');
             $this->blog_model->group_by('id_post');
-            $this->blog_model->limit(6, $offset)->where($where);
+            $this->blog_model->limit(6, $offset)->where($where)->where($find_in_set)->or_where('blog_posts.created_by',$this->current_user->id)->where($where);
             $posts = $this->blog_model->find_all();
 
             $this->load->library('pagination');
@@ -121,7 +125,7 @@ class Blog extends Front_Controller{
             $this->pager['per_page']    = 6;
 
             $this->blog_model->join('blog_categs','blog_categs.blog_post_id = blog_posts.id_post','left');
-            $this->pager['total_rows']  = $this->blog_model->where($where)->count_all();
+            $this->pager['total_rows']  = $this->blog_model->where($where)->where($find_in_set)->or_where('blog_posts.created_by',$this->current_user->id)->where($where)->count_all();
             $this->pager['uri_segment'] = 4;
 
             $this->pagination->initialize($this->pager);
