@@ -1,13 +1,14 @@
+   
+<?php $this->load->view('_menu_module'); ?>
 
 
+     <h1><?php echo lang('blog_area_title'); ?> <?php echo html_escape($this->settings_lib->item('site.title')); ?>
+       <small><?php echo lang('blog_list'); ?></small>
+     </h1>
    <div class="row">
 
-  <!-- Blog Entries Column -->
        <div class="col-md-8">
 
-         <h1><?php echo lang('blog_area_title'); ?> <?php echo html_escape($this->settings_lib->item('site.title')); ?>
-           <small><?php echo lang('blog_list'); ?></small>
-         </h1>
 
     <?php if($posts){ foreach($posts as $post){ ?>
 
@@ -72,9 +73,6 @@
                   <?php } ?>
                 </ul>
                </div>
-
-
-
 
        </div>
        </div>

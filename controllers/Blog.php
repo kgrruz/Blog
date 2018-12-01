@@ -87,7 +87,7 @@ class Blog extends Front_Controller{
         Template::set('posts',$posts);
         Template::set('toolbar_title', lang('blog_list'));
         Template::set_block('sub_nav_menu', '_menu_module');
-        Template::render('mod_index');
+        Template::render();
 
 
     }
@@ -140,7 +140,7 @@ class Blog extends Front_Controller{
             Template::set_view('blog/index');
             Template::set_block('sub_nav_menu', '_menu_module');
             Template::set('toolbar_title', $category->name_category);
-            Template::render('mod_index');
+            Template::render();
 
           }else{
 
@@ -185,7 +185,7 @@ class Blog extends Front_Controller{
         Template::set('categs_post',$this->category_model->get_blog_categories($post->id_post)->result());
         Template::set('toolbar_title', $post->title_post);
         Template::set_block('sub_nav_menu', '_menu_module');
-        Template::render('mod_index');
+        Template::render();
 
       }else{
 
@@ -281,7 +281,7 @@ class Blog extends Front_Controller{
         Template::set('roles', $this->role_model->where('deleted', 0)->find_all());
         Template::set('toolbar_title', lang('blog_action_create'));
         Template::set_block('sub_nav_menu', '_menu_module');
-        Template::render('mod_index');
+        Template::render();
     }
     /**
      * Allows editing of Blog data.
@@ -341,7 +341,7 @@ class Blog extends Front_Controller{
         Template::set('toolbar_title', lang('blog_edit_heading'));
         Template::set_view('create');
         Template::set_block('sub_nav_menu', '_menu_module');
-        Template::render('mod_index');
+        Template::render();
     }
 
     //--------------------------------------------------------------------------
