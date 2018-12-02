@@ -1,4 +1,4 @@
-   
+
 <?php $this->load->view('_menu_module'); ?>
 
 
@@ -21,7 +21,7 @@
            </div>
            <div class="card-footer text-muted">
              <?php echo ut_date($post->created_on,'F j, Y H:i'); ?>
-        <?php echo user_avatar($post->photo_avatar,$post->email,20,'rounded thumb_nav',true,'thumbs'); ?>  <?php echo anchor('partner/'.$post->username,$post->display_name); ?>
+        <?php echo user_avatar($post->photo_avatar,$post->email,20,'rounded thumb_nav',true,'thumbs'); ?>  <?php echo anchor($post->username,$post->display_name); ?>
 
            </div>
          </div>
