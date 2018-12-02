@@ -536,7 +536,7 @@ class Blog extends Front_Controller{
 
      public function _get_user_notif(&$payload){
 
-         $this->lang->load('forum/topic');
+         $this->lang->load('blog/blog');
 
          $notifications = $this->notification_model->get_user_notifications('blog');
 
