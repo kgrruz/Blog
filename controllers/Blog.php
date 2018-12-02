@@ -583,7 +583,7 @@ class Blog extends Front_Controller{
 
         $data = array(
               'id_email_pref'=>$pref->preference_id,
-              'id_user_pref'=>$data
+              'id_user_pref'=>$data['user_id']
             );
 
        $this->db->insert('email_pref_users',$data);
