@@ -149,7 +149,7 @@ class Category extends Front_Controller{
 
 
         Template::set_block('sub_nav_menu', '_menu_module');
-        Template::render('mod_index');
+        Template::render();
     }
     /**
      * Allows editing of Category data.
@@ -197,7 +197,7 @@ class Category extends Front_Controller{
         Template::set('toolbar_title', lang('category_edit_heading'));
         Template::set_view('category/create');
         Template::set_block('sub_nav_menu', '_menu_module');
-        Template::render('mod_index');
+        Template::render();
 
 
 

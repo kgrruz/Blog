@@ -1,13 +1,14 @@
 
-<div class="Subhead">
-<h2 class="Subhead-heading"><?php echo $toolbar_title; ?></h2>
-    <p class="Subhead-description">
+
+<?php $this->load->view('_menu_module'); ?>
+
+<div class="card">
+        <?php echo form_open_multipart($this->uri->uri_string(), 'class="form-horizontal"'); ?>
+<div class="card-header"><?php echo $toolbar_title; ?></div>
+<div class="card-body">
+
       <?php echo lang('category_desc_form_create'); ?>
-    </p>
-  </div>
 
-
-      <?php echo form_open_multipart($this->uri->uri_string(), 'class="form-horizontal"'); ?>
 
 
     <?php
@@ -63,12 +64,15 @@ endif;
 
   </div>
   </div>
+  </div>
 
-<hr>
+<div class="card-footer">
 
       <input type='submit' name='save' class='btn btn-sm btn-primary' value="<?php echo lang('category_action_create'); ?>" />
       <?php echo lang('bf_or'); ?>
       <?php echo anchor('item/category', lang('category_cancel'), 'class="btn btn-sm btn-warning"'); ?>
-
+</div>
 
 <?php echo form_close(); ?>
+
+</div>
