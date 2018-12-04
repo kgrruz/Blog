@@ -62,7 +62,7 @@ class Category extends Front_Controller{
 
       Template::set('toolbar_title', lang('category_list'));
       Template::set_block('sub_nav_menu', '_menu_module');
-      Template::render('mod_index');
+      Template::render();
 
     }
 
@@ -164,6 +164,9 @@ class Category extends Front_Controller{
 
             redirect('category');
         }
+
+        $this->authenticate($this->permissionCreate);
+
 
           $id = $this->category_model->find_by('slug_category',$id)->id_category;
 

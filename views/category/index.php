@@ -1,4 +1,7 @@
 
+<?php $this->load->view('_menu_module'); ?>
+
+
       <div class="card">
         <div class="card-header">
           <?php echo lang('category_area_title'); ?>
