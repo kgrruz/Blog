@@ -51,9 +51,11 @@
 
 </table>
 
+<?php if($pags = $this->pagination->create_links()){ ?>
 <div class="card-footer">
-  <?php echo $this->pagination->create_links(); ?>
+  <?php echo $pags; ?>
 </div>
+<?php } ?>
 
 <?php } else{ ?> Sem posts adicionados. <?php } ?>
 
