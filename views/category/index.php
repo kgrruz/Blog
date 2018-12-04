@@ -12,7 +12,7 @@
 <?php echo form_open(); ?>
 
       <div class="table-responsive">
-      <table id="table_categories" class="table nowrap" cellspacing="0" width="100%">
+      <table id="table_categories" class="table table-hover table-outline table-vcenter text-nowrap mb-0" >
     <thead>
         <tr>
 

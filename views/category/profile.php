@@ -27,7 +27,7 @@
 
 	<div class="card"><div class="card-header"><?php echo lang('blog_list'); ?></div>
 <?php if($posts){ ?>
-	<table id="table_blog_category" class="table table-sm nowrap text-left" cellspacing="0" width="100%">
+	<table id="table_blog_category" class="table table-hover table-outline table-vcenter text-nowrap mb-0" >
 
 <thead>
 		<tr>
