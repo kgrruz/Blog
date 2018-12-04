@@ -70,7 +70,7 @@
           <!-- Categories Widget -->
           <div class="card my-4">
             <h5 class="card-header"><?php echo lang('category_area_title'); ?></h5>
-
+                 <?php if($tree['items']){ ?>
                  <ul class="list-group list-group-flush">
                     <?php foreach($tree['items'] as $groupp){ ?>
                <li class="list-group-item">
@@ -79,7 +79,11 @@
                   </li>
                   <?php } ?>
                 </ul>
-
+              <?php } else{ ?>
+                <div class="card-body">
+                  <?php echo lang("category_empty"); ?>
+                </div>
+              <?php } ?>
             </div>
           </div>
 
