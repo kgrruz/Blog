@@ -82,7 +82,7 @@ class Category extends Front_Controller{
 
             $offset = $this->uri->segment(5);
             $where = array('blog_posts.deleted'=>0,'blog_categs.category_id'=>$category->id_category);
-
+            $this->blog_model->select("slug_post,title_post,blog_posts.created_on as created_on");
             $this->blog_model->join('blog_categs','blog_categs.blog_post_id = blog_posts.id_post','left');
             $this->blog_model->order_by('title_post','asc');
             $this->blog_model->group_by('id_post');
