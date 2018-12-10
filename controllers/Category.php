@@ -29,11 +29,6 @@ class Category extends Front_Controller{
 
         $this->nested_set->setControlParams('blog_categories','lft','rgt','id_category','parent_category','name_category');
 
-        //$this->nested_set->initialiseRoot(array('name_category'=>'all categories','desc_category'=>'all categories of itens','created_by'=>1,'slug_category'=>'all_categories'));
-
-        Assets::add_module_css('item', 'category.css');
-        Assets::add_module_js('item', 'category.js');
-        Assets::add_module_js('item', 'category_pic.js');
     }
 
 
@@ -130,7 +125,7 @@ class Category extends Front_Controller{
                 log_activity($this->auth->user_id(), lang('category_act_create_record') . ': ' . $insert_id . ' : ' . $this->input->ip_address(), 'category');
                 Template::set_message(lang('category_create_success'), 'success');
 
-                redirect('item/category');
+                redirect('blog/category');
             }
 
             // Not validation error
@@ -175,7 +170,7 @@ class Category extends Front_Controller{
             if ($this->save_category('update', $id)) {
                 log_activity($this->auth->user_id(), lang('category_act_edit_record') . ': ' . $id . ' : ' . $this->input->ip_address(), 'category');
                 Template::set_message(lang('category_edit_success'), 'success');
-                redirect('item/category');
+                redirect('blog/category');
             }
 
             // Not validation error
@@ -213,7 +208,7 @@ class Category extends Front_Controller{
       $category = $this->category_model->find($id);
       if (! isset($category)) {
           Template::set_message(lang('us_invalid_category_id'), 'error');
-          Template::redirect('item/category');
+          Template::redirect('blog/category');
       }
 
           //$this->auth->restrict($this->permissionDelete);
