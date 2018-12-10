@@ -255,7 +255,7 @@ class Blog extends Front_Controller{
 
                 $blog = $this->blog_model->find($insert_id);
 
-                $id_act = log_activity($this->auth->user_id(), lang('blog_act_create_record') . ': ' . anchor('blog/post/'.$blog->slug_post,$blog->title_post), 'blog');
+                $id_act = log_activity($this->auth->user_id(), '[blog_act_create_record] : ' . '<a href="blog/post/'.$blog->slug_post.'">'.$blog->title_post.'</a>', 'blog');
                 $ids = $this->user_model->get_id_users_role('id',$this->input->post('roles_access'));
                 log_notify($ids, $id_act);
 
@@ -325,7 +325,7 @@ class Blog extends Front_Controller{
 
             if ($this->blog_model->delete($id)) {
 
-                log_activity($this->auth->user_id(), lang('blog_act_delete_record') . ': ' . $id . ' : ' . $this->input->ip_address(), 'blog');
+                log_activity($this->auth->user_id(), '[blog_act_delete_record] : ' . $id . ' : ' . $this->input->ip_address(), 'blog');
                 Template::set_message(lang('blog_delete_success'), 'success');
                 return;
 
