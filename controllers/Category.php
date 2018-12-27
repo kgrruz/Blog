@@ -260,7 +260,7 @@ class Category extends Front_Controller{
         $config = array(
             'field' => 'slug_category',
             'title' => 'name_category',
-            'table' => 'categories',
+            'table' => 'blog_categories',
             'id' => 'id_category',
         );
 
