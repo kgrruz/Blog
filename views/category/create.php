@@ -39,7 +39,7 @@ endif;
     </div>
 
 		<div class="form-group<?php echo form_error('desc_category') ? ' error' : ''; ?>">
-        <?php echo form_label(lang('category_field_category_description') . lang('bf_form_label_required'), 'desc_category', array('class' => 'control-label')); ?>
+        <?php echo form_label(lang('category_field_category_description'), 'desc_category', array('class' => 'control-label')); ?>
 
             <textarea id='desc_category' class="form-control form-control-sm" name='desc_category'  ><?php if(isset($category)){ echo $category->desc_category; } ?></textarea>
             <span class='help-inline'><?php echo form_error('category_field_category_description'); ?></span>

@@ -57,7 +57,7 @@ $lang['category_column_modified_by'] = 'Modified By';
 $lang['category_module_name'] = 'Categoria';
 $lang['category_module_description'] = 'Manage your categoria';
 $lang['category_area_title'] = 'Categorias';
-$lang['category_desc_form_create'] = 'Adicione categorias para agrupar seus itens e organizá-los.';
+$lang['category_desc_form_create'] = 'Adicione categorias para agrupar seus posts e organizá-los.';
 
 // Fields
 $lang['category_field_name_category'] = 'Nome';
