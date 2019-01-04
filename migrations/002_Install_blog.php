@@ -306,7 +306,15 @@ class Migration_Install_blog extends Migration
 	}
 
 
+	$version = Modules::config("blog");
 
+	$data_st = array(
+		'name' => 'blog.module_update',
+		'module' => 'blog',
+		'value' => serialize(array("timestamp"=>time(),"version"=>$version['version'],"update"=>0))
+	);
+
+	$this->db->insert("settings",$data_st);
 
 	}
 
