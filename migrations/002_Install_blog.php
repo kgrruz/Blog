@@ -274,7 +274,7 @@ class Migration_Install_blog extends Migration
 	}
 
 		if ( ! $this->db->table_exists($this->table_categ)){
-		$this->dbforge->add_field($this->$fields_categories);
+		$this->dbforge->add_field($this->fields_categories);
 		$this->dbforge->add_key('id_category', true);
 		$this->dbforge->create_table($this->table_categ);
 
@@ -295,12 +295,12 @@ class Migration_Install_blog extends Migration
 
 	}
 		if ( ! $this->db->table_exists($this->table_blog_categ)){
-		$this->dbforge->add_field($this->$fields_blog_categs);
+		$this->dbforge->add_field($this->fields_blog_categs);
 		$this->dbforge->add_key('id_join_category', true);
 		$this->dbforge->create_table($this->table_blog_categ);
 	}
 		if ( ! $this->db->table_exists($this->table_comments)){
-		$this->dbforge->add_field($this->$fields_blog_comments);
+		$this->dbforge->add_field($this->fields_blog_comments);
 		$this->dbforge->add_key('id', true);
 		$this->dbforge->create_table($this->table_comments);
 	}
