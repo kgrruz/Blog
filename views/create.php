@@ -40,7 +40,7 @@ $id = isset($post->id_post) ? $post->id_post : '';
 
       <select id='category' class="form-control form-control-sm" multiple name='category[]'  >
             <?php foreach($tree['items'] as $groupp){ ?>
-            <option <?php echo (isset($group) and $group->parent_category == $groupp['id_category'] or !empty($this->session->userdata('last_categ')) and $this->session->userdata('last_categ') == $groupp['id_category'])? 'selected':''; ?>
+            <option <?php echo (isset($group) and $group->parent_category == $groupp['id_category'])? 'selected':($groupp['id_category'] == 1)? 'selected':''; ?>
                value="<?php echo $groupp['id_category']; ?>" >
             <?php echo str_repeat('-', $this->nested_set->getNodeLevel($groupp)*4); ?>
             <?php echo ucfirst($groupp['name_category']); ?>
