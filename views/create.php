@@ -85,7 +85,7 @@ $id = isset($post->id_post) ? $post->id_post : '';
             <div class="card-body">
 
               <?php foreach ($roles as $role) : ?>
-      <input type="checkbox" name="roles_access[]" <?php echo ($this->role_model->default_role_id() == $role->role_id)? 'checked':''; ?> value="<?php echo $role->role_id; ?>" ><?php echo $role->role_name; ?>
+      <input type="checkbox" name="roles_access[]" <?php echo ($current_user->role_id == $role->role_id)? 'checked':''; ?> value="<?php echo $role->role_id; ?>" ><?php echo $role->role_name; ?>
           <?php endforeach; ?>
 
             </div>
