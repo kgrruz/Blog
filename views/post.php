@@ -71,14 +71,14 @@
           <div class="card my-4">
             <h5 class="card-header"><?php echo lang('category_area_title'); ?></h5>
                  <?php if($tree['items']){ ?>
-                 <ul class="list-group list-group-flush">
-                    <?php foreach($tree['items'] as $groupp){ ?>
-               <li class="list-group-item">
-                    <?php echo str_repeat('&nbsp', $this->nested_set->getNodeLevel($groupp)*4); ?>
-                    <?php echo anchor('blog/categp/'.$groupp['slug_category'],ucfirst($groupp['name_category'])); ?>
-                  </li>
-                  <?php } ?>
-                </ul>
+                   <div class="list-group list-group-flush">
+                      <?php foreach($tree['items'] as $groupp){ ?>
+                <a href="<?php echo base_url().'blog/categp/'.$groupp['slug_category']; ?>" class="list-group-item d-flex justify-content-between align-items-center <?php echo check_url('blog/categp/'.$groupp['slug_category'],true); ?>">
+                      <?php echo str_repeat('&nbsp', $this->nested_set->getNodeLevel($groupp)*4); ?>
+                      <?php echo ucfirst($groupp['name_category']); ?>
+                    </a>
+                    <?php } ?>
+                  </div>
               <?php } else{ ?>
                 <div class="card-body">
                   <?php echo lang("category_empty"); ?>
