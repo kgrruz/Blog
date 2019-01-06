@@ -14,15 +14,15 @@
 
          <div class="card mb-4">
           <?php if($post->preview_image){ ?>
-					 <img class="card-img-top img-fluid" src="<?php echo base_url(); ?>images/<?php echo $post->preview_image; ?>?module=blog&assets=assets/images/posts_preview" alt="image_preview">
+					<a href="<?php echo base_url().'blog/post/'.$post->slug_post; ?>"> <img class="card-img-top img-fluid" src="<?php echo base_url(); ?>images/<?php echo $post->preview_image; ?>?module=blog&assets=assets/images/posts_preview" alt="image_preview"></a>
 				 <?php } ?>
 				  <div class="card-body">
              <h2 class="card-title mb-0"><?php echo anchor('blog/post/'.$post->slug_post, $post->title_post); ?></h2>
            </div>
            <div class="card-footer text-muted">
              <?php echo ut_date($post->created_on,'F j, Y H:i'); ?>
-        <?php echo user_avatar($post->photo_avatar,$post->email,20,'rounded thumb_nav',true,'thumbs'); ?>  <?php echo anchor($post->username,$post->display_name); ?>
-
+        <?php echo user_avatar($post->photo_avatar,$post->email,20,'rounded thumb_nav',true,'thumbs'); ?>
+        <?php echo anchor($post->username,$post->display_name); ?>
            </div>
          </div>
 
