@@ -26,7 +26,7 @@ $lang['category_delete_record']   = 'Delete this categoria';
 $lang['category_delete_confirm']  = 'Quer mesmo excluir esta(s) categoria(s)?';
 $lang['category_edit_heading']    = 'Editar categoria';
 $lang['category_empty']    = 'Não existem categorias cadastradas.';
-$lang['category_first_categ_name']    = 'Geral.';
+$lang['category_first_categ_name']    = 'Geral';
 $lang['category_first_categ_slug']    = 'geral';
 $lang['category_first_categ_desc']    = 'Assuntos em geral.';
 
