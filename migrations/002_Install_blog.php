@@ -316,6 +316,14 @@ class Migration_Install_blog extends Migration
 
 	$this->db->insert("settings",$data_st);
 
+	$email_preferences = array(
+		'preference_name'=>"blog_new_post",
+		'preference_desc'=>"blog_new_post_desc",
+		'module'=>"blog",
+	);
+
+	$this->db->insert("email_preferences",$email_preferences);
+
 	}
 
 	/**
