@@ -40,6 +40,7 @@ class Comments extends Front_Controller{
 
 							foreach ($records as $result) {
 									$result->created_by_current_user = (bool) $result->created_by_current_user;
+									$result->parent = ($result->parent == 0)? null:$result->parent;
 									$result->profile_picture_url = base_url().'images/'.$result->profile_picture_url.'?width=50&module=users&assets=assets/images/users/thumbs';
 							}
 
