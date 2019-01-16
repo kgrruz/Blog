@@ -1,4 +1,4 @@
-
+<div class="container mt-3">
    <ul class="nav nav-pills flex-column flex-sm-row mb-3">
   <?php if($this->auth->has_permission('Blog.Content.View')){ ?>
   <li class="nav-item">
@@ -20,3 +20,5 @@
 
   <?php } ?>
 </ul>
+
+</div>

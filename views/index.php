@@ -1,6 +1,4 @@
 
-<?php $this->load->view('_menu_module'); ?>
-
 
      <h1><?php echo lang('blog_area_title'); ?> <?php echo html_escape($this->settings_lib->item('site.title')); ?>
        <small><?php echo lang('blog_list'); ?></small>

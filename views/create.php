@@ -1,7 +1,4 @@
 
-<?php $this->load->view('_menu_module'); ?>
-
-
       <?php echo form_open_multipart($this->uri->uri_string(), 'class="form-horizontal"'); ?>
 
     <?php

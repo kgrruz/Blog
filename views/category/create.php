@@ -1,7 +1,4 @@
 
-
-<?php $this->load->view('_menu_module'); ?>
-
 <div class="card">
         <?php echo form_open_multipart($this->uri->uri_string(), 'class="form-horizontal"'); ?>
 <div class="card-header"><?php echo $toolbar_title; ?></div>

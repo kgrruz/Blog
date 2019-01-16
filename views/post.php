@@ -3,7 +3,6 @@
 
     <!-- Page Content -->
     <div class="container-fluid">
-      <?php $this->load->view('_menu_module'); ?>
 
       <div class="row">
 
