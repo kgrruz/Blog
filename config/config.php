@@ -9,7 +9,7 @@ $config['module_config'] = array(
 	'route'       => 'blog',
 	'visible_module' => true,
 	'context_customer' => false,
-	'version'		=> '1.1.3',
+	'version'		=> '1.2.0',
 	'author'		=> 'admin',
 );
 
