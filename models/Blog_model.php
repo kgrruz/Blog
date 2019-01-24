@@ -9,7 +9,7 @@ class Blog_model extends BF_Model{
 	protected $log_user 	= false;
 	protected $set_created	= true;
 	protected $set_modified = false;
-	protected $soft_deletes	= false;
+	protected $soft_deletes	= true;
 
 
 	// Customize the operations of the model without recreating the insert,
