@@ -33,6 +33,8 @@ $lang['blog_enable_attach']    = 'Permitir upload nos comentários';
 $lang['blog_send_email_success']    = 'Email enviado com sucesso.';
 $lang['blog_lets_comment']    = 'Deixe seu comentário:';
 $lang['blog_comments']    = 'Comentários';
+$lang['blog_permission_folder']    = 'Dê permissão de escrita para a seguinte pasta:';
+
 
 
 // Create/Edit Buttons
