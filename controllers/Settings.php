@@ -5,10 +5,10 @@
  */
 class Settings extends Admin_Controller
 {
-    protected $permissionCreate = 'Products.Settings.Create';
-    protected $permissionDelete = 'Products.Settings.Delete';
-    protected $permissionEdit   = 'Products.Settings.Edit';
-    protected $permissionView   = 'Products.Settings.View';
+    protected $permissionCreate = 'Blog.Settings.Create';
+    protected $permissionDelete = 'Blog.Settings.Delete';
+    protected $permissionEdit   = 'Blog.Settings.Edit';
+    protected $permissionView   = 'Blog.Settings.View';
 
     /**
      * Constructor
@@ -18,16 +18,16 @@ class Settings extends Admin_Controller
     public function __construct()
     {
         parent::__construct();
-        
+
         $this->auth->restrict($this->permissionView);
-        $this->load->model('products/products_model');
-        $this->lang->load('products');
-        
-            $this->form_validation->set_error_delimiters("<span class='error'>", "</span>");
-        
+        $this->load->model('blog/blog_model');
+        $this->lang->load('blog');
+
+        $this->form_validation->set_error_delimiters("<span class='alert alert-danger'>", "</span>");
+
         Template::set_block('sub_nav', 'settings/_sub_nav');
 
-        Assets::add_module_js('products', 'products.js');
+        Assets::add_module_js('blog', 'blog.js');
     }
 
     /**
@@ -35,44 +35,13 @@ class Settings extends Admin_Controller
      *
      * @return void
      */
-    public function index()
-    {
-        // Deleting anything?
-        if (isset($_POST['delete'])) {
-            $this->auth->restrict($this->permissionDelete);
-            $checked = $this->input->post('checked');
-            if (is_array($checked) && count($checked)) {
+    public function index(){
 
-                // If any of the deletions fail, set the result to false, so
-                // failure message is set if any of the attempts fail, not just
-                // the last attempt
-
-                $result = true;
-                foreach ($checked as $pid) {
-                    $deleted = $this->products_model->delete($pid);
-                    if ($deleted == false) {
-                        $result = false;
-                    }
-                }
-                if ($result) {
-                    Template::set_message(count($checked) . ' ' . lang('products_delete_success'), 'success');
-                } else {
-                    Template::set_message(lang('products_delete_failure') . $this->products_model->error, 'error');
-                }
-            }
-        }
-        
-        
-        
-        $records = $this->products_model->find_all();
-
-        Template::set('records', $records);
-        
-    Template::set('toolbar_title', lang('products_manage'));
-
+        Template::set('toolbar_title', lang('blog_manage'));
         Template::render();
+
     }
-    
+
     /**
      * Create a Products object.
      *
@@ -81,7 +50,7 @@ class Settings extends Admin_Controller
     public function create()
     {
         $this->auth->restrict($this->permissionCreate);
-        
+
         if (isset($_POST['save'])) {
             if ($insert_id = $this->save_products()) {
                 log_activity($this->auth->user_id(), lang('products_act_create_record') . ': ' . $insert_id . ' : ' . $this->input->ip_address(), 'products');
@@ -113,7 +82,7 @@ class Settings extends Admin_Controller
 
             redirect(SITE_AREA . '/settings/products');
         }
-        
+
         if (isset($_POST['save'])) {
             $this->auth->restrict($this->permissionEdit);
 
@@ -128,7 +97,7 @@ class Settings extends Admin_Controller
                 Template::set_message(lang('products_edit_failure') . $this->products_model->error, 'error');
             }
         }
-        
+
         elseif (isset($_POST['delete'])) {
             $this->auth->restrict($this->permissionDelete);
 
@@ -141,7 +110,7 @@ class Settings extends Admin_Controller
 
             Template::set_message(lang('products_delete_failure') . $this->products_model->error, 'error');
         }
-        
+
         Template::set('products', $this->products_model->find($id));
 
         Template::set('toolbar_title', lang('products_edit_heading'));
@@ -174,12 +143,12 @@ class Settings extends Admin_Controller
         }
 
         // Make sure we only pass in the fields we want
-        
+
         $data = $this->products_model->prep_data($this->input->post());
 
         // Additional handling for default values should be added below,
         // or in the model's prep_data() method
-        
+
 
         $return = false;
         if ($type == 'insert') {
