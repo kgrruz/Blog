@@ -20,8 +20,7 @@ $id = isset($post->id_post) ? $post->id_post : '';
 ?>
 <div class="row">
   <div class="col-md-8">
-    <div class="card border-0">
-    <div class="card-body">
+
 
             <div class="form-group<?php echo form_error('title_post') ? ' error' : ''; ?>">
                 <?php echo form_label(lang('blog_field_name') . lang('bf_form_label_required'), 'title_post', array('class' => 'control-label')); ?>
@@ -62,16 +61,16 @@ $id = isset($post->id_post) ? $post->id_post : '';
 
 
             </div>
-        </div>
-        <div class="card-footer">
+
 
                       <input type='submit' name='save' class='btn btn-primary' value="<?php echo lang('blog_action_create'); ?>" />
                       <?php echo lang('bf_or'); ?>
                       <?php echo anchor('blog', lang('blog_cancel'), 'class="btn btn-warning"'); ?>
 
                     </div>
-        </div>
-        </div>
+
+
+
 
         <div class="col-md-4">
 
@@ -100,17 +99,7 @@ $id = isset($post->id_post) ? $post->id_post : '';
             </div>
           </div>
         </div>
-        </div>
 
+    </div>
 
     <?php echo form_close(); ?>
-
-
-</div>
-
-
-
-<script>
-
-
-  </script>
