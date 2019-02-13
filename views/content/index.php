@@ -1,5 +1,6 @@
 <div class="card">
   <div class="card-header"><?php echo lang('blog_area_title'); ?></div>
+<?php if($posts){ ?>
 
 <div class="table-responsive">
 <table class="table table-hover table-sm">
@@ -33,6 +34,14 @@
   <?php } ?>
 </tbody>
 </table>
-</div>
+  </div>
 
-</div>
+<?php } else{ ?>
+
+   <div class="card-body">
+     <div class="card-text"><?php echo lang('blog_empty_posts'); ?></div>
+   </div>
+
+<?php } ?>
+
+  </div>
