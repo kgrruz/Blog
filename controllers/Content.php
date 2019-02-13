@@ -20,6 +20,7 @@ class Content extends Admin_Controller{
 
         $this->load->model('blog/category_model');
         $this->load->model('blog/blog_model');
+        $this->load->model('blog/comments_model');
 
         $this->lang->load('blog/blog');
         $this->lang->load('blog/category');
@@ -83,43 +84,6 @@ class Content extends Admin_Controller{
 
         if (isset($_POST['save'])) {
 
-          $upload_path = Modules::path('blog','assets/images/posts_preview');
-
-          if(!is_dir($upload_path)){ mkdir($upload_path,0777);  }
-
-					$_POST['preview_image'] = '';
-
-					if($_FILES['preview_image']['error'] == 0) {
-
-          $config = array(
-            'upload_path' => $upload_path,
-            'allowed_types' => "jpg|png|jpeg|gif",
-            'encrypt_name' => true,
-            'max_size' => 2048, // Can be set to particular file size , here it is 2 MB(2048 Kb)
-            'max_height' => 2000,
-            'max_width' => 2000,
-            'min_height'=> 200,
-            'min_width' => 200
-          );
-
-          $this->load->library('upload', $config);
-
-          if ($this->upload->do_upload('preview_image')) {
-
-            $upload_data = $this->upload->data();
-            $file_name = $upload_data['file_name'];
-            $_POST['preview_image'] = $file_name;
-
-          }else{
-
-              $error = array('error' => $this->upload->display_errors());
-              Template::set_message($error['error'], 'error');
-              echo $error['error'];
-              Template::redirect('content/blog/create');
-
-            }
-          }
-
             if ($insert_id = $this->save_blog()) {
 
               $data_insert = array('blog_post_id'=>$insert_id,'data'=>$_POST,'created_by'=>$this->current_user->id);
@@ -162,18 +126,22 @@ class Content extends Admin_Controller{
      *
      * @return void
      */
-    public function edit()
+    public function edit($id)
     {
-        $id = $this->uri->segment(3);
+
         if (empty($id)) {
 
             Template::set_message(lang('blog_invalid_id'), 'error');
             redirect('blog');
         }
 
-        if (isset($_POST['save'])) {
+        $this->authenticate($this->permissionEdit);
 
-            $this->authenticate($this->permissionEdit);
+        Assets::add_js('js/editors/ckeditor/ckeditor.js');
+
+        $post = $this->blog_model->find($id);
+
+        if (isset($_POST['save'])) {
 
             if ($this->save_blog('update', $id)) {
 
@@ -192,27 +160,44 @@ class Content extends Admin_Controller{
             }
         }
 
-        elseif (isset($_POST['delete'])) {
 
-          $this->authenticate($this->permissionDelete);
 
-            if ($this->blog_model->delete($id)) {
+        $this->load->library('blog/Nested_set');
+        $this->nested_set->setControlParams('blog_categories','lft','rgt','id_category','parent_category','name_category');
+        $parent_node = $this->nested_set->getNodeWhere(array('id_category'=>1));
+        $tree = $this->nested_set->getSubTree($parent_node);
 
-                log_activity($this->auth->user_id(), '[blog_act_delete_record] : ' . $id . ' : ' . $this->input->ip_address(), 'blog');
-                Template::set_message(lang('blog_delete_success'), 'success');
-                return;
+        Template::set('tree', $tree);
 
-            }
-
-            Template::set_message(lang('blog_delete_failure') . $this->blog_model->error, 'error');
-        }
-
-        Template::set('blog', $this->blog_model->find($id));
-        Template::set('category', $this->category_model->get_blog_category($id));
-        Template::set('toolbar_title', lang('blog_edit_heading'));
+        Template::set('post', $post);
+        Template::set('roles', $this->role_model->where('deleted', 0)->find_all());
+        Template::set('category', $this->category_model->get_blog_categories($id));
+        Template::set('toolbar_title', lang('blog_edit_heading').' '.$post->title_post);
         Template::set_view('create');
         Template::set_block('sub_nav_menu', '_menu_module');
         Template::render();
+    }
+
+    public function delete($id){
+
+      if (empty($id)) {
+
+          Template::set_message(lang('blog_invalid_id'), 'error');
+          redirect('blog/content/');
+      }
+
+        $this->authenticate($this->permissionDelete);
+
+          if ($this->blog_model->delete($id)) {
+
+              log_activity($this->auth->user_id(), '[blog_act_delete_record] : ' . $id . ' : ' . $this->input->ip_address(), 'blog');
+              Template::set_message(lang('blog_delete_success'), 'success');
+              Template::redirect($this->agent->referrer());
+
+          }
+
+          Template::set_message(lang('blog_delete_failure') . $this->blog_model->error, 'error');
+
     }
 
     public function categs(){
@@ -325,12 +310,45 @@ class Content extends Admin_Controller{
         Template::set('tree', $tree);
 
         Template::set('toolbar_title', lang('category_edit_heading'));
-        Template::set_view('category/create');
+        Template::set_view('create_category');
         Template::set_block('sub_nav_menu', '_menu_module');
         Template::render();
 
 
 
+    }
+
+    /**
+     * The default page for this context.
+     *
+     * @return void
+     */
+    public function comments(){
+
+      $this->authenticate($this->permissionView);
+      $offset = $this->uri->segment(3);
+
+      $where = array('blog_comments.deleted'=>0);
+
+       $this->comments_model->select("blog_comments.id as id,content,creator,created,id_post,title_post,slug_post,preview_image,email,display_name,photo_avatar,username");
+       $this->comments_model->order_by('blog_comments.created','desc');
+       $this->comments_model->join('blog_posts','blog_posts.id_post  = blog_comments.post_id','left');
+       $this->comments_model->join('users','blog_comments.creator  = users.id','left');
+       $this->comments_model->limit($this->limit, $offset)->where($where);
+       $comments = $this->comments_model->find_all();
+
+       $this->load->library('pagination');
+
+       $this->pager['base_url']    = base_url()."blog/content/comments/";
+       $this->pager['per_page']    = $this->limit;
+       $this->pager['total_rows']  = $this->comments_model->where($where)->count_all();
+       $this->pager['uri_segment'] = 4;
+
+       $this->pagination->initialize($this->pager);
+
+      Template::set('comments', $comments);
+      Template::set('toolbar_title', lang("blog_comments"));
+      Template::render();
     }
 
 
@@ -444,9 +462,7 @@ class Content extends Admin_Controller{
 
     }
 
-    //--------------------------------------------------------------------------
-    // !PRIVATE METHODS
-    //--------------------------------------------------------------------------
+
     private function send_blog_email($ids,$blog){
 
       $this->load->library('emailer/emailer');
@@ -503,6 +519,42 @@ class Content extends Admin_Controller{
         }
 
 
+
+        $upload_path = Modules::path('blog','assets/images/posts_preview');
+
+        if(!is_dir($upload_path)){ mkdir($upload_path,0777);  }
+
+        $_POST['preview_image'] = '';
+
+        if($_FILES['preview_image']['error'] == 0) {
+
+        $config = array(
+          'upload_path' => $upload_path,
+          'allowed_types' => "jpg|png|jpeg|gif",
+          'encrypt_name' => true,
+          'max_size' => 2048, // Can be set to particular file size , here it is 2 MB(2048 Kb)
+          'max_height' => 2000,
+          'max_width' => 2000,
+          'min_height'=> 200,
+          'min_width' => 200
+        );
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('preview_image')) {
+
+          $upload_data = $this->upload->data();
+          $file_name = $upload_data['file_name'];
+          $_POST['preview_image'] = $file_name;
+
+        }else{
+
+            $error = array('error' => $this->upload->display_errors());
+            Template::set_message($error['error'], 'error');
+            Template::redirect('content/blog/create');
+
+          }
+        }
         // Make sure we only pass in the fields we want
 
         $data = $this->blog_model->prep_data($this->input->post());

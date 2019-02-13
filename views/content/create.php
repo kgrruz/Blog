@@ -48,16 +48,16 @@ $id = isset($post->id_post) ? $post->id_post : '';
             </div>
 
 <div class="form-group">
-  <input type="checkbox" value="1" checked name="enable_comments">   <?php echo lang('blog_enable_comments'); ?>
+  <input type="checkbox" value="1" checked name="enable_comments" <?php echo (isset($post) && $post->enable_comments)? 'checked':''; ?> >   <?php echo lang('blog_enable_comments'); ?>
 </div>
 <div class="form-group">
-  <input type="checkbox" value="1" name="enable_attach">   <?php echo lang('blog_enable_attach'); ?>
+  <input type="checkbox" value="1" name="enable_attach" <?php echo (isset($post) && $post->enable_attach)? 'checked':''; ?> >   <?php echo lang('blog_enable_attach'); ?>
 </div>
 
             <div class="form-group<?php echo form_error('body_post') ? ' error' : ''; ?>">
                 <?php echo form_label(lang('blog_field_description') . lang('bf_form_label_required'), 'body_post', array('class' => 'control-label')); ?>
 
-                <textarea class="input-block-level" id="post_editor" name="body_post" ></textarea>
+                <textarea class="input-block-level" id="post_editor" name="body_post" ><?php echo (isset($post))? $post->body_post:''; ?></textarea>
                                     <span class='help-inline'><?php echo form_error('body_post'); ?></span>
 
 

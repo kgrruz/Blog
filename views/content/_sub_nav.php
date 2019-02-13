@@ -19,4 +19,7 @@ $areaUrl = SITE_AREA . '/blog/content';
 		 <?php echo anchor('blog/content/create_category',lang('category_action_create'),'class="dropdown-item '.check_url('blog/content/create_category',true).'"'); ?>
 	 </div>
 	</li>
+	<li class="nav-item">
+		 <?php echo anchor('blog/content/comments',lang('blog_comments'),'class="nav-link '.check_url('blog/content/comments',true).'"'); ?>
+	</li>
 </ul>

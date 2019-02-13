@@ -32,6 +32,7 @@ $lang['blog_enable_comments']    = 'Permitir comentários';
 $lang['blog_enable_attach']    = 'Permitir upload nos comentários';
 $lang['blog_send_email_success']    = 'Email enviado com sucesso.';
 $lang['blog_lets_comment']    = 'Deixe seu comentário:';
+$lang['blog_comments']    = 'Comentários';
 
 
 // Create/Edit Buttons
@@ -53,7 +54,11 @@ $lang['blog_column_deleted']  = 'Excluído';
 $lang['blog_column_modified'] = 'Atualizado';
 $lang['blog_column_name'] = 'Post';
 $lang['blog_column_description'] = 'Descrição';
-$lang['blog_column_price'] = 'Preço';
+$lang['blog_column_categ'] = 'Categoria';
+$lang['blog_column_ec'] = 'Comentários';
+$lang['blog_column_comment'] = 'Comentário';
+$lang['blog_column_ea'] = 'Anexos';
+$lang['blog_column_created_by'] = 'Autor';
 
 // Module Details
 $lang['blog_module_name'] = 'Blog';
@@ -76,3 +81,5 @@ $lang['blog_search_placeholder'] = 'Procure por posts...';
 // email prefs
 $lang['blog_new_post']    = 'Novo post no blog';
 $lang['blog_new_post_desc']    = 'Receba uma notificação a cada novo post no blog';
+
+$lang['blog_settings']    = 'Configurações';

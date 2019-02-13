@@ -41,7 +41,7 @@
         <td><?php echo date('d/m/Y',strtotime($category['created_on'])); ?></td>
         <td>
           <?php if($category['id_category'] != 1){ ?>
-          <?php echo anchor('blog/category/edit/'.$category['slug_category'],'<i class="fa fa-edit" aria-hidden="true"></i>
+          <?php echo anchor('blog/content/edit_category/'.$category['slug_category'],'<i class="fa fa-edit" aria-hidden="true"></i>
       ','class="btn btn-sm btn-secondary"'); ?>  <?php } ?></td>
       </tr>
       <?php } ?>
