@@ -109,8 +109,7 @@ class Comments extends Front_Controller{
             $this->authenticate();
 
 							if ($this->input->post('id')) {
-									$this->db->where('id', $this->input->post('id'));
-									$this->db->delete('blog_comments');
+									$this->comments_model->delete($this->input->post('id'));
 							}
 
 							$this->output->set_output(json_encode(array('status'=>true)));
