@@ -257,7 +257,11 @@ class Migration_Install_blog extends Migration
             'type'       => "set('false', 'true')",
             'null'       => false
         ),
-
+				'deleted' => array(
+						'type'       => 'TINYINT',
+						'constraint' => 1,
+						'default'    => '0',
+				)
 	);
 
 	/**
