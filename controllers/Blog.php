@@ -5,10 +5,6 @@
  */
 class Blog extends Front_Controller{
 
-    protected $permissionCreate = 'Blog.Content.Create';
-    protected $permissionDelete = 'Blog.Content.Delete';
-    protected $permissionEdit   = 'Blog.Content.Edit';
-    protected $permissionView   = 'Blog.Content.View';
 
     /**
      * Constructor
@@ -45,7 +41,7 @@ class Blog extends Front_Controller{
      */
     public function index(){
 
-        $this->authenticate($this->permissionView);
+        $this->authenticate();
         $offset = $this->uri->segment(3);
 
         if($this->input->post('search') != NULL ){
@@ -86,7 +82,7 @@ class Blog extends Front_Controller{
 
         Template::set('posts',$posts);
         Template::set('toolbar_title', lang('blog_list'));
-        
+
         Template::render();
 
 
@@ -94,7 +90,7 @@ class Blog extends Front_Controller{
 
     public function categp($id){
 
-      $this->authenticate($this->permissionView);
+      $this->authenticate();
 
           $id = $this->uri->segment(3);
 
@@ -154,7 +150,7 @@ class Blog extends Front_Controller{
 
     public function post(){
 
-        $this->authenticate($this->permissionView);
+        $this->authenticate();
 
         $id = $this->uri->segment(3);
         if (empty($id)) {
