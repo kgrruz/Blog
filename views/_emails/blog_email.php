@@ -8,6 +8,4 @@
    }
 </style>
 
-   <h2><?php echo ucfirst($blog->title_post); ?></h2>
-
   <?php echo html_entity_decode($blog->body_post); ?>
