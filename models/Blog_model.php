@@ -6,7 +6,7 @@ class Blog_model extends BF_Model{
 	protected $key			= 'id_post';
 	protected $date_format	= 'datetime';
 
-	protected $log_user 	= false;
+	protected $log_user 	= true;
 	protected $set_created	= true;
 	protected $set_modified = false;
 	protected $soft_deletes	= true;
