@@ -16,13 +16,15 @@
     </tr>
   </thead>
   <tbody>
-    <?php foreach($posts as $post){ ?>
+    <?php foreach($posts as $post){ $categs_post = $this->category_model->get_blog_categories($post->id_post)->result(); ?>
     <tr>
       <td class="pl-3"><?php echo anchor("blog/post/".$post->slug_post,ellipsize($post->title_post,30)); ?></td>
-      <td></td>
+      <td>    <?php foreach($categs_post as $categ){ ?>
+          <span class="badge badge-info"><?php echo $categ->name_category; ?></span>
+        <?php } ?></td>
       <td class="text-center"><?php echo ($post->enable_comments)?'<i class="fa fa-check"></i>':'<i class="fas fa-times"></i>';  ?></td>
       <td class="text-center"><?php echo ($post->enable_attach)?'<i class="fa fa-check"></i>':'<i class="fas fa-times"></i>'; ?></td>
-      <td><?php echo anchor($post->username,$post->display_name); ?></td>
+      <td><?php echo user_avatar($post->photo_avatar,$post->email,30,'rounded mr-2',true,'thumbs'); ?> <?php echo anchor($post->username,$post->display_name); ?></td>
       <td><?php echo ut_date($post->created_on,$current_user->d_format.' '.$current_user->t_format); ?></td>
       <td>
         <div class="btn-group" role="group" >
@@ -35,7 +37,13 @@
 </tbody>
 </table>
   </div>
-
+<?php if($pags = $this->pagination->create_links()){ ?>
+  <div class="card-footer">
+  <ul class="pagination">
+    <?php echo $pags; ?>
+  </ul>
+</div>
+<?php } ?>
 <?php } else{ ?>
 
    <div class="card-body">

@@ -45,7 +45,7 @@ class Content extends Admin_Controller{
     public function index(){
 
       $this->authenticate($this->permissionView);
-      $offset = $this->uri->segment(3);
+      $offset = $this->uri->segment(5);
 
       $where = array('blog_posts.deleted'=>0);
 
@@ -57,16 +57,15 @@ class Content extends Admin_Controller{
 
        $this->load->library('pagination');
 
-       $this->pager['base_url']    = base_url()."blog/content/index/";
+       $this->pager['base_url']    = base_url()."admin/content/blog/index/";
        $this->pager['per_page']    = $this->limit;
-       if(isset($search_text)){ $this->blog_model->like('title_post',$search_text); }
        $this->pager['total_rows']  = $this->blog_model->where($where)->count_all();
-       $this->pager['uri_segment'] = 4;
+       $this->pager['uri_segment'] = 5;
 
        $this->pagination->initialize($this->pager);
 
       Template::set('posts', $posts);
-      Template::set('toolbar_title', 'Manage Your Blog');
+      Template::set('toolbar_title', lang("blog_manage"));
       Template::render();
     }
 
@@ -99,7 +98,7 @@ class Content extends Admin_Controller{
                 $this->send_blog_email($ids,$blog);
 
                 Template::set_message(lang('blog_create_success'), 'success');
-                Template::redirect('content/blog');
+                Template::redirect('blog/content/');
 
             }
 
@@ -151,7 +150,7 @@ class Content extends Admin_Controller{
 
                 log_activity($this->auth->user_id(), lang('blog_act_edit_record') . ': ' . $id . ' : ' . $this->input->ip_address(), 'blog');
                 Template::set_message(lang('blog_edit_success'), 'success');
-                redirect('itens');
+                redirect('blog/content/');
             }
 
             // Not validation error
@@ -211,7 +210,7 @@ class Content extends Admin_Controller{
               Template::set_message(lang('us_empty_id'), 'error');
           } else {
               foreach ($checked as $userId) {
-                  $this->delete($userId);
+                  $this->delete_category($userId);
               }
           }
       }
@@ -245,7 +244,7 @@ class Content extends Admin_Controller{
                 log_activity($this->auth->user_id(), lang('category_act_create_record') . ': ' . $insert_id . ' : ' . $this->input->ip_address(), 'category');
                 Template::set_message(lang('category_create_success'), 'success');
 
-                redirect('blog/category');
+                redirect('blog/content/categs');
             }
 
             // Not validation error
@@ -290,7 +289,7 @@ class Content extends Admin_Controller{
             if ($this->save_category('update', $id)) {
                 log_activity($this->auth->user_id(), lang('category_act_edit_record') . ': ' . $id . ' : ' . $this->input->ip_address(), 'category');
                 Template::set_message(lang('category_edit_success'), 'success');
-                redirect('blog/category');
+                redirect('blog/content/categs');
             }
 
             // Not validation error
@@ -326,11 +325,11 @@ class Content extends Admin_Controller{
     public function comments(){
 
       $this->authenticate($this->permissionView);
-      $offset = $this->uri->segment(3);
+      $offset = $this->uri->segment(4);
 
-      $where = array('blog_comments.deleted'=>0);
+      $where = array('blog_comments.deleted'=>0,'blog_posts.deleted'=>0);
 
-       $this->comments_model->select("blog_comments.id as id,content,creator,created,id_post,title_post,slug_post,preview_image,email,display_name,photo_avatar,username");
+       $this->comments_model->select("blog_comments.id as id,content,file_url,file_mime_type,creator,created,id_post,title_post,slug_post,preview_image,email,display_name,photo_avatar,username");
        $this->comments_model->order_by('blog_comments.created','desc');
        $this->comments_model->join('blog_posts','blog_posts.id_post  = blog_comments.post_id','left');
        $this->comments_model->join('users','blog_comments.creator  = users.id','left');
@@ -341,6 +340,7 @@ class Content extends Admin_Controller{
 
        $this->pager['base_url']    = base_url()."blog/content/comments/";
        $this->pager['per_page']    = $this->limit;
+       $this->comments_model->join('blog_posts','blog_posts.id_post  = blog_comments.post_id','left');
        $this->pager['total_rows']  = $this->comments_model->where($where)->count_all();
        $this->pager['uri_segment'] = 4;
 
@@ -351,6 +351,29 @@ class Content extends Admin_Controller{
       Template::render();
     }
 
+    public function delete_comment($id){
+
+      $comment = $this->comments_model->find($id);
+      if (! isset($comment)) {
+          Template::set_message(lang('blog_invalid_comment_id'), 'error');
+          Template::redirect($this->agent->referrer());
+      }
+
+          $this->auth->restrict($this->permissionDelete);
+
+          if ($this->comments_model->delete($id)) {
+
+              $id_act = log_activity($this->auth->user_id(), lang('blog_comment_act_delete_record') . ': ' . $id , 'commments');
+              log_notify($this->auth->users_has_permission($this->permissionDelete), $id_act);
+
+              Template::set_message(lang('blog_comment_delete_success'), 'success');
+              Template::redirect($this->agent->referrer());
+
+          }
+
+          Template::set_message(lang('blog_comment_delete_failure') . $this->comments_model->error, 'error');
+
+    }
 
     //--------------------------------------------------------------------------
     // !PRIVATE METHODS
@@ -364,14 +387,14 @@ class Content extends Admin_Controller{
           Template::redirect('blog/category');
       }
 
-          //$this->auth->restrict($this->permissionDelete);
+          $this->auth->restrict($this->permissionDelete);
 
           $node = $this->nested_set->getNodeWhere('id_category = '.$id);
 
           if ($this->nested_set->deleteNode($node)) {
 
               $id_act = log_activity($this->auth->user_id(), lang('category_act_delete_record') . ': ' . $category->name_category , 'category');
-              log_notify($this->user_model->get_id_users_role('id',array(4,1)), $id_act);
+              log_notify($this->auth->users_has_permission($this->permissionDelete), $id_act);
 
               Template::set_message(lang('category_delete_success'), 'success');
               return;
@@ -551,7 +574,7 @@ class Content extends Admin_Controller{
 
             $error = array('error' => $this->upload->display_errors());
             Template::set_message($error['error'], 'error');
-            Template::redirect('content/blog/create');
+            Template::redirect($this->agent->referrer());
 
           }
         }

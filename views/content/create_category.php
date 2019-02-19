@@ -65,7 +65,7 @@ endif;
 
 <div class="card-footer">
 
-      <input type='submit' name='save' class='btn btn-sm btn-primary' value="<?php echo lang('category_action_create'); ?>" />
+      <input type='submit' name='save' class='btn btn-sm btn-primary' value="<?php echo (empty($id))? lang('category_action_create'):lang('category_action_edit'); ?>" />
       <?php echo lang('bf_or'); ?>
       <?php echo anchor('item/category', lang('category_cancel'), 'class="btn btn-sm btn-warning"'); ?>
 </div>

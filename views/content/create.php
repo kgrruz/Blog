@@ -34,7 +34,7 @@ $id = isset($post->id_post) ? $post->id_post : '';
             <div class="form-group<?php echo form_error('category') ? ' error' : ''; ?>">
                 <?php echo form_label(lang('blog_field_category') . lang('bf_form_label_required'), 'category', array('class' => 'col-form-label')); ?>
 
-      <select id='category' class="form-control form-control-sm" multiple name='category[]'  >
+      <select id='category' class="form-control form-control-sm"  name='category[]'  >
             <?php foreach($tree['items'] as $groupp){ ?>
             <option <?php echo (isset($group) and $group->parent_category == $groupp['id_category'])? 'selected':($groupp['id_category'] == 1)? 'selected':''; ?>
                value="<?php echo $groupp['id_category']; ?>" >
@@ -84,7 +84,7 @@ $id = isset($post->id_post) ? $post->id_post : '';
             <div class="card-body">
 
               <?php foreach ($roles as $role) : ?>
-      <input type="checkbox" name="roles_access[]" <?php echo ($current_user->role_id == $role->role_id)? 'checked':''; ?> value="<?php echo $role->role_id; ?>" ><?php echo $role->role_name; ?>
+      <input type="checkbox" name="roles_access[]" <?php echo (!empty($id) and in_array($role->role_id,explode(",",$post->roles_access)) or $current_user->role_id == $role->role_id)? 'checked':''; ?> value="<?php echo $role->role_id; ?>" ><?php echo $role->role_name; ?>
           <?php endforeach; ?>
 
             </div>
@@ -98,6 +98,9 @@ $id = isset($post->id_post) ? $post->id_post : '';
 
               <label for="exampleFormControlFile1" style="display:none" class="btn btn-primary btn-sm" ><i class="fa fa-image"></i> <?php echo lang('blog_field_upload_picture'); ?></label>
               <input type="file" class="form-control-file" xid="exampleFormControlFile1" name="preview_image">
+                <?php if(!empty($id)){ ?>
+                  <div class="text-danger"><?php echo lang("blog_image_preview_edit_overwrite"); ?></div>
+                <?php } ?>
                 <?php if(!is_really_writable(Modules::path('blog','assets/images/posts_preview/'))){ ?>
                   <div class="text-danger"><?php echo lang("blog_permission_folder"); ?> <?php echo Modules::path('blog','assets/images/posts_preview/'); ?></div>
                 <?php } ?>
