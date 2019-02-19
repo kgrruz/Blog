@@ -31,8 +31,8 @@ $lang['category_first_categ_slug']    = 'geral';
 $lang['category_first_categ_desc']    = 'Assuntos em geral.';
 
 // Create/Edit Buttons
-$lang['category_action_edit']   = 'Save categoria';
-$lang['category_action_create']   = 'Salvar categoria';
+$lang['category_action_edit']   = 'Salvar categoria';
+$lang['category_action_create']   = 'Registrar categoria';
 
 // Activities
 $lang['category_act_create_record'] = 'Created record with ID';
