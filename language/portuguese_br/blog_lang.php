@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') || exit('No direct script access allowed');
 
-$lang['blog_manage']      = 'Gerenciar Post';
+$lang['blog_manage']      = 'Gerenciar Blog';
 $lang['blog_edit']        = 'Editar';
 $lang['blog_true']        = 'Verdadeiro';
 $lang['blog_false']       = 'Falso';
@@ -12,7 +12,7 @@ $lang['blog_know_more']       = 'Saiba mais';
 $lang['blog_edit_text']     = 'Edite isto conforme sua necessidade';
 $lang['blog_no_records']    = 'Não há post no sistema.';
 $lang['blog_create_new']    = 'Criar novo(a) Post.';
-$lang['blog_create_success']  = 'Post Criado(a) com sucesso.';
+$lang['blog_create_success']  = 'Post criado(a) com sucesso.';
 $lang['blog_create_failure']  = 'Ocorreu um problema criando o(a) post: ';
 $lang['blog_create_new_button'] = 'Criar novo(a) Post';
 $lang['blog_invalid_id']    = 'ID de Post inválida.';
@@ -78,6 +78,7 @@ $lang['blog_field_body'] = 'Conteúdo do post';
 
 $lang['blog_search'] = 'Buscar';
 $lang['blog_search_placeholder'] = 'Procure por posts...';
+$lang['blog_image_preview_edit_overwrite'] = 'Irá substituir a imagem existente. Se houver.';
 
 
 // email prefs
@@ -85,3 +86,20 @@ $lang['blog_new_post']    = 'Novo post no blog';
 $lang['blog_new_post_desc']    = 'Receba uma notificação a cada novo post no blog';
 
 $lang['blog_settings']    = 'Configurações';
+$lang['blog_settings_post_visibility']    = 'Visibilidade das Postagens';
+$lang['blog_settings_only_logged']    = 'Somente logado';
+$lang['blog_settings_post_public']    = 'Público';
+
+$lang['blog_settings_email_enever']    = 'Envie-me um e-mail';
+$lang['blog_settings_new_comments']    = 'Todo novo comentário';
+$lang['blog_settings_new_comment_mod']    = 'Novo comentário aguardando moderação';
+
+$lang['blog_settings_before_comments_appear']    = 'Antes do comentário ser publicado';
+$lang['blog_settings_comment_must_be_approved']    = 'Comentários precisam ser aprovados';
+$lang['blog_settings_close_comments']    = 'Bloquear comentários em post após';
+$lang['blog_settings_comment_flood_time']    = 'Tempo entre comentários';
+
+$lang['blog_comment_delete_confirm']    = 'Tem certeza que deseja remover o comentário?';
+$lang['blog_invalid_comment_id']    = 'ID do comentário é inválido.';
+$lang['blog_comment_delete_success']    = 'Comentário removido.';
+$lang['blog_comment_file']    = 'Arquivo';
