@@ -35,7 +35,7 @@ class Events_category{
 
    foreach($categs as $categ){
 
-     $this->CI->db->insert('blog_categs',array('blog_post_id'=>$data['blog_post_id'],'category_id'=>$categ,'created_by'=>$data['created_by']));
+     $this->CI->db->insert('blog_categs',array('blog_post_id'=>$data['blog_post_id'],'category_id'=>$categ,'created_on'=>date("Y-m-d H:i:s"),'created_by'=>$data['created_by']));
 
      }
     }
