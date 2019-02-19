@@ -3,7 +3,7 @@
 class Comments_model extends BF_Model{
 
     protected $table_name    = 'blog_comments';
-    protected $key            = 'id_comment';
+    protected $key            = 'id';
     protected $date_format    = 'datetime';
 
     protected $log_user    = true;
@@ -64,6 +64,8 @@ class Comments_model extends BF_Model{
     $this->db->from("blog_comments");
     $this->db->join("users","users.id = blog_comments.creator");
     $this->db->where("post_id",$qp);
+    $this->db->where("blog_comments.deleted",0);
+    $this->db->group_by("blog_comments.id");
     return $this->db->get()->result();
 
     }
