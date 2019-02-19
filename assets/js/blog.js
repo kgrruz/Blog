@@ -17,7 +17,7 @@ if($('#post_editor').length){
 
   var editor =  CKEDITOR.replace( 'post_editor',{
    extraPlugins : 'uploadimage,popup,filetools,filebrowser,wordcount,notification,youtube',
-   uploadUrl : base_url+'blog/upload_ck',
+   uploadUrl : base_url+'admin/content/blog/upload_ck',
    filebrowserUploadUrl: base_url+'blog/upload_ck',
    language: lang,
    //startupFocus : true,
