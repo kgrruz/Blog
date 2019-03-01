@@ -159,6 +159,8 @@ class Blog extends Front_Controller{
             redirect('blog');
         }
 
+          $this->load->library("htmlfixer");
+
         $this->db->select("email,username,display_name,photo_avatar,id_post,title_post,slug_post,body_post,enable_comments,enable_attach,roles_access,blog_posts.created_on as created_on,created_by");
         $this->db->join('users','blog_posts.created_by  = users.id','left');
         $this->db->where('blog_posts.deleted',0);

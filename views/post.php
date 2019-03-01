@@ -28,7 +28,7 @@
           <hr>
 
           <!-- Post Content -->
-          <div class="lead post_body"><?php echo html_entity_decode($post->body_post); ?></div>
+          <div class="lead post_body"><?php echo $this->htmlfixer->getFixedHtml(html_entity_decode($post->body_post)); ?></div>
         </div>
         </div>
 
