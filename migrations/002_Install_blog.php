@@ -320,6 +320,41 @@ class Migration_Install_blog extends Migration
 
 	$this->db->insert("settings",$data_st);
 
+	$settings_data = array(
+		array(
+		'name' => 'blog.post_visibility',
+		'module' => 'blog',
+		'value' => 1
+	),
+		array(
+		'name' => 'blog.email_new_comment',
+		'module' => 'blog',
+		'value' => 0
+	),
+		array(
+		'name' => 'blog.email_new_comment_mod',
+		'module' => 'blog',
+		'value' => 1
+	),
+		array(
+		'name' => 'blog.must_aprove_comment',
+		'module' => 'blog',
+		'value' => 0
+	),
+		array(
+		'name' => 'blog.block_post_after',
+		'module' => 'blog',
+		'value' => '1 month'
+	),
+		array(
+		'name' => 'blog.comment_flood',
+		'module' => 'blog',
+		'value' => '1 minute'
+	)
+	);
+
+	$this->db->insert_batch("settings",$settings_data);
+
 	$email_preferences = array(
 		'preference_name'=>"blog_new_post",
 		'preference_desc'=>"blog_new_post_desc",
