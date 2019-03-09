@@ -37,6 +37,7 @@ $lang['blog_permission_folder']    = 'Dê permissão de escrita para a seguinte 
 $lang['blog_hour'] = "hora(s)";
 $lang['blog_day'] = "dia(s)";
 $lang['blog_month'] = "mês(es)";
+$lang['blog_news'] = "Notícias";
 
 
 // Create/Edit Buttons

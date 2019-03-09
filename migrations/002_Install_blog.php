@@ -363,6 +363,18 @@ class Migration_Install_blog extends Migration
 
 	$this->db->insert("email_preferences",$email_preferences);
 
+
+	$data_widget = array(
+		'name_widget'=>'News',
+		'description_widget'=>'Display list of lastest posts',
+		'order_view'=>0,
+		'panel'=>'available',
+		'path'=>serialize(array("class"=>"Blog_events","function"=>"_show_widget_news")),
+		'module'=>'blog'
+	);
+
+	$this->db->insert("widgets",$data_widget);
+
 	}
 
 	/**

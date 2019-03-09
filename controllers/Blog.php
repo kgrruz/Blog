@@ -95,7 +95,7 @@ class Blog extends Front_Controller{
           $id = $this->uri->segment(3);
 
           if (empty($id)) {
-              Template::set_message(lang('category_invalid_id'), 'error');
+              Template::set_message(lang('category_invalid_id'), 'danger');
               redirect('blog');
           }
 
@@ -140,7 +140,7 @@ class Blog extends Front_Controller{
 
           }else{
 
-            Template::set_message(lang('category_invalid_id'), 'error');
+            Template::set_message(lang('category_invalid_id'), 'danger');
             redirect('blog');
           }
 
@@ -150,12 +150,12 @@ class Blog extends Front_Controller{
 
     public function post(){
 
-        $this->authenticate();
+      if($this->auth->is_logged_in()){ $this->authenticate(); }
 
         $id = $this->uri->segment(3);
         if (empty($id)) {
 
-            Template::set_message(lang('blog_invalid_id'), 'error');
+            Template::set_message(lang('blog_invalid_id'), 'danger');
             redirect('blog');
         }
 
@@ -166,11 +166,14 @@ class Blog extends Front_Controller{
         $this->db->where('blog_posts.deleted',0);
         if($post = $this->blog_model->find_by('slug_post',$id)){
 
+         if($this->auth->is_logged_in()){
+
           if($post->created_by != $this->current_user->id and !in_array($this->current_user->role_id,explode(',',$post->roles_access))){
 
             Template::set_message('Sem permissão para acessar o conteúdo.', 'danger');
             Template::redirect('blog');
 
+              }
              }
 
 
@@ -188,7 +191,7 @@ class Blog extends Front_Controller{
 
       }else{
 
-        Template::set_message(lang('blog_invalid_id'), 'error');
+        Template::set_message(lang('blog_invalid_id'), 'danger');
         redirect('blog');
       }
 

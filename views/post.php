@@ -32,7 +32,7 @@
         </div>
         </div>
 
-<?php if($post->enable_comments){ ?>
+<?php if($this->auth->is_logged_in()){ if($post->enable_comments){ ?>
           <!-- Comments Form -->
           <div class="card my-4">
             <h5 class="card-header"><?php echo lang('blog_lets_comment'); ?></h5>
@@ -42,7 +42,7 @@
 
             </div>
           </div>
-<?php } ?>
+<?php } }?>
 
 
         </div>
@@ -91,6 +91,7 @@
 
     </div>
     <!-- /.container -->
+    <?php if($this->auth->is_logged_in()){  ?>
 <script>
 var enable = <?php echo ($post->enable_comments)? 'true':'false'; ?>;
 var uid = <?php echo $current_user->id; ?>;
@@ -99,3 +100,4 @@ var author = <?php echo $post->created_by; ?>;
 var enable_attach = <?php echo ($post->enable_attach)? 'true':'false'; ?>;
 
 </script>
+  <?php } ?>
