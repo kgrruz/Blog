@@ -2,24 +2,11 @@ $(document).on('ready', function() {
 
 if($('#post_editor').length){
 
-  var lang = 'pt-br';
-
-  switch(lang_user) {
-    case 'portuguese_br':
-        lang = 'pt-br';
-        break;
-    case 'english':
-        lang = 'en-ca';
-        break;
-        case 'spanish_am':
-            lang = 'es';
-}
 
   var editor =  CKEDITOR.replace( 'post_editor',{
    extraPlugins : 'uploadimage,popup,filetools,filebrowser,wordcount,notification,youtube',
    uploadUrl : base_url+'admin/content/blog/upload_ck',
-   filebrowserUploadUrl: base_url+'blog/upload_ck',
-   language: lang,
+   filebrowserUploadUrl: base_url+'admin/content/blog/upload_ck',
    //startupFocus : true,
   // startupFocus : 'end',
    youtube_responsive: false,
