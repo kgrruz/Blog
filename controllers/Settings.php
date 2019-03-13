@@ -72,6 +72,7 @@ class Settings extends Admin_Controller
         }
       }
 
+        Template::set('settings',$this->settings_lib->find_all());
         Template::set('toolbar_title', lang('blog_manage'));
         Template::render();
 
