@@ -21,6 +21,8 @@ $id = isset($post->id_post) ? $post->id_post : '';
 <div class="row">
   <div class="col-md-8">
 
+<div class="card">
+<div class="card-body">
 
             <div class="form-group<?php echo form_error('title_post') ? ' error' : ''; ?>">
                 <?php echo form_label(lang('blog_field_name') . lang('bf_form_label_required'), 'title_post', array('class' => 'control-label')); ?>
@@ -70,6 +72,8 @@ $id = isset($post->id_post) ? $post->id_post : '';
                       <?php echo lang('bf_or'); ?>
                       <?php echo anchor('blog', lang('blog_cancel'), 'class="btn btn-warning"'); ?>
 
+                    </div>
+                    </div>
                     </div>
 
 
