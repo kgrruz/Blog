@@ -5,7 +5,7 @@ $config['module_config'] = array(
 	'category'    => 'Media',
 	'name'		    => 'Blog',
 	'home' 				=> 'blog',
-	'label'       => array('english'=>'Blog','portuguese_br'=>'Blog'),
+	'label'       => array('english'=>'Blog','portuguese_br'=>'Blog','spanish_am'=>'Blog'),
 	'route'       => 'blog',
 	'visible_module' => true,
 	'context_customer' => false,

@@ -1,69 +1,68 @@
 <?php defined('BASEPATH') || exit('No direct script access allowed');
 
+$lang['category_manage'] = 'Gerenciar categoria';
+$lang['category_edit'] = 'Editar';
+$lang['category_true'] = 'Verdadeiro';
+$lang['category_false'] = 'Falso';
+$lang['category_create'] = 'Adicionar';
+$lang['category_list'] = 'Lista';
+$lang['category_new'] = 'Novo';
+$lang['category_edit_text'] = 'Edite isso para atender às suas necessidades';
+$lang['category_no_records'] = 'Não há categoria no sistema.';
+$lang['category_create_new'] = 'Cria uma nova categoria.';
+$lang['category_create_success'] = 'Categoria criada com sucesso.';
+$lang['category_create_failure'] = 'Ocorreu um problema ao criar a categoria:';
+$lang['category_create_new_button'] = 'Criar nova categoria';
+$lang['category_invalid_id'] = 'ID de categoria inválida';
+$lang['category_edit_success'] = 'categoria salva com sucesso.';
+$lang['category_edit_failure'] = 'Ocorreu um problema ao salvar a categoria:';
+$lang['category_delete_success'] = 'registro (s) removido (s) com sucesso.';
+$lang['category_delete_failure'] = 'Não foi possível deletar o registro:';
+$lang['category_delete_error'] = 'Você não selecionou nenhum registro para deletar.';
+$lang['category_actions'] = 'Ações';
+$lang['category_cancel'] = 'Cancelar';
+$lang['category_delete_record'] = 'Excluir esta categoria';
+$lang['category_delete_confirm'] = 'Quer o mesmo que esta (s) categoria (s)?';
+$lang['category_edit_heading'] = 'com categoria';
+$lang['category_empty'] = 'Não há categorias cadastradas.';
+$lang['category_first_categ_name'] = 'Geral';
+$lang['category_first_categ_slug'] = 'geral';
+$lang['category_first_categ_desc'] = 'Assuntos gerais';
 
-$lang['category_manage']      = 'Manage categoria';
-$lang['category_edit']        = 'Edit';
-$lang['category_true']        = 'True';
-$lang['category_false']       = 'False';
-$lang['category_create']      = 'Adicionar';
-$lang['category_list']        = 'Lista';
-$lang['category_new']       = 'New';
-$lang['category_edit_text']     = 'Edit this to suit your needs';
-$lang['category_no_records']    = 'There are no categoria in the system.';
-$lang['category_create_new']    = 'Create a new categoria.';
-$lang['category_create_success']  = 'Categoria criada com sucesso.';
-$lang['category_create_failure']  = 'There was a problem creating the categoria: ';
-$lang['category_create_new_button'] = 'Create New categoria';
-$lang['category_invalid_id']    = 'Invalid categoria ID.';
-$lang['category_edit_success']    = 'categoria successfully saved.';
-$lang['category_edit_failure']    = 'There was a problem saving the categoria: ';
-$lang['category_delete_success']  = 'registro(s) removido(s) com sucesso.';
-$lang['category_delete_failure']  = 'We could not delete the record: ';
-$lang['category_delete_error']    = 'You have not selected any records to delete.';
-$lang['category_actions']     = 'Actions';
-$lang['category_cancel']      = 'Cancelar';
-$lang['category_delete_record']   = 'Delete this categoria';
-$lang['category_delete_confirm']  = 'Quer mesmo excluir esta(s) categoria(s)?';
-$lang['category_edit_heading']    = 'Editar categoria';
-$lang['category_empty']    = 'Não existem categorias cadastradas.';
-$lang['category_first_categ_name']    = 'Geral';
-$lang['category_first_categ_slug']    = 'geral';
-$lang['category_first_categ_desc']    = 'Assuntos em geral.';
+// Cria / Edita Botões
+$lang['category_action_edit'] = 'Salvar categoria';
+$lang['category_action_create'] = 'Registrar categoria';
 
-// Create/Edit Buttons
-$lang['category_action_edit']   = 'Salvar categoria';
-$lang['category_action_create']   = 'Registrar categoria';
+// Actividades
+$lang['category_act_create_record'] = 'Criado registro com ID';
+$lang['category_act_edit_record'] = 'Registro atualizado com ID';
+$lang['category_act_delete_record'] = 'Registro apagado com ID';
 
-// Activities
-$lang['category_act_create_record'] = 'Created record with ID';
-$lang['category_act_edit_record'] = 'Updated record with ID';
-$lang['category_act_delete_record'] = 'Deleted record with ID';
+// Listando especificidades
+$lang['category_records_empty'] = 'Nenhum registro encontrado que corresponda à sua seleção.';
+$lang['category_errors_message'] = 'Por favor corrija os seguintes erros:';
 
-//Listing Specifics
-$lang['category_records_empty']    = 'No records found that match your selection.';
-$lang['category_errors_message']    = 'Please fix the following errors:';
+// Coluna de cabeçalhos
+$lang['category_column_name'] = 'Nome';
+$lang['category_column_items'] = 'Itens';
+$lang['category_column_created'] = 'Criada';
+$lang['category_column_deleted'] = 'Excluído';
+$lang['category_column_modified'] = 'Modificado';
+$lang['category_column_deleted_by'] = 'Excluído por';
+$lang['category_column_created_by'] = 'Criado por';
+$lang['category_column_modified_by'] = 'Modificado por';
 
-// Column Headings
-$lang['category_column_name']  = 'Nome';
-$lang['category_column_items']  = 'Items';
-$lang['category_column_created']  = 'Criada';
-$lang['category_column_deleted']  = 'Deleted';
-$lang['category_column_modified'] = 'Modified';
-$lang['category_column_deleted_by'] = 'Deleted By';
-$lang['category_column_created_by'] = 'Created By';
-$lang['category_column_modified_by'] = 'Modified By';
-
-// Module Details
+// Detalhes do módulo
 $lang['category_module_name'] = 'Categoria';
-$lang['category_module_description'] = 'Manage your categoria';
+$lang['category_module_description'] = 'Gerenciar sua categoria';
 $lang['category_area_title'] = 'Categorias';
-$lang['category_desc_form_create'] = 'Adicione categorias para agrupar seus posts e organizá-los.';
+$lang['category_desc_form_create'] = 'Escreva para os seus posts e organiza-los.';
 
-// Fields
+// Campos
 $lang['category_field_name_category'] = 'Nome';
 $lang['category_field_category_description'] = 'Descrição';
-$lang['category_field_item_price'] = 'price';
+$lang['category_field_item_price'] = 'preço';
 $lang['category_field_image_category'] = 'Ícone da categoria';
 $lang['category_field_parent_category'] = 'Categoria pai';
 
-$lang['category_select_placeholder'] = 'Selecione...';
+$lang['category_select_placeholder'] = 'Selecione ...';

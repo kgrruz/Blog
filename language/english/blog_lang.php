@@ -1,6 +1,6 @@
 <?php defined ('BASEPATH') || exit ('No direct script access allowed');
 
-$lang['blog_manage'] = 'Manage Post';
+$lang['blog_manage'] = 'Manage Blog';
 $lang['blog_edit'] = 'Edit';
 $lang['blog_true'] = 'True';
 $lang['blog_false'] = 'False';
@@ -12,7 +12,7 @@ $lang['blog_know_more'] = 'Learn more';
 $lang['blog_edit_text'] = 'Edit this as needed';
 $lang['blog_no_records'] = 'There is no post in the system.';
 $lang['blog_create_new'] = 'Create new Post.';
-$lang['blog_create_success'] = 'Post Created successfully.';
+$lang['blog_create_success'] = 'Post created successfully.';
 $lang['blog_create_failure'] = 'There was a problem creating the post:';
 $lang['blog_create_new_button'] = 'Create new Post';
 $lang['blog_invalid_id'] = 'Invalid Post ID.';
@@ -32,11 +32,19 @@ $lang['blog_enable_comments'] = 'Allow comments';
 $lang['blog_enable_attach'] = 'Allow upload in comments';
 $lang['blog_send_email_success'] = 'Email successfully sent.';
 $lang['blog_lets_comment'] = 'Leave your comment:';
+$lang['blog_comments'] = 'Comments';
+$lang['blog_permission_folder'] = 'Give write permission to the following folder:';
+$lang['blog_minute'] = "minute (s)";
+$lang['blog_hour'] = "time (s)";
+$lang['blog_day'] = "day (s)";
+$lang['blog_month'] = "month (s)";
+$lang['blog_news'] = "News";
+$lang['blog_settings_create_success'] = "Configuration saved successfully.";
 
 
 // Create / Edit Buttons
 $lang['blog_action_edit'] = 'Edit Post';
-$lang['blog_action_create'] = 'Post';
+$lang['blog_action_create'] = 'Post Post';
 
 // Activities
 $lang['blog_act_create_record'] = 'Sent post';
@@ -53,7 +61,11 @@ $lang['blog_column_deleted'] = 'Deleted';
 $lang['blog_column_modified'] = 'Updated';
 $lang['blog_column_name'] = 'Post';
 $lang['blog_column_description'] = 'Description';
-$lang['blog_column_price'] = 'Price';
+$lang['blog_column_categ'] = 'Category';
+$lang['blog_column_ec'] = 'Comments';
+$lang['blog_column_comment'] = 'Comment';
+$lang['blog_column_ea'] = 'Attachments';
+$lang['blog_column_created_by'] = 'Author';
 
 // Module Details
 $lang['blog_module_name'] = 'Blog';
@@ -70,8 +82,29 @@ $lang['blog_roles_access'] = 'Post access groups';
 $lang['blog_field_body'] = 'Content of the post';
 
 $lang['blog_search'] = 'Search';
-$lang['blog_search_placeholder'] = 'Search for posts...';
+$lang['blog_search_placeholder'] = 'Search for posts ...';
+$lang['blog_image_preview_edit_overwrite'] = 'Will replace the existing image. If there is.';
+
 
 // email prefs
 $lang['blog_new_post'] = 'New blog post';
 $lang['blog_new_post_desc'] = 'Get a notification for each new blog post';
+
+$lang['blog_settings'] = 'Settings';
+$lang['blog_settings_post_visibility'] = 'Visibility of Posts';
+$lang['blog_settings_only_logged'] = 'Logged only';
+$lang['blog_settings_post_public'] = 'Public';
+
+$lang['blog_settings_email_enever'] = 'Send me an email';
+$lang['blog_settings_new_comments'] = 'All new comment';
+$lang['blog_settings_new_comment_mod'] = 'New comment awaiting moderation';
+
+$lang['blog_settings_before_comments_appear'] = 'Before the comment is published';
+$lang['blog_settings_comment_must_be_approved'] = 'Comments need to be approved';
+$lang['blog_settings_close_comments'] = 'Block post comments after';
+$lang['blog_settings_comment_flood_time'] = 'Time between comments';
+
+$lang['blog_comment_delete_confirm'] = 'Are you sure you want to remove the comment?';
+$lang['blog_invalid_comment_id'] = 'Comment ID is invalid.';
+$lang['blog_comment_delete_success'] = 'Comment removed.';
+$lang['blog_comment_file']    = 'File';
