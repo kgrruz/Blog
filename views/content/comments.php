@@ -19,6 +19,7 @@
       <td><?php echo ut_date($comment->created,$current_user->d_format.' '.$current_user->t_format); ?></td>
        <td rowspan="2">
         <div class="btn-group btn-group-sm" role="group" >
+          <?php echo ($this->settings_lib->item("blog.must_aprove_comment") and $comment->approved == 0)? anchor('blog/content/approve_comment/'.$comment->id,'<i class="fa fa-thumbs-up"></i>','data-message="'.lang("blog_comment_approve_confirm").'" class="btn btn-success exc_bot"'):''; ?>
           <?php echo anchor('blog/content/delete_comment/'.$comment->id,'<i class="fa fa-trash"></i>','data-message="'.lang("blog_comment_delete_confirm").'" class="btn btn-light exc_bot"'); ?>
         </div>
       </td>

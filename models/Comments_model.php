@@ -11,9 +11,9 @@ class Comments_model extends BF_Model{
     protected $set_modified = true;
     protected $soft_deletes    = true;
 
-    protected $created_field     = 'created_on';
-    protected $created_by_field  = 'created_by';
-    protected $modified_field    = 'modified_on';
+    protected $created_field     = 'created';
+    protected $created_by_field  = 'creator';
+    protected $modified_field    = 'modified';
     protected $modified_by_field = 'modified_by';
     protected $deleted_field     = 'deleted';
     protected $deleted_by_field  = 'deleted_by';
@@ -65,6 +65,9 @@ class Comments_model extends BF_Model{
     $this->db->join("users","users.id = blog_comments.creator");
     $this->db->where("post_id",$qp);
     $this->db->where("blog_comments.deleted",0);
+    if($this->settings_lib->item('blog.must_aprove_comment')){
+    $this->db->where("blog_comments.approved",1);
+    }
     $this->db->group_by("blog_comments.id");
     return $this->db->get()->result();
 

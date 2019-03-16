@@ -329,7 +329,7 @@ class Content extends Admin_Controller{
 
       $where = array('blog_comments.deleted'=>0,'blog_posts.deleted'=>0);
 
-       $this->comments_model->select("blog_comments.id as id,content,file_url,file_mime_type,creator,created,id_post,title_post,slug_post,preview_image,email,display_name,photo_avatar,username");
+       $this->comments_model->select("blog_comments.id as id,content,file_url,approved,file_mime_type,creator,created,id_post,title_post,slug_post,preview_image,email,display_name,photo_avatar,username");
        $this->comments_model->order_by('blog_comments.created','desc');
        $this->comments_model->join('blog_posts','blog_posts.id_post  = blog_comments.post_id','left');
        $this->comments_model->join('users','blog_comments.creator  = users.id','left');
@@ -351,6 +351,34 @@ class Content extends Admin_Controller{
       Template::render();
     }
 
+    public function approve_comment($id){
+
+      $comment = $this->comments_model->find($id);
+      if (! isset($comment)) {
+          Template::set_message(lang('blog_invalid_comment_id'), 'error');
+          Template::redirect($this->agent->referrer());
+      }
+
+          $this->auth->restrict($this->permissionDelete);
+
+          if ($this->comments_model->update($id,array("approved"=>1))) {
+
+              $id_act = log_activity($this->auth->user_id(), lang('blog_comment_act_approve_record') . ': ' . $id , 'commments');
+              log_notify($this->auth->users_has_permission($this->permissionDelete), $id_act);
+
+              Template::set_message(lang('blog_comment_approve_success'), 'success');
+
+          }else{
+
+          Template::set_message(lang('blog_comment_approve_failure') . $this->comments_model->error, 'error');
+
+    }
+
+    Template::redirect($this->agent->referrer());
+
+  }
+
+
     public function delete_comment($id){
 
       $comment = $this->comments_model->find($id);
@@ -367,11 +395,14 @@ class Content extends Admin_Controller{
               log_notify($this->auth->users_has_permission($this->permissionDelete), $id_act);
 
               Template::set_message(lang('blog_comment_delete_success'), 'success');
-              Template::redirect($this->agent->referrer());
 
-          }
+          }else{
 
           Template::set_message(lang('blog_comment_delete_failure') . $this->comments_model->error, 'error');
+
+    }
+
+    Template::redirect($this->agent->referrer());
 
     }
 

@@ -231,6 +231,11 @@ class Migration_Install_blog extends Migration
 					'constraint' => 10,
             'null'       => true
         ),
+        'approved' => array(
+					'type'       => 'TINYINT',
+					'constraint' => 1,
+            'default'    => '0'
+        ),
         'created' => array(
             'type'       => 'datetime',
             'default'    => '0000-00-00 00:00:00',
@@ -248,6 +253,11 @@ class Migration_Install_blog extends Migration
             'type'       => 'datetime',
             'default'    => '0000-00-00 00:00:00',
         ),
+        'modified_by ' => array(
+					'type'       => 'INT',
+					'constraint' => 11,
+						'null'       => true
+        ),
         'upvote_count' => array(
             'type'       => 'INT',
             'constraint' => 11,
@@ -261,6 +271,11 @@ class Migration_Install_blog extends Migration
 						'type'       => 'TINYINT',
 						'constraint' => 1,
 						'default'    => '0',
+        ),
+				'deleted_by' => array(
+					'type'       => 'INT',
+					'constraint' => 11,
+					'null'       => true
 				)
 	);
 
