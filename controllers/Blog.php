@@ -150,7 +150,11 @@ class Blog extends Front_Controller{
 
     public function post(){
 
-      if($this->auth->is_logged_in()){ $this->authenticate(); }
+      if($this->settings_lib->item("blog.post_visibility")){
+        $this->authenticate();
+      }elseif($this->auth->is_logged_in()){
+        $this->authenticate();
+      }
 
         $id = $this->uri->segment(3);
         if (empty($id)) {
