@@ -21,6 +21,7 @@ class Comments extends Front_Controller{
 
 				$this->load->model('blog/comments_model');
 				$this->load->model('blog/blog_model');
+        $this->lang->load('blog/blog');
 
         }
 
@@ -61,10 +62,20 @@ class Comments extends Front_Controller{
 
               if(!$this->blog_model->check_enable_comment($this->input->post('qp'))){ exit(json_encode(array('status'=>false,'message'=>'lang:blog_block_comment')));  }
 
+              $flood = $this->settings_lib->item('blog.comment_flood');
+
+              if($this->comments_model->check_flood($this->current_user->id,$flood)){
+
+              exit(json_encode(array('status'=>false,'message'=>lang("blog_flood_comment").$flood)));
+
+              }
+
+              $post_id = $this->input->post('qp');
+
 							$post = array(
     						'modified'=>date('Y-m-d H:i:s'),
     						'content'=>word_censor(strip_tags($this->input->post('content')), config_item('badwords'), '!#_+#@'),
-    						'post_id'=>$this->input->post('qp'),
+    						'post_id'=>$post_id,
     						'creator'=>$this->session->userdata('user_id')
 						);
 
@@ -90,13 +101,43 @@ class Comments extends Front_Controller{
                   $post['id'] = $this->input->post('id');
           }
 
+          $this->load->library('emailer/emailer');
+
+          if($this->settings_lib->item('blog.email_new_comment') or $this->settings_lib->item('blog.must_aprove_comment')){
+
+          $subject = ($this->settings_lib->item('blog.must_aprove_comment'))? lang("blog_subject_new_comment_mod"):lang("blog_subject_new_comment");
+
+          $blog_post = $this->blog_model->find($post_id);
+          $data_body['blog_post'] = $blog_post;
+          $data_body['comment'] = $post;
+
+          $data = array(
+              'to'      => $this->settings_lib->item('site.system_email'),
+              'subject' => $subject.$blog_post->title_post,
+              'message' => $this->load->view(
+                  '_emails/new_comment',
+                  $data_body,
+                  true
+              ),
+           );
+
+          if ($this->emailer->send($data,true)) {
+              Template::set_message(lang('blog_new_comment_email_success'), 'success');
+          } else {
+              Template::set_message(lang('blog_new_comment_email_error') . $this->emailer->error, 'danger');
+          }
+
+        }
+
+
           $post['fullname'] = $this->current_user->display_name;
           $post['created_by_current_user'] = true;
           $post['profile_picture_url'] = $this->input->post('profile_picture_url');
 
           $this->output->set_output(json_encode($post));
 
-				}
+
+			}
 
 
 					public function deleteComments()

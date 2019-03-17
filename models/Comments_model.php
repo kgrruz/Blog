@@ -73,6 +73,12 @@ class Comments_model extends BF_Model{
 
     }
 
+    public function check_flood($user_id,$flood){
+
+      return $this->db->query("select id from {$this->db->dbprefix}blog_comments where `created` > DATE_FORMAT(NOW() - INTERVAL {$flood}, '%Y-%m-%d %H:%i') and creator = {$user_id}")->num_rows();
+
+    }
+
 
     public function register_files_up($upload_data, $idq, $idu)
     {

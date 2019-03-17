@@ -42,7 +42,10 @@ $lang['blog_day'] = "día (s)";
 $lang['blog_month'] = "mes (es)";
 $lang['blog_news'] = "Noticias";
 $lang['blog_settings_create_success'] = "Configuración guardada con éxito.";
-
+$lang['blog_flood_comment'] = "Tiempo de espera hasta el siguiente comentario:";
+$lang['blog_subject_new_comment'] = "Nuevo comentario en:";
+$lang['blog_subject_new_comment_mod'] = "Comentario espera su aprobación en:";
+$lang['blog_new_comment_email_success'] = "E-mail enviado con éxito.";
 
 // Crear / Editar Botones
 $lang['blog_action_edit'] = 'Editar Post';

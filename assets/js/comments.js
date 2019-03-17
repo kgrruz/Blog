@@ -90,6 +90,7 @@ if (typeof id_refer !== 'undefined' && enable == true) {
     enablePinging: false,
     enableUpvoting: false,
     postCommentOnEnter: true,
+    readOnly:enablecomment,
     enableEditing: true,
     enableDeleting: true,
     enableReplying: true,
@@ -116,7 +117,12 @@ if (typeof id_refer !== 'undefined' && enable == true) {
       url: base_url+'blog/comments/postComments',
       data: commentJSON,
       success: function(comment) {
-          success(JSON.parse(comment))
+        var comment  = JSON.parse(comment);
+        if(comment.status){
+          success(comment);
+        }else{
+          $.notify({ message: comment.message, type:'danger'});
+        }
       },
       error: error
     });
