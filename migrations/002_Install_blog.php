@@ -253,7 +253,7 @@ class Migration_Install_blog extends Migration
             'type'       => 'datetime',
             'default'    => '0000-00-00 00:00:00',
         ),
-        'modified_by ' => array(
+        'modified_by' => array(
 					'type'       => 'INT',
 					'constraint' => 11,
 						'null'       => true
