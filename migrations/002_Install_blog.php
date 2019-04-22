@@ -42,7 +42,7 @@ class Migration_Install_blog extends Migration
         'enable_comments' => array(
             'type'       => 'TINYINT',
             'constraint' => 1,
-            'default'    => 1,
+            'default'    => '0',
         ),
         'enable_attach' => array(
             'type'       => 'TINYINT',

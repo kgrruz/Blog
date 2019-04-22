@@ -49,7 +49,7 @@ $id = isset($post->id_post) ? $post->id_post : '';
             </div>
 
 <div class="form-group">
-  <input type="checkbox" value="1" checked name="enable_comments" <?php echo (isset($post) && $post->enable_comments)? 'checked':''; ?> >   <?php echo lang('blog_enable_comments'); ?>
+  <input type="checkbox" value="1" name="enable_comments" <?php echo (isset($post) && $post->enable_comments)? 'checked':''; ?> >   <?php echo lang('blog_enable_comments'); ?>
 </div>
 <div class="form-group">
   <input type="checkbox" value="1" name="enable_attach" <?php echo (isset($post) && $post->enable_attach)? 'checked':''; ?> >   <?php echo lang('blog_enable_attach'); ?>
