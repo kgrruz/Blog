@@ -168,13 +168,21 @@ class Comments extends Front_Controller{
 
             if(!$this->blog_model->check_enable_attach($this->input->post('qp'))){ exit(json_encode(array('status'=>false,'message'=>'lang:blog_block_attach')));  }
 
+            $flood = $this->settings_lib->item('blog.comment_flood');
+
+            if($this->comments_model->check_flood($this->current_user->id,$flood)){
+
+            exit(json_encode(array('status'=>false,'message'=>lang("blog_flood_comment").$flood)));
+
+            }
+
 							if (!empty($_FILES['file']['name'])) {
 
                       $path = Modules::path('blog','uploads/comments');
 
 											$config['upload_path'] =  $path;
-											$config['allowed_types'] = 'doc|pdf|jpeg|png|gif|jpg|zip|rar';
-											$config['max_size']     = '10240';
+											$config['allowed_types'] = 'jpeg|png|gif|jpg';
+											$config['max_size']     = '2500';
 											$config['max_width'] = '1024';
 											$config['max_height'] = '768';
 											$config['encrypt_name'] = true;
