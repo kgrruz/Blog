@@ -31,10 +31,17 @@ class Comments extends Front_Controller{
 									exit('No direct script access allowed');
 							}
 
-              $this->authenticate();
+              if($this->auth->is_logged_in()){
+
+                $this->authenticate();
+              	$id_user = $this->session->userdata('user_id');
+
+              }else{
+                	$id_user = 0;
+              }
 
 							$qp = $this->uri->segment(4);
-							$id_user = $this->session->userdata('user_id');
+
 
 							$records = $this->comments_model->get_comments($id_user,$qp);
 
@@ -55,6 +62,13 @@ class Comments extends Front_Controller{
 							if (!$this->input->is_ajax_request()) {
 									exit('No direct script access allowed');
 							}
+
+              if(!$this->auth->is_logged_in()){
+
+                $error = array('status'=>false,'message' => 'É preciso fazer login para postar comentários.');
+                $this->output->set_output(json_encode($error));
+
+            }else{
 
               $this->authenticate();
 
@@ -135,7 +149,7 @@ class Comments extends Front_Controller{
           $post['profile_picture_url'] = $this->input->post('profile_picture_url');
 
           $this->output->set_output(json_encode($post));
-
+  }
 
 			}
 
@@ -228,7 +242,11 @@ class Comments extends Front_Controller{
 
             public function attach($file){
 
+              if($this->auth->is_logged_in()){
+
               $this->authenticate();
+
+             }
 
               $this->load->helper('file');
               $path = Modules::path('blog','uploads/comments').'/'.$file;
