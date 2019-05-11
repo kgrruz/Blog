@@ -11,38 +11,46 @@
      <div class="form-group row<?php echo form_error('post_visibility') ? $errorClass : ''; ?>">
          <label class="col-sm-4 col-form-label" for="post_visibility"><?php echo lang("blog_settings_post_visibility"); ?></label>
          <div class="col-sm-8">
-           <label class="form-check-label" for="week_account">
+           <div class="form-check">
                <input type="radio" class="form-check-input" <?php echo ($settings['blog.post_visibility'] == 1)? "checked":""; ?> name="post_visibility"  value="1"  />
-               <?php echo lang("blog_settings_only_logged"); ?>
+                    <label class="form-check-label" for="week_account"><?php echo lang("blog_settings_only_logged"); ?>
            </label>
-           <label class="form-check-label" for="week_account">
+         </div>
+            <div class="form-check">
                <input type="radio" class="form-check-input" <?php echo ($settings['blog.post_visibility'] == 0)? "checked":""; ?> name="post_visibility"  value="0" />
-               <?php echo lang("blog_settings_post_public"); ?>
+                 <label class="form-check-label" for="week_account">   <?php echo lang("blog_settings_post_public"); ?>
            </label>
+         </div>
          </div>
      </div>
      <div class="form-group row<?php echo form_error('new_comment') ? $errorClass : ''; ?>">
          <label class="col-sm-4 col-form-label" for="new_comment"> <?php echo lang("blog_settings_email_enever"); ?></label>
          <div class="col-sm-8">
-           <label class="form-check-label" for="new_comment">
+                 <div class="form-check">
+
                <input type="checkbox" class="form-check-input" name="email_new_comment" <?php echo ($settings['blog.email_new_comment'] == 1)? "checked":""; ?> id="email_new_comment" value="1" />
-                <?php echo lang("blog_settings_new_comments"); ?>
-           </label>
-           <label class="form-check-label" for="new_comment_mod">
-               <input type="checkbox" class="form-check-input" name="email_new_comment_mod"<?php echo ($settings['blog.email_new_comment_mod'] == 1)? "checked":""; ?> id="email_new_comment_mod" value="1"  />
-                <?php echo lang("blog_settings_new_comment_mod"); ?>
+                   <label class="form-check-label" for="new_comment">  <?php echo lang("blog_settings_new_comments"); ?>
            </label>
          </div>
+                 <div class="form-check">
+
+               <input type="checkbox" class="form-check-input" name="email_new_comment_mod"<?php echo ($settings['blog.email_new_comment_mod'] == 1)? "checked":""; ?> id="email_new_comment_mod" value="1"  />
+                 <label class="form-check-label" for="new_comment_mod">  <?php echo lang("blog_settings_new_comment_mod"); ?>
+           </label>
+         </div>
+     </div>
      </div>
 
      <div class="form-group row<?php echo form_error('must_aprove_comment') ? $errorClass : ''; ?>">
          <label class="col-sm-4 col-form-label" for="must_aprove_comment"><?php echo lang("blog_settings_before_comments_appear"); ?></label>
          <div class="col-sm-8">
-           <label class="form-check-label" for="week_account">
+              <div class="form-check">
+
                <input type="checkbox" class="form-check-input" name="must_aprove_comment" id="must_aprove_comment" <?php echo ($settings['blog.must_aprove_comment'] == 1)? "checked":""; ?> value="1" />
-                <?php echo lang("blog_settings_comment_must_be_approved"); ?>
+                 <label class="form-check-label" for="week_account">  <?php echo lang("blog_settings_comment_must_be_approved"); ?>
            </label>
          </div>
+     </div>
      </div>
      <?php $bloc_post = explode(" ",$settings['blog.block_post_after']); ?>
      <div class="form-group row<?php echo form_error('block_post_after') ? $errorClass : ''; ?>">
