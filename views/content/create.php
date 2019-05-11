@@ -53,9 +53,7 @@ $id = isset($post->id_post) ? $post->id_post : '';
 </div>
 <div class="form-group">
   <input type="checkbox" value="1" name="enable_attach" <?php echo (isset($post) && $post->enable_attach)? 'checked':''; ?> >   <?php echo lang('blog_enable_attach'); ?>
-  <?php if(!is_really_writable(Modules::path('blog','assets/images/posts_body/'))){ ?>
-    <div class="text-danger"><?php echo lang("blog_permission_folder"); ?> <?php echo Modules::path('blog','assets/images/posts_body/'); ?></div>
-  <?php } ?>
+
 </div>
 
             <div class="form-group<?php echo form_error('body_post') ? ' error' : ''; ?>">
@@ -105,9 +103,7 @@ $id = isset($post->id_post) ? $post->id_post : '';
                 <?php if(!empty($id)){ ?>
                   <div class="text-danger"><?php echo lang("blog_image_preview_edit_overwrite"); ?></div>
                 <?php } ?>
-                <?php if(!is_really_writable(Modules::path('blog','assets/images/posts_preview/'))){ ?>
-                  <div class="text-danger"><?php echo lang("blog_permission_folder"); ?> <?php echo Modules::path('blog','assets/images/posts_preview/'); ?></div>
-                <?php } ?>
+        
             </div>
           </div>
         </div>

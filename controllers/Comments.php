@@ -49,7 +49,7 @@ class Comments extends Front_Controller{
 							foreach ($records as $result) {
 									$result->created_by_current_user = (bool) $result->created_by_current_user;
 									$result->parent = ($result->parent == 0)? null:$result->parent;
-									$result->profile_picture_url = base_url().'images/'.$result->profile_picture_url.'?width=50&module=users&assets=assets/images/users/thumbs';
+									$result->profile_picture_url = base_url().'uploads/users/thumbs/'.$result->profile_picture_url;
 							}
 
 
@@ -122,6 +122,10 @@ class Comments extends Front_Controller{
           $subject = ($this->settings_lib->item('blog.must_aprove_comment'))? lang("blog_subject_new_comment_mod"):lang("blog_subject_new_comment");
 
           $blog_post = $this->blog_model->find($post_id);
+
+          $id_act = log_activity($post['creator'], '[blog_subject_new_comment] : ' . '<a href="blog/post/'.$blog_post->slug_post.'">'.$blog_post->title_post.'</a>', 'blog');
+          log_notify($this->auth->users_has_permission($this->permissionDelete), $id_act);
+
           $data_body['blog_post'] = $blog_post;
           $data_body['comment'] = $post;
 

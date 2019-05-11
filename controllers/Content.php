@@ -574,7 +574,7 @@ class Content extends Admin_Controller{
 
 
 
-        $upload_path = Modules::path('blog','assets/images/posts_preview');
+        $upload_path = './uploads/blog/posts_preview/';
 
         if(!is_dir($upload_path)){ mkdir($upload_path,0777);  }
 
@@ -598,6 +598,18 @@ class Content extends Admin_Controller{
         if ($this->upload->do_upload('preview_image')) {
 
           $upload_data = $this->upload->data();
+
+          $data_up = array(
+            'file_name'=> $upload_data['orig_name'],
+            'file_hash_name'=> $upload_data['file_name'],
+            'file_size'=> $upload_data['file_size'],
+            'subfolder'=> 'blog/posts_preview',
+            'created_on'=> date('Y-m-d H:i:s'),
+            'created_by'=>  $this->current_user->id
+          );
+
+          $this->db->insert("uploads",$data_up);
+
           $file_name = $upload_data['file_name'];
           $_POST['preview_image'] = $file_name;
 
@@ -667,7 +679,7 @@ class Content extends Admin_Controller{
 
     		 }
 
-    		 $path = Modules::path('blog','assets/images/posts_body');
+    		 $path = './uploads/blog/posts_body/';
 
     		 $config['upload_path'] = $path; //YOUR PATH
     		 $config['allowed_types'] = 'gif|jpg|jpeg|png';
@@ -696,6 +708,17 @@ class Content extends Admin_Controller{
     				 {
     						 $data = $this->upload->data();
 
+                 $data_up = array(
+                   'file_name'=> $data['orig_name'],
+                   'file_hash_name'=> $data['file_name'],
+                   'file_size'=> $data['file_size'],
+                   'subfolder'=> 'blog/posts_body',
+                   'created_on'=> date('Y-m-d H:i:s'),
+                   'created_by'=>  $this->current_user->id
+                 );
+
+                 $this->db->insert("uploads",$data_up);
+
     						 // JPG compression
     						 if($this->upload->data('file_ext') === '.jpg') {
     								 $filename = $this->upload->data('full_path');
@@ -704,7 +727,7 @@ class Content extends Admin_Controller{
     						 }
 
     						 $filename = $data['file_name'];
-    						 $url = base_url().'images/'.$filename.'?module=blog&assets=assets/images/posts_body';
+    						 $url = base_url().'uploads/blog/posts_body/'.$filename;
 
     						 $jsondata = array('uploaded'=> 1, 'fileName'=> $filename, 'url'=> $url);
     						 echo json_encode($jsondata);
@@ -734,7 +757,7 @@ class Content extends Admin_Controller{
 
     						 $filename = $data['file_name'];
 
-    						 $url = base_url().'images/'.$filename.'?module=blog&assets=assets/images/posts_body';
+    						 $url = base_url().'uploads/blog/posts_body/'.$filename;
     						 echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction('".$CKEditorFuncNum."', '".$url."', 'Send OK')</script>";
     				 }
     		 }
