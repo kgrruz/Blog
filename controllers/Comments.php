@@ -196,7 +196,7 @@ class Comments extends Front_Controller{
 
 							if (!empty($_FILES['file']['name'])) {
 
-                      $path = Modules::path('blog','uploads/comments');
+                      $path = './uploads/blog/comments/';
 
 											$config['upload_path'] =  $path;
 											$config['allowed_types'] = 'jpeg|png|gif|jpg';
@@ -221,7 +221,7 @@ class Comments extends Front_Controller{
 												$post = array(
 												'created'=>date('Y-m-d H:i:s'),
 												'modified'=>date('Y-m-d H:i:s'),
-												'file_url'=> base_url().'blog/comments/attach/'.$upload_data['file_name'],
+												'file_url'=> base_url().'uploads/blog/comments/'.$upload_data['file_name'],
 												'file_mime_type'=>$upload_data['file_type'],
 												'file_size'=>$upload_data['file_size'],
 												'post_id'=>$this->input->post('qp'),
@@ -253,7 +253,7 @@ class Comments extends Front_Controller{
              }
 
               $this->load->helper('file');
-              $path = Modules::path('blog','uploads/comments').'/'.$file;
+              $path = './uploads/blog/comments/'.$file;
 
               header('Content-Type: '.get_mime_by_extension($file));
               header('Content-length: '.filesize($path));

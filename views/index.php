@@ -12,7 +12,7 @@
 
          <div class="card mb-4">
           <?php if($post->preview_image){ ?>
-					<a href="<?php echo base_url().'blog/post/'.$post->slug_post; ?>"> <img class="card-img-top img-fluid" src="<?php echo base_url(); ?>images/<?php echo $post->preview_image; ?>?module=blog&assets=assets/images/posts_preview" alt="image_preview"></a>
+					<a href="<?php echo base_url().'blog/post/'.$post->slug_post; ?>"> <img class="card-img-top img-fluid" src="<?php echo base_url(); ?>/uploads/blog/posts_preview/<?php echo $post->preview_image; ?>" alt="image_preview"></a>
 				 <?php } ?>
 				  <div class="card-body">
              <h2 class="card-title mb-0"><?php echo anchor('blog/post/'.$post->slug_post, $post->title_post); ?></h2>
