@@ -221,7 +221,7 @@ class Comments extends Front_Controller{
 												$post = array(
 												'created'=>date('Y-m-d H:i:s'),
 												'modified'=>date('Y-m-d H:i:s'),
-												'file_url'=> base_url().'uploads/blog/comments/'.$upload_data['file_name'],
+												'file_url'=> 'uploads/blog/comments/'.$upload_data['file_name'],
 												'file_mime_type'=>$upload_data['file_type'],
 												'file_size'=>$upload_data['file_size'],
 												'post_id'=>$this->input->post('qp'),

@@ -727,7 +727,7 @@ class Content extends Admin_Controller{
     						 }
 
     						 $filename = $data['file_name'];
-    						 $url = base_url().'uploads/blog/posts_body/'.$filename;
+    						 $url = 'uploads/blog/posts_body/'.$filename;
 
     						 $jsondata = array('uploaded'=> 1, 'fileName'=> $filename, 'url'=> $url);
     						 echo json_encode($jsondata);
@@ -757,7 +757,7 @@ class Content extends Admin_Controller{
 
     						 $filename = $data['file_name'];
 
-    						 $url = base_url().'uploads/blog/posts_body/'.$filename;
+    						 $url = 'uploads/blog/posts_body/'.$filename;
     						 echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction('".$CKEditorFuncNum."', '".$url."', 'Send OK')</script>";
     				 }
     		 }
