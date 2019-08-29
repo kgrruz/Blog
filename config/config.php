@@ -6,6 +6,7 @@ $config['module_config'] = array(
 	'name'		    => 'Blog',
 	'home' 				=> 'blog',
 	'label'       => array('english'=>'Blog','portuguese_br'=>'Blog','spanish_am'=>'Blog','russian'=>'блог'),
+	'label_public'       => array('english'=>'Blog','portuguese_br'=>'Novidades','spanish_am'=>'Blog','russian'=>'блог'),
 	'route'       => 'blog',
 	'visible_module' => true,
 	'context_customer' => false,
