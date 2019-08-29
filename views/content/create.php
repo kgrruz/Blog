@@ -68,7 +68,7 @@ $id = isset($post->id_post) ? $post->id_post : '';
 
                       <input type='submit' name='save' class='btn btn-primary' value="<?php echo lang('blog_action_create'); ?>" />
                       <?php echo lang('bf_or'); ?>
-                      <?php echo anchor('blog', lang('blog_cancel'), 'class="btn btn-warning"'); ?>
+                      <?php echo anchor('admin/content/blog', lang('blog_cancel'), 'class="btn btn-warning"'); ?>
 
                     </div>
                     </div>
@@ -103,7 +103,7 @@ $id = isset($post->id_post) ? $post->id_post : '';
                 <?php if(!empty($id)){ ?>
                   <div class="text-danger"><?php echo lang("blog_image_preview_edit_overwrite"); ?></div>
                 <?php } ?>
-        
+
             </div>
           </div>
         </div>

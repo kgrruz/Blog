@@ -17,7 +17,7 @@
           <!-- Author -->
           <p class="lead">
            <?php echo ut_date($post->created_on,'F j, Y H:i'); ?>
-      <?php echo user_avatar($post->photo_avatar,$post->email,20,'rounded thumb_nav',true,'thumbs'); ?>  <?php echo anchor($post->username,$post->display_name); ?>
+      <?php echo user_avatar($post->photo_avatar,$post->email,20,' thumb_nav',true,'thumbs'); ?>  <?php echo anchor($post->username,$post->display_name); ?>
 
       <?php foreach($categs_post as $categ){ ?>
       <span class="badge badge-info"><?php echo $categ->name_category; ?></span>
@@ -59,9 +59,9 @@
             <div class="card-body">
               <?php echo form_open('blog/index'); ?>
               <div class="input-group">
-                <input type="text" class="form-control rounded-0" maxlength="20" name="search" placeholder="<?php echo lang('blog_search_placeholder'); ?>">
+                <input type="text" class="form-control -0" maxlength="20" name="search" placeholder="<?php echo lang('blog_search_placeholder'); ?>">
                 <span class="input-group-btn">
-                  <button class="btn btn-success rounded-0" type="submit"><?php echo lang('blog_search'); ?></button>
+                  <button class="btn btn-success -0" type="submit"><?php echo lang('blog_search'); ?></button>
                 </span>
               </div>
               <?php echo form_close(); ?>

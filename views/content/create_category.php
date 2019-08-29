@@ -67,7 +67,7 @@ endif;
 
       <input type='submit' name='save' class='btn btn-sm btn-primary' value="<?php echo (empty($id))? lang('category_action_create'):lang('category_action_edit'); ?>" />
       <?php echo lang('bf_or'); ?>
-      <?php echo anchor('item/category', lang('category_cancel'), 'class="btn btn-sm btn-warning"'); ?>
+      <?php echo anchor('blog/content/categs', lang('category_cancel'), 'class="btn btn-sm btn-warning"'); ?>
 </div>
 
 <?php echo form_close(); ?>

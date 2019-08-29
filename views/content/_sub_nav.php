@@ -4,7 +4,7 @@ $checkSegment = $this->uri->segment(4);
 $areaUrl = SITE_AREA . '/blog/content';
 
 ?>
-<ul class='nav nav-tabs flex-column card-header-tabs flex-sm-row '>
+<ul class='nav nav-pills flex-column  flex-sm-row '>
 	<li class="nav-item dropdown">
 	 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><?php echo lang('blog_area_title'); ?></a>
 	 <div class="dropdown-menu">

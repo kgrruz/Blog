@@ -24,7 +24,7 @@
         <?php } ?></td>
       <td class="text-center"><?php echo ($post->enable_comments)?'<i class="fa fa-check"></i>':'<i class="fas fa-times"></i>';  ?></td>
       <td class="text-center"><?php echo ($post->enable_attach)?'<i class="fa fa-check"></i>':'<i class="fas fa-times"></i>'; ?></td>
-      <td><?php echo user_avatar($post->photo_avatar,$post->email,30,'rounded mr-2',true,'thumbs'); ?> <?php echo anchor($post->username,$post->display_name); ?></td>
+      <td><?php echo user_avatar($post->photo_avatar,$post->email,30,' mr-2',true,'thumbs'); ?> <?php echo anchor($post->username,$post->display_name); ?></td>
       <td><?php echo ut_date($post->created_on,$current_user->d_format.' '.$current_user->t_format); ?></td>
       <td>
         <div class="btn-group btn-group-sm" role="group" >
