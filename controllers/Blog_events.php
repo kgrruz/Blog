@@ -28,4 +28,63 @@ class Blog_events{
     return $this->CI->load->view('blog/widgets/news',$data,true);
 
   }
+
+
+  public function _get_user_notif(&$payload){
+
+      $this->CI->lang->load('blog/blog');
+
+      $notifications = $this->CI->notification_model->get_user_notifications('blog');
+
+      foreach($notifications->result() as $not){
+
+        array_push($payload['data'],
+        array(
+        'photo_avatar'=>$not->photo_avatar,
+        'activity'=>$not->activity,
+        'display_name'=>$not->display_name,
+        'email'=>$not->email,
+        'created_on'=>$not->created_on,
+        'username'=>$not->username
+      ));
+
+      }
+    }
+
+    public function emails_prefs(&$data){
+
+     $this->CI->db->select('*');
+     $this->CI->db->from('email_preferences');
+     $this->CI->db->where('module','blog');
+     $result = $this->CI->db->get();
+
+     foreach($result->result() as $p){
+
+       array_push($data['prefs'],array("id_pref"=>$p->preference_id,"name"=>lang($p->preference_name),"desc"=>lang($p->preference_desc)));
+
+     }
+
+   }
+
+   public function default_email_prefs($data){
+
+   $this->CI->db->select('preference_id');
+   $this->CI->db->from('email_preferences');
+   $this->CI->db->where('module','blog');
+   $prefs_mod = $this->CI->db->get();
+
+   if($prefs_mod->num_rows()){
+
+   foreach($prefs_mod->result() as $pref){
+
+     $data = array(
+           'id_email_pref'=>$pref->preference_id,
+           'id_user_pref'=>$data['user_id']
+         );
+
+    $this->CI->db->insert('email_pref_users',$data);
+
+   }
+  }
+ }
 }

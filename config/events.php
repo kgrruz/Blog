@@ -32,23 +32,23 @@ $config['insert_post_blog'][] = array(
     $config['show_email_prefs'][] = array(
             'module'     => 'blog',
             'filepath'   => 'controllers',
-            'filename'   => 'Blog.php',
-            'class'  => 'Blog',
+            'filename'   => 'Blog_events.php',
+            'class'  => 'Blog_events',
             'method'     => 'emails_prefs'
         );
 
         $config['after_end_create_user'][] = array(
                 'module'     => 'blog',
                 'filepath'   => 'controllers',
-                'filename'   => 'Blog.php',
-                'class'  => 'Blog',
+                'filename'   => 'Blog_events.php',
+                'class'  => 'Blog_events',
                 'method'     => 'default_email_prefs'
             );
 
     $config['get_notifications_user'][] = array(
             'module'     => 'blog',
             'filepath'   => 'controllers',
-            'filename'   => 'Blog.php',
-            'class'  => 'Blog',
+            'filename'   => 'Blog_events.php',
+            'class'  => 'Blog_events',
             'method'     => '_get_user_notif'
         );
