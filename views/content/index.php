@@ -28,7 +28,7 @@
       <td><?php echo ut_date($post->created_on,$current_user->d_format.' '.$current_user->t_format); ?></td>
       <td>
         <div class="btn-group btn-group-sm" role="group" >
-          <?php echo anchor('blog/content/edit/'.$post->id_post,'<i class="fa fa-edit"></i>','class="btn btn-light"'); ?>
+          <?php echo anchor('blog/content/edit/'.$post->id_post,'<i class="fa fa-edit"></i>','class="btn btn-secondary"'); ?>
           <?php echo anchor('blog/content/delete/'.$post->id_post,'<i class="fa fa-trash"></i>','data-message="'.lang("blog_delete_confirm").'" class="btn btn-light exc_bot"'); ?>
         </div>
       </td>
