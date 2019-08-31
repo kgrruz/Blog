@@ -150,7 +150,7 @@ class Content extends Admin_Controller{
 
                 log_activity($this->auth->user_id(), lang('blog_act_edit_record') . ': ' . $id . ' : ' . $this->input->ip_address(), 'blog');
                 Template::set_message(lang('blog_edit_success'), 'success');
-                redirect('blog/content/');
+                Template::redirect('blog/content');
             }
 
             // Not validation error
