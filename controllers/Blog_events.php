@@ -8,12 +8,12 @@ class Blog_events{
  function __construct(){
 
     $this->CI =& get_instance();
-
+    $this->CI->lang->load("blog/blog");
   }
 
   function _show_widget_news(){
 
-    $this->CI->lang->load("blog/blog");
+
     $this->CI->load->model("blog/blog_model");
 
     $where = array('blog_posts.deleted'=>0);
