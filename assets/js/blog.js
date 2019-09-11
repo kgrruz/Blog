@@ -9,10 +9,10 @@ if($('#post_editor').length){
    filebrowserUploadUrl: base_url+'admin/content/blog/upload_ck',
    //startupFocus : true,
   // startupFocus : 'end',
-   youtube_responsive: false,
+   youtube_responsive: true,
    youtube_related: false,
-   youtube_controls: false,
-   youtube_disabled_fields : ['txtEmbed', 'chkAutoplay','chkResponsive','chkRelated','chkControls'],
+   youtube_controls: true,
+   youtube_disabled_fields : ['txtEmbed', 'chkAutoplay','chkRelated'],
    allowedContent : true,
 
    toolbar:[
