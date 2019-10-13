@@ -572,15 +572,13 @@ class Content extends Admin_Controller{
             return false;
         }
 
-
+        $data = $this->blog_model->prep_data($this->input->post());
 
         $upload_path = './uploads/blog/posts_preview/';
 
         if(!is_dir($upload_path)){ mkdir($upload_path,0777);  }
 
-        $_POST['preview_image'] = '';
-
-        if($_FILES['preview_image']['error'] == 0) {
+        if($_FILES['prev_image']['error'] == 0) {
 
         $config = array(
           'upload_path' => $upload_path,
@@ -595,7 +593,7 @@ class Content extends Admin_Controller{
 
         $this->load->library('upload', $config);
 
-        if ($this->upload->do_upload('preview_image')) {
+        if ($this->upload->do_upload('prev_image')) {
 
           $upload_data = $this->upload->data();
 
@@ -611,7 +609,7 @@ class Content extends Admin_Controller{
           $this->db->insert("uploads",$data_up);
 
           $file_name = $upload_data['file_name'];
-          $_POST['preview_image'] = $file_name;
+          $data['preview_image'] = $file_name;
 
         }else{
 
@@ -622,8 +620,6 @@ class Content extends Admin_Controller{
           }
         }
         // Make sure we only pass in the fields we want
-
-        $data = $this->blog_model->prep_data($this->input->post());
         $data['created_by'] = $this->current_user->id;
         // Additional handling for default values should be added below,
         // or in the model's prep_data() method

@@ -99,7 +99,8 @@ $id = isset($post->id_post) ? $post->id_post : '';
             <div class="card-body">
 
               <label for="exampleFormControlFile1" style="display:none" class="btn btn-primary btn-sm" ><i class="fa fa-image"></i> <?php echo lang('blog_field_upload_picture'); ?></label>
-              <input type="file" class="form-control-file" xid="exampleFormControlFile1" name="preview_image">
+              <input type="file" class="form-control-file" xid="exampleFormControlFile1" name="prev_image">
+              <input type="hidden" name="preview_image" value="<?php echo (isset($post))? $post->preview_image:''; ?>" />
                 <?php if(!empty($id)){ ?>
                   <div class="text-danger"><?php echo lang("blog_image_preview_edit_overwrite"); ?></div>
                 <?php } ?>
