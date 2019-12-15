@@ -5,6 +5,7 @@ $config['module_config'] = array(
 	'category'    => 'Media',
 	'name'		    => 'Blog',
 	'home' 				=> 'blog',
+	'fa_icon' 				=> 'fas fa-newspaper',
 	'label'       => array('english'=>'Blog','portuguese_br'=>'Blog','spanish_am'=>'Blog','russian'=>'блог'),
 	'label_public'       => array('english'=>'Blog','portuguese_br'=>'Novidades','spanish_am'=>'Blog','russian'=>'блог'),
 	'route'       => 'blog',

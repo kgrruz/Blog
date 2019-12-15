@@ -191,12 +191,12 @@ class Blog extends Front_Controller{
         Template::set('categs_post',$this->category_model->get_blog_categories($post->id_post)->result());
         Template::set('toolbar_title', $post->title_post);
 
-        Template::render();
+        Template::render('blog_template');
 
       }else{
 
         Template::set_message(lang('blog_invalid_id'), 'danger');
-        redirect('blog');
+        Template::redirect('blog');
       }
 
     }
