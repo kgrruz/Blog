@@ -608,6 +608,10 @@ class Content extends Admin_Controller{
 
           $this->db->insert("uploads",$data_up);
 
+          $this->load->library('users/image_op');
+
+          $this->image_op->padronize($upload_path,$upload_data,700,300,100);
+
           $file_name = $upload_data['file_name'];
           $data['preview_image'] = $file_name;
 
