@@ -390,6 +390,9 @@ class Migration_Install_blog extends Migration
 
 	$this->db->insert("widgets",$data_widget);
 
+	copy_folder(Modules::path('blog','uploads'), $_SERVER['DOCUMENT_ROOT'].'/'.config_item('root_folder')."uploads/blog",0777);
+
+
 	}
 
 	/**

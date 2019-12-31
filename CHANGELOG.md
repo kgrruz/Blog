@@ -1,4 +1,24 @@
-### Add new tables, rows to remove after module uninstall. (HEAD -> master, origin/master, origin/HEAD)
+### Add public upload folders creation on install. (HEAD -> master, origin/master, origin/HEAD)
+>Mon, 30 Dec 2019 23:13:31 -0300
+
+>Author: kleber (ruzkleber@gmail.com)
+
+>Commiter: kleber (ruzkleber@gmail.com)
+
+
+
+
+### Add new tables, rows to remove after module uninstall.
+>Mon, 30 Dec 2019 22:58:56 -0300
+
+>Author: kleber (ruzkleber@gmail.com)
+
+>Commiter: kleber (ruzkleber@gmail.com)
+
+
+
+
+### Add new tables, rows to remove after module uninstall.
 >Mon, 30 Dec 2019 22:58:56 -0300
 
 >Author: kleber (ruzkleber@gmail.com)
