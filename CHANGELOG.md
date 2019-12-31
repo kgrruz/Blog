@@ -1,4 +1,14 @@
-### Generate multiple sizes of image preview. (HEAD -> master, origin/master, origin/HEAD)
+### Add new tables, rows to remove after module uninstall. (HEAD -> master, origin/master, origin/HEAD)
+>Mon, 30 Dec 2019 22:58:56 -0300
+
+>Author: kleber (ruzkleber@gmail.com)
+
+>Commiter: kleber (ruzkleber@gmail.com)
+
+
+
+
+### Generate multiple sizes of image preview.
 >Thu, 19 Dec 2019 15:45:29 -0300
 
 >Author: kleber (ruzkleber@gmail.com)

@@ -400,5 +400,23 @@ class Migration_Install_blog extends Migration
 	public function down()
 	{
 		$this->dbforge->drop_table($this->table_name);
+		$this->dbforge->drop_table($this->table_categ);
+		$this->dbforge->drop_table($this->table_blog_categ);
+		$this->dbforge->drop_table($this->table_comments);
+
+
+				$this->db->where('module','blog');
+				$this->db->delete("widgets");
+
+				$this->db->where('module','blog');
+				$this->db->delete("settings");
+
+				$this->db->where('preference_name','blog_new_post');
+				$this->db->delete("email_preferences");
+
+				$this->load->helper('file');
+
+				rrmdir($_SERVER['DOCUMENT_ROOT'].'/'.config_item('root_folder')."uploads/blog");
+
 	}
 }
