@@ -2,7 +2,7 @@
 
 
     <!-- Page Content -->
-    <div class="container-fluid">
+
 
       <div class="row">
 
@@ -10,9 +10,7 @@
         <div class="col-lg-8 pt-0">
 
           <div class="card pt-0">
-          <div class="card-body pt-0 pb-0">
-
-          <h1 class="mt-4"><?php echo ucfirst($post->title_post); ?></h1>
+          <div class="card-body pb-0">
 
           <!-- Author -->
           <p class="lead">
@@ -88,7 +86,7 @@
             </div>
           </div>
 
-      </div>
+
       <!-- /.row -->
 
     </div>
