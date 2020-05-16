@@ -79,7 +79,7 @@ class Content extends Admin_Controller{
 
         $this->authenticate($this->permissionCreate);
 
-        Assets::add_js('js/editors/ckeditor/ckeditor.js');
+        Assets::add_js('js/editors/tinymce/tinymce.min.js');
 
         if (isset($_POST['save'])) {
 
@@ -136,7 +136,7 @@ class Content extends Admin_Controller{
 
         $this->authenticate($this->permissionEdit);
 
-        Assets::add_js('js/editors/ckeditor/ckeditor.js');
+      	Assets::add_js('js/editors/tinymce/tinymce.min.js');
 
         $post = $this->blog_model->find($id);
 
@@ -188,6 +188,8 @@ class Content extends Admin_Controller{
         $this->authenticate($this->permissionDelete);
 
           if ($this->blog_model->delete($id)) {
+
+              $this->db->cache_delete('','','widgets');
 
               log_activity($this->auth->user_id(), '[blog_act_delete_record] : ' . $id . ' : ' . $this->input->ip_address(), 'blog');
               Template::set_message(lang('blog_delete_success'), 'success');
@@ -652,6 +654,8 @@ class Content extends Admin_Controller{
             $return = $this->blog_model->update($id, $data);
         }
 
+        $this->db->cache_delete('','','widgets');
+
         return $return;
     }
 
@@ -673,7 +677,7 @@ class Content extends Admin_Controller{
 
     		 if($cookie_csrf != $csrf){
 
-    			 $jsondata = array('uploaded'=> 0, 'fileName'=> 'null', 'url'=> 'null');
+    			 $jsondata = array('uploaded'=> 0, 'fileName'=> 'null', 'location'=> 'null');
     			 echo json_encode($jsondata);
     			 return false;
 
@@ -688,24 +692,23 @@ class Content extends Admin_Controller{
 
     		 //Form Upload, Drag & Drop
     		 $CKEditorFuncNum = $this->input->get('CKEditorFuncNum');
-    		 if(empty($CKEditorFuncNum))
-    		 {
+    		 if(empty($CKEditorFuncNum)){
     				 ////////////////////////////////////////////////////////////////////////////////////////////////////////
     				 // Drag & Drop
     				 ////////////////////////////////////////////////////////////////////////////////////////////////////////
     				 header('Content-Type: application/json');
 
     				 $this->load->library('upload', $config);
-    				 if ( !$this->upload->do_upload("upload"))
-    				 {
+
+    				 if ( !$this->upload->do_upload("file")){
 
     				  $error = array('error' => $this->upload->display_errors());
 
-    						 $jsondata = array('uploaded'=> 0, 'fileName'=> 'null', 'url'=> 'null', 'error'=>array('message'=>$error['error']));
+    						 $jsondata = array('uploaded'=> 0, 'fileName'=> 'null', 'location'=> 'null', 'error'=>array('message'=>$error['error']));
     						 echo json_encode($jsondata);
-    				 }
-    				 else
-    				 {
+
+    				 }else{
+
     						 $data = $this->upload->data();
 
                  $data_up = array(
@@ -729,22 +732,20 @@ class Content extends Admin_Controller{
     						 $filename = $data['file_name'];
     						 $url = 'uploads/blog/posts_body/'.$filename;
 
-    						 $jsondata = array('uploaded'=> 1, 'fileName'=> $filename, 'url'=> $url);
+    						 $jsondata = array('uploaded'=> 1, 'fileName'=> $filename, 'location'=> $url);
     						 echo json_encode($jsondata);
     				 }
-    		 }
-    		 else
-    		 {
+    		 } else{
     				 ////////////////////////////////////////////////////////////////////////////////////////////////////////
     				 // Form Upload
     				 ////////////////////////////////////////////////////////////////////////////////////////////////////////
     				 $this->load->library('upload', $config);
-    				 if ( !$this->upload->do_upload("upload"))
-    				 {
+
+    				 if ( !$this->upload->do_upload("file")){
     						 echo "<script>alert('Send Fail".$this->upload->display_errors('','')."')</script>";
-    				 }
-    				 else
-    				 {
+
+    				 }else{
+
     						 $CKEditorFuncNum = $this->input->get('CKEditorFuncNum');
     						 $data = $this->upload->data();
 
