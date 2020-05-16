@@ -29,6 +29,9 @@ class Blog extends Front_Controller{
           Assets::add_module_js('blog', 'jquery-comments.min.js');
           Assets::add_module_js('blog', 'comments.js');
 
+          Assets::add_js('bootstrap-notify.min.js');
+          Assets::add_css('bootstrap-notifications.min.css');
+
           $this->load->library('blog/Nested_set');
           $this->nested_set->setControlParams('blog_categories','lft','rgt','id_category','parent_category','name_category');
 
