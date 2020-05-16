@@ -27,7 +27,7 @@ $id = isset($post->id_post) ? $post->id_post : '';
             <div class="form-group<?php echo form_error('title_post') ? ' error' : ''; ?>">
                 <?php echo form_label(lang('blog_field_name') . lang('bf_form_label_required'), 'title_post', array('class' => 'control-label')); ?>
 
-                    <input id='title_post' type='text' class="form-control" required='required' name='title_post' maxlength='255' value="<?php echo set_value('title_post', isset($post->title_post) ? $post->title_post : ''); ?>" />
+                    <input id='title_post' type='text' class="form-control form-control-sm" required='required' name='title_post' maxlength='255' value="<?php echo set_value('title_post', isset($post->title_post) ? $post->title_post : ''); ?>" />
                     <span class='help-inline'><?php echo form_error('title_post'); ?></span>
 
             </div>
@@ -66,9 +66,9 @@ $id = isset($post->id_post) ? $post->id_post : '';
             </div>
 
 
-                      <input type='submit' name='save' class='btn btn-primary' value="<?php echo lang('blog_action_create'); ?>" />
+                      <input type='submit' name='save' class='btn btn-sm btn-primary' value="<?php echo lang('blog_action_create'); ?>" />
                       <?php echo lang('bf_or'); ?>
-                      <?php echo anchor('admin/content/blog', lang('blog_cancel'), 'class="btn btn-warning"'); ?>
+                      <?php echo anchor('admin/content/blog', lang('blog_cancel'), 'class="btn btn-sm btn-warning"'); ?>
 
                     </div>
                     </div>
@@ -86,7 +86,8 @@ $id = isset($post->id_post) ? $post->id_post : '';
             <div class="card-body">
 
               <?php foreach ($roles as $role) : ?>
-      <input type="checkbox" name="roles_access[]" <?php echo (!empty($id) and in_array($role->role_id,explode(",",$post->roles_access)) or $current_user->role_id == $role->role_id)? 'checked':''; ?> value="<?php echo $role->role_id; ?>" ><?php echo $role->role_name; ?>
+      <input type="checkbox" name="roles_access[]" <?php echo (!empty($id) and in_array($role->role_id,explode(",",$post->roles_access)) or $current_user->role_id == $role->role_id)? 'checked':''; ?> value="<?php echo $role->role_id; ?>" >
+      <?php echo role_user_by_id($role->role_id); ?>
           <?php endforeach; ?>
 
             </div>

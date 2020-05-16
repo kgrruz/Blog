@@ -15,7 +15,7 @@
           <!-- Author -->
           <p class="lead">
            <?php echo ut_date($post->created_on,'F j, Y H:i'); ?>
-      <?php echo user_avatar($post->photo_avatar,$post->email,20,' thumb_nav',true,'thumbs'); ?>  <?php echo anchor($post->username,$post->display_name); ?>
+      <?php echo user_avatar($post->photo_avatar,$post->email,20,'thumb_nav rounded',true,'thumbs'); ?>  <?php echo anchor($post->username,$post->display_name); ?>
 
       <?php foreach($categs_post as $categ){ ?>
       <span class="badge badge-info"><?php echo $categ->name_category; ?></span>

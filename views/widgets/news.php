@@ -10,7 +10,7 @@
 <?php foreach($posts as $post){ ?>
   <li class="list-group-item">
      <div class="media">
-       <img class="mr-3 img-fluid" src="<?php echo base_url(); ?>uploads/blog/posts_preview/thumbs/<?php echo ($img = $post->preview_image)?$img:'no_image.png'; ?>" alt="image_preview">
+       <img class="mr-3 img-fluid rounded" src="<?php echo base_url(); ?>uploads/blog/posts_preview/thumbs/<?php echo ($img = $post->preview_image)?$img:'no_image.png'; ?>" alt="image_preview">
       <div class="media-body">
         <h5 class="mt-0"><?php echo anchor('blog/post/'.$post->slug_post, ellipsize($post->title_post,35)); ?></h5>
         <?php echo ut_date($post->created_on,'F j, Y H:i'); ?>

@@ -14,7 +14,7 @@
   <tbody>
     <?php foreach($comments as $comment){ ?>
     <tr class="bg-light">
-      <td class="pl-3"><?php echo user_avatar($comment->photo_avatar,$comment->email,30,' mr-2',true,'thumbs'); ?>  <?php echo anchor($comment->username,$comment->display_name); ?></td>
+      <td class="pl-3"><?php echo user_avatar($comment->photo_avatar,$comment->email,30,'rounded mr-2',true,'thumbs'); ?>  <?php echo anchor($comment->username,$comment->display_name); ?></td>
       <td><?php echo anchor("blog/post/".$comment->slug_post,ellipsize($comment->title_post,80)); ?></td>
       <td><?php echo ut_date($comment->created,$current_user->d_format.' '.$current_user->t_format); ?></td>
        <td rowspan="2">
