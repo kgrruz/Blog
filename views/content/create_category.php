@@ -1,11 +1,10 @@
+<div class="row">
+  <div class="col-md-5">
 
 <div class="card">
         <?php echo form_open_multipart($this->uri->uri_string(), 'class="form-horizontal"'); ?>
 <div class="card-header"><?php echo $toolbar_title; ?></div>
 <div class="card-body">
-
-      <?php echo lang('category_desc_form_create'); ?>
-
 
 
     <?php
@@ -24,8 +23,7 @@ endif;
 
 
 ?>
-<div class="row">
-  <div class="col-md-5">
+
 
     <div class="form-group<?php echo form_error('name_category') ? ' error' : ''; ?>">
         <?php echo form_label(lang('category_field_name_category') . lang('bf_form_label_required'), 'name_category', array('class' => 'control-label')); ?>
@@ -60,8 +58,7 @@ endif;
     </div>
 
   </div>
-  </div>
-  </div>
+
 
 <div class="card-footer">
 
@@ -72,4 +69,6 @@ endif;
 
 <?php echo form_close(); ?>
 
+</div>
+</div>
 </div>

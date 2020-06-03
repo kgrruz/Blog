@@ -1,11 +1,4 @@
-<div class="container-fluid">
 
-	<nav aria-label="breadcrumb" class="my-3" role="navigation">
-<ol class="breadcrumb">
-	<li class="breadcrumb-item"><?php echo anchor('blog/category','categorias'); ?></li>
- <li class="breadcrumb-item active" aria-current="page"><?php echo $categ->name_category; ?></li>
-</ol>
-</nav>
 
 <div class="row">
 
@@ -14,7 +7,6 @@
     <div class="card">
 
   <div class="card-body">
-    <h4 class="card-title"><?php echo ucfirst($categ->name_category); ?></h4>
     <p class="card-text"><?php echo $categ->desc_category; ?></p>
   </div>
 
@@ -62,6 +54,6 @@
 </div>
 </div>
 </div>
-</div>
+
 
 <script> var id_category = <?php echo $categ->id_category; ?>; </script>

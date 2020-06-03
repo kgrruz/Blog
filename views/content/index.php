@@ -18,7 +18,7 @@
   <tbody>
     <?php foreach($posts as $post){ $categs_post = $this->category_model->get_blog_categories($post->id_post)->result(); ?>
     <tr>
-      <td class="pl-3"><?php echo anchor("blog/post/".$post->slug_post,ellipsize($post->title_post,30)); ?></td>
+      <td class="pl-3"><?php echo anchor("blog/post/".$post->slug_post,ellipsize($post->title_post,60)); ?></td>
       <td>    <?php foreach($categs_post as $categ){ ?>
           <span class="badge badge-info"><?php echo $categ->name_category; ?></span>
         <?php } ?></td>
@@ -43,8 +43,7 @@
     <?php echo $pags; ?>
   </ul>
 </div>
-<?php } ?>
-<?php } else{ ?>
+<?php }} else{ ?>
 
    <div class="card-body">
      <div class="card-text"><?php echo lang('blog_empty_posts'); ?></div>
