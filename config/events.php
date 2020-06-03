@@ -21,6 +21,14 @@
 	THE SOFTWARE.
 */
 
+$config['show_user_public_acts'][] = array(
+        'module'     => 'blog',
+        'filepath'   => 'controllers',
+        'filename'   => 'Blog_events.php',
+        'class'  => 'Blog_events',
+        'method'     => '_my_public_activities'
+    );
+
 $config['insert_post_blog'][] = array(
         'module'     => 'blog',
         'filepath'   => 'controllers',

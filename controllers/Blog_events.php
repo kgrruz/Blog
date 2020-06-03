@@ -11,6 +11,12 @@ class Blog_events{
     $this->CI->lang->load("blog/blog");
   }
 
+  public function _my_public_activities(&$data){
+
+       $data['modules'][] = 'blog';
+
+     }
+
   function _show_widget_news(){
 
 
