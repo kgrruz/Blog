@@ -27,6 +27,7 @@ class Blog extends Front_Controller{
 
 					Assets::add_module_css('blog', 'jquery-comments.css');
           Assets::add_module_js('blog', 'jquery-comments.min.js');
+          Assets::add_module_js('blog', 'langs/'.config_item('language').'.js');
           Assets::add_module_js('blog', 'comments.js');
 
           Assets::add_js('bootstrap-notify.min.js');
@@ -177,7 +178,7 @@ class Blog extends Front_Controller{
 
           if($post->created_by != $this->current_user->id and !in_array($this->current_user->role_id,explode(',',$post->roles_access))){
 
-            Template::set_message('Sem permissão para acessar o conteúdo.', 'danger');
+            Template::set_message(lang('blog_post_noacess'), 'danger');
             Template::redirect('blog');
 
               }

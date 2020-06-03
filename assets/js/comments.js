@@ -3,84 +3,22 @@ $(document).on('ready', function() {
 
 if (typeof id_refer !== 'undefined' && enable == true) {
 
-  var lang_comments = [];
-
-  lang_comments["english"] = {
-
-    textareaPlaceholderText: 'Leave a comment',
-    newestText: 'New',
-    oldestText: 'Old',
-    popularText: 'Most popular',
-    attachmentsText: 'Show attachments',
-    sendText: 'Comment',
-    replyText: 'Answer',
-    editText: 'Modify',
-    editedText: 'Modified',
-    youText: 'Me',
-    saveText: 'Update',
-    deleteText: 'Remove',
-    hideRepliesText: 'Hide',
-    viewAllRepliesText: 'Show all replies (__replyCount__)',
-    noCommentsText: 'There are no comments'
-
-  };
-
-  lang_comments["portuguese_br"] = {
-
-         textareaPlaceholderText: 'Deixar um comentário',
-         newestText: 'Mais recentes',
-         oldestText: 'Mais antigos',
-         popularText: 'Mais popular',
-         attachmentsText: 'Mostrar anexos',
-         sendText: 'Enviar Comentário',
-         replyText: 'Responder',
-         editText: 'Modificar',
-         editedText: 'Modificado',
-         youText: 'Eu',
-         saveText: 'Atualizar',
-         deleteText: 'Remover',
-         hideRepliesText: 'Ocultar',
-         viewAllRepliesText: 'Mostrar todas as respostas (__replyCount__)',
-         noCommentsText: 'Não há comentários'
-
-  };
-
-    lang_comments["spanish_am"] = {
-
-     textareaPlaceholderText: 'Deja un comentario',
-     newestText: 'Nuevo',
-     oldestText: 'Viejo',
-     popularText: 'Más popular',
-     attachmentsText: 'Mostrar archivos adjuntos',
-     sendText: 'Enviar comentário',
-     replyText: 'Answer',
-     editText: 'Modificar' ,
-     editedText: 'Modificado',
-     youText: 'Yo',
-     saveText: 'Actualizar',
-     deleteText: 'Eliminar',
-     hideRepliesText: 'Ocultar',
-     viewAllRepliesText: 'Mostrar todas las respuestas (__replyCount__)',
-     noCommentsText: 'No hay comentarios'
-
-   },
-
   $('#comments-container').comments({
-    textareaPlaceholderText: lang_comments[lang_user].textareaPlaceholderText,
-    newestText: lang_comments[lang_user].newestText,
-    oldestText: lang_comments[lang_user].oldestText,
-    popularText: lang_comments[lang_user].popularText,
-    attachmentsText: lang_comments[lang_user].attachmentsText,
-    sendText: lang_comments[lang_user].sendText,
-    replyText: lang_comments[lang_user].replyText,
-    editText: lang_comments[lang_user].editText,
-    editedText: lang_comments[lang_user].editedText,
-    youText: lang_comments[lang_user].youText,
-    saveText: lang_comments[lang_user].saveText,
-    deleteText: lang_comments[lang_user].deleteText,
-    hideRepliesText: lang_comments[lang_user].hideRepliesText,
-    viewAllRepliesText: lang_comments[lang_user].viewAllRepliesText,
-    noCommentsText: lang_comments[lang_user].noCommentsText,
+    textareaPlaceholderText: lang_comments.textareaPlaceholderText,
+    newestText: lang_comments.newestText,
+    oldestText: lang_comments.oldestText,
+    popularText: lang_comments.popularText,
+    attachmentsText: lang_comments.attachmentsText,
+    sendText: lang_comments.sendText,
+    replyText: lang_comments.replyText,
+    editText: lang_comments.editText,
+    editedText: lang_comments.editedText,
+    youText: lang_comments.youText,
+    saveText: lang_comments.saveText,
+    deleteText: lang_comments.deleteText,
+    hideRepliesText: lang_comments.hideRepliesText,
+    viewAllRepliesText: lang_comments.viewAllRepliesText,
+    noCommentsText: lang_comments.noCommentsText,
     profilePictureURL: my_avatar,
     currentUserId: uid,
     roundProfilePictures: true,
