@@ -43,7 +43,7 @@ class Category extends Front_Controller{
           $id = $this->uri->segment(4);
 
           if (empty($id)) {
-              Template::set_message(lang('category_invalid_id'), 'error');
+              Template::set_message(lang('category_invalid_id'), 'danger');
               redirect('blog/category');
           }
 
@@ -76,7 +76,7 @@ class Category extends Front_Controller{
 
           }else{
 
-            Template::set_message(lang('category_invalid_id'), 'error');
+            Template::set_message(lang('category_invalid_id'), 'danger');
             redirect('blog/category');
           }
     }
