@@ -11,12 +11,12 @@ $config['module_config'] = array(
 	'route'       => 'blog',
 	'visible_module' => true,
 	'context_customer' => false,
-	'version'		=> '1.2.0',
+	'version'		=> '1.3.0',
 	'author'		=> 'admin',
 );
 
 $config['install_check'] = array(
 'php_version'=>array('5.6','>='),
-'gestor_version'=>array('0.4.0-dev','>='),
+'gestor_version'=>array('0.9.3-dev','>='),
 'php_ext'=>array('mbstring'),
 'modules'=>array());
