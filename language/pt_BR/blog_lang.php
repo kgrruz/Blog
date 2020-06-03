@@ -114,3 +114,15 @@ $lang['blog_comment_delete_confirm']    = 'Tem certeza que deseja remover o come
 $lang['blog_invalid_comment_id']    = 'ID do comentário é inválido.';
 $lang['blog_comment_delete_success']    = 'Comentário removido.';
 $lang['blog_comment_file']    = 'Arquivo';
+
+$lang['blog_post_noacess'] = 'Sem permissão para acessar o conteúdo.';
+
+$lang['blog_settings_maxsize_preview_image'] = 'Tamanho máx. da imagem do post.';
+$lang['blog_settings_maxsize_body_image'] = 'Tamanho máx. da(s) imagem(s) no corpo da postagem.';
+$lang['blog_settings_maxsize_comment_attach'] = 'Limite de tamanho do arquivo enviado no comentário.';
+$lang['blog_settings_allow_types_attach'] = 'Tipos permitidos para envio nos comentários.';
+
+$lang['blog_max_filesize'] = 'Tamanho máx';
+$lang['blog_allow_types_attach'] = 'Tipos';
+$lang['blog_maxsize_comment_attach'] = 'Tamanho máx';
+$lang['blog_send_newsletter'] = 'Enviar para o e-mail dos usuários';

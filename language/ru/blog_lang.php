@@ -113,3 +113,15 @@ $lang['blog_comment_delete_confirm'] = 'Вы уверены, что хотите
 $lang['blog_invalid_comment_id'] = 'Идентификатор комментария недействителен.';
 $lang['blog_comment_delete_success'] = 'Комментарий удален.';
 $lang['blog_comment_file'] = 'Файл';
+
+$lang['blog_post_noacess'] = 'Нет прав доступа к контенту.';
+
+$lang['blog_settings_maxsize_preview_image'] = 'Макс. почтового изображения. ';
+$lang['blog_settings_maxsize_body_image'] = 'Макс. изображений в теле поста. ';
+$lang['blog_settings_maxsize_comment_attach'] = 'Ограничение на размер файла, отправляемого в комментарии.';
+$lang['blog_settings_allow_types_attach'] = 'Типы, разрешенные для публикации в комментариях.';
+
+$lang['blog_max_filesize'] = 'максимальный размер';
+$lang['blog_allow_types_attach'] = 'Типы';
+$lang['blog_maxsize_comment_attach'] = 'максимальный размер';
+$lang['blog_send_newsletter'] = 'Отправить пользователям' email ';
