@@ -35,9 +35,16 @@
   if($post->enable_comments){  ?>
           <!-- Comments Form -->
           <div class="card my-4">
-            <h5 class="card-header"><?php echo lang('blog_lets_comment'); ?></h5>
-            <div class="card-body">
+            <h5 class="card-header">
+              <?php echo lang('blog_lets_comment'); ?>
 
+            </h5>
+            <div class="card-body">
+              <?php if($post->enable_attach){ ?>
+                <small class="text-muted d-block my-2 text-right"> <?php echo lang('blog_allow_types_attach'); ?> : <?php echo $this->settings_lib->item('blog.allow_types_attach'); ?> -
+                <?php echo lang('blog_maxsize_comment_attach'); ?> : <?php echo $this->settings_lib->item('blog.maxsize_comment_attach'); ?> MB
+              </small>
+            <?php } ?>
 <div id="comments-container"> </div>
 
             </div>
