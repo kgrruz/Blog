@@ -199,8 +199,8 @@ class Comments extends Front_Controller{
                       $path = './uploads/blog/comments/';
 
 											$config['upload_path'] =  $path;
-											$config['allowed_types'] = 'jpeg|png|gif|jpg';
-											$config['max_size']     = '2500';
+											$config['allowed_types'] = $this->settings_lib->item('blog.allow_types_attach');
+											$config['max_size']     = $this->settings_lib->item('blog.maxsize_comment_attach');
 											$config['max_width'] = '1024';
 											$config['max_height'] = '768';
 											$config['encrypt_name'] = true;
