@@ -79,8 +79,6 @@ class Content extends Admin_Controller{
 
         $this->authenticate($this->permissionCreate);
 
-        Assets::add_js('js/editors/tinymce/tinymce.min.js');
-
         if (isset($_POST['save'])) {
 
             if ($insert_id = $this->save_blog()) {
@@ -95,18 +93,24 @@ class Content extends Admin_Controller{
                 $ids = $this->user_model->get_id_users_role('id',explode(",",$blog->roles_access));
                 log_notify($ids, $id_act);
 
-                $this->send_blog_email($ids,$blog);
+              if($this->input->post('send_newsletter')){
+
+                  $this->send_blog_email($ids,$blog);
+
+              }
 
                 Template::set_message(lang('blog_create_success'), 'success');
-                Template::redirect('blog/content/');
+                Template::redirect('blog/post/'.$blog->slug_post);
 
             }
 
             // Not validation error
             if ( ! empty($this->blog_model->error)) {
-                Template::set_message(lang('blog_create_failure') . $this->blog_model->error, 'error');
+                Template::set_message(lang('blog_create_failure') . $this->blog_model->error, 'danger');
             }
           }
+
+            Assets::add_js('js/editors/tinymce/tinymce.min.js');
 
             $this->load->library('blog/Nested_set');
             $this->nested_set->setControlParams('blog_categories','lft','rgt','id_category','parent_category','name_category');
@@ -130,7 +134,7 @@ class Content extends Admin_Controller{
 
         if (empty($id)) {
 
-            Template::set_message(lang('blog_invalid_id'), 'error');
+            Template::set_message(lang('blog_invalid_id'), 'danger');
             redirect('blog');
         }
 
@@ -155,7 +159,7 @@ class Content extends Admin_Controller{
 
             // Not validation error
             if ( ! empty($this->blog_model->error)) {
-                Template::set_message(lang('blog_edit_failure') . $this->blog_model->error, 'error');
+                Template::set_message(lang('blog_edit_failure') . $this->blog_model->error, 'danger');
             }
         }
 
@@ -181,7 +185,7 @@ class Content extends Admin_Controller{
 
       if (empty($id)) {
 
-          Template::set_message(lang('blog_invalid_id'), 'error');
+          Template::set_message(lang('blog_invalid_id'), 'danger');
           redirect('blog/content/');
       }
 
@@ -197,7 +201,7 @@ class Content extends Admin_Controller{
 
           }
 
-          Template::set_message(lang('blog_delete_failure') . $this->blog_model->error, 'error');
+          Template::set_message(lang('blog_delete_failure') . $this->blog_model->error, 'danger');
 
     }
 
@@ -209,7 +213,7 @@ class Content extends Admin_Controller{
           $checked = $this->input->post('checked');
           if (empty($checked)) {
               // No users checked.
-              Template::set_message(lang('us_empty_id'), 'error');
+              Template::set_message(lang('us_empty_id'), 'danger');
           } else {
               foreach ($checked as $userId) {
                   $this->delete_category($userId);
@@ -251,7 +255,7 @@ class Content extends Admin_Controller{
 
             // Not validation error
             if ( ! empty($this->category_model->error)) {
-                Template::set_message(lang('category_create_failure') . $this->category_model->error, 'error');
+                Template::set_message(lang('category_create_failure') . $this->category_model->error, 'danger');
             }
         }
 
@@ -276,8 +280,7 @@ class Content extends Admin_Controller{
     {
         $id = $this->uri->segment(4);
         if (empty($id)) {
-            Template::set_message(lang('category_invalid_id'), 'error');
-
+            Template::set_message(lang('category_invalid_id'), 'danger');
             redirect('category');
         }
 
@@ -296,7 +299,7 @@ class Content extends Admin_Controller{
 
             // Not validation error
             if ( ! empty($this->category_model->error)) {
-                Template::set_message(lang('category_edit_failure') . $this->category_model->error, 'error');
+                Template::set_message(lang('category_edit_failure') . $this->category_model->error, 'danger');
             }
         }
 
@@ -357,7 +360,7 @@ class Content extends Admin_Controller{
 
       $comment = $this->comments_model->find($id);
       if (! isset($comment)) {
-          Template::set_message(lang('blog_invalid_comment_id'), 'error');
+          Template::set_message(lang('blog_invalid_comment_id'), 'danger');
           Template::redirect($this->agent->referrer());
       }
 
@@ -372,7 +375,7 @@ class Content extends Admin_Controller{
 
           }else{
 
-          Template::set_message(lang('blog_comment_approve_failure') . $this->comments_model->error, 'error');
+          Template::set_message(lang('blog_comment_approve_failure') . $this->comments_model->error, 'danger');
 
     }
 
@@ -385,7 +388,7 @@ class Content extends Admin_Controller{
 
       $comment = $this->comments_model->find($id);
       if (! isset($comment)) {
-          Template::set_message(lang('blog_invalid_comment_id'), 'error');
+          Template::set_message(lang('blog_invalid_comment_id'), 'danger');
           Template::redirect($this->agent->referrer());
       }
 
@@ -400,7 +403,7 @@ class Content extends Admin_Controller{
 
           }else{
 
-          Template::set_message(lang('blog_comment_delete_failure') . $this->comments_model->error, 'error');
+          Template::set_message(lang('blog_comment_delete_failure') . $this->comments_model->error, 'danger');
 
     }
 
@@ -416,7 +419,7 @@ class Content extends Admin_Controller{
 
       $category = $this->category_model->find($id);
       if (! isset($category)) {
-          Template::set_message(lang('us_invalid_category_id'), 'error');
+          Template::set_message(lang('us_invalid_category_id'), 'danger');
           Template::redirect('blog/category');
       }
 
@@ -433,7 +436,7 @@ class Content extends Admin_Controller{
               return;
           }
 
-          Template::set_message(lang('category_delete_failure') . $this->category_model->error, 'error');
+          Template::set_message(lang('category_delete_failure') . $this->category_model->error, 'danger');
 
     }
 
@@ -474,7 +477,7 @@ class Content extends Admin_Controller{
         );
 
         $this->load->library('slug', $config);
-        $data['slug_category'] = $this->slug->create_uri($this->input->post('name_category'));
+        $data['slug_category'] = $this->slug->create_uri($this->input->post('name_category'),$id);
         $data['created_on'] = date('Y-m-d H:i:s');
 
         $return = false;
@@ -586,7 +589,7 @@ class Content extends Admin_Controller{
           'upload_path' => $upload_path,
           'allowed_types' => "jpg|png|jpeg|gif",
           'encrypt_name' => true,
-          'max_size' => 2048, // Can be set to particular file size , here it is 2 MB(2048 Kb)
+          'max_size' => $this->settings_lib->item('blog.maxsize_preview_image'), // Can be set to particular file size , here it is 2 MB(2048 Kb)
           'max_height' => 2000,
           'max_width' => 2000,
           'min_height'=> 200,
@@ -599,18 +602,7 @@ class Content extends Admin_Controller{
 
           $upload_data = $this->upload->data();
 
-          $data_up = array(
-            'file_name'=> $upload_data['orig_name'],
-            'file_hash_name'=> $upload_data['file_name'],
-            'file_size'=> $upload_data['file_size'],
-            'subfolder'=> 'blog/posts_preview',
-            'created_on'=> date('Y-m-d H:i:s'),
-            'created_by'=>  $this->current_user->id
-          );
-
-          $this->db->insert("uploads",$data_up);
-
-          $this->load->library('users/image_op');
+          $this->load->library('image_op');
 
           $this->image_op->padronize($upload_path,$upload_data,700,300,100);
 
@@ -620,7 +612,7 @@ class Content extends Admin_Controller{
         }else{
 
             $error = array('error' => $this->upload->display_errors());
-            Template::set_message($error['error'], 'error');
+            Template::set_message($error['error'], 'danger');
             Template::redirect($this->agent->referrer());
 
           }
@@ -640,7 +632,7 @@ class Content extends Admin_Controller{
         );
 
         $this->load->library('slug', $config);
-        $data['slug_post'] = $this->slug->create_uri($this->input->post('title_post'));
+        $data['slug_post'] = $this->slug->create_uri($this->input->post('title_post'),$id);
 
 
         $return = false;
@@ -664,105 +656,51 @@ class Content extends Admin_Controller{
 
     	 $this->authenticate();
 
-    	 //if (!$this->input->is_ajax_request()) { exit('No direct script access allowed');  }
-
-    		 ob_get_level();
-
-    		 //Image Save Option
-
-    		 $this->load->helper('cookie');
-
-    		 $cookie_csrf = get_cookie('ckCsrfToken');
-    		 $csrf = $this->input->post('ckCsrfToken');
-
-    		 if($cookie_csrf != $csrf){
-
-    			 $jsondata = array('uploaded'=> 0, 'fileName'=> 'null', 'location'=> 'null');
-    			 echo json_encode($jsondata);
-    			 return false;
-
-    		 }
+    	 if (!$this->input->is_ajax_request()) { exit('No direct script access allowed');  }
 
     		 $path = './uploads/blog/posts_body/';
 
     		 $config['upload_path'] = $path; //YOUR PATH
     		 $config['allowed_types'] = 'gif|jpg|jpeg|png';
-    		 $config['max_size'] = '90000';
+    		 $config['max_size'] = $this->settings_lib->item('blog.maxsize_body_image');
     		 $config['encrypt_name'] = TRUE;
 
-    		 //Form Upload, Drag & Drop
-    		 $CKEditorFuncNum = $this->input->get('CKEditorFuncNum');
-    		 if(empty($CKEditorFuncNum)){
-    				 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    				 // Drag & Drop
-    				 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    				 header('Content-Type: application/json');
-
     				 $this->load->library('upload', $config);
 
-    				 if ( !$this->upload->do_upload("file")){
+    				 if (!$this->upload->do_upload("file")){
 
-    				  $error = array('error' => $this->upload->display_errors());
-
-    						 $jsondata = array('uploaded'=> 0, 'fileName'=> 'null', 'location'=> 'null', 'error'=>array('message'=>$error['error']));
-    						 echo json_encode($jsondata);
+               $error = array('error' => $this->upload->display_errors());
+     					 $this->output->set_output(json_encode(array('status'=>0,'message'=>strip_tags($error['error']))));
 
     				 }else{
 
     						 $data = $this->upload->data();
 
-                 $data_up = array(
-                   'file_name'=> $data['orig_name'],
-                   'file_hash_name'=> $data['file_name'],
-                   'file_size'=> $data['file_size'],
-                   'subfolder'=> 'blog/posts_body',
-                   'created_on'=> date('Y-m-d H:i:s'),
-                   'created_by'=>  $this->current_user->id
-                 );
+                 if($data['image_width'] > 800){
 
-                 $this->db->insert("uploads",$data_up);
+                  $rconfig['source_image']     = $data['full_path'];
+                  $rconfig['width']     			 = 800;
+                  $rconfig['height']     			 = 1;
+                  $rconfig['maintain_ratio']   = TRUE;
+                  $rconfig['master_dim'] 			 = 'width';
 
-    						 // JPG compression
-    						 if($this->upload->data('file_ext') === '.jpg') {
-    								 $filename = $this->upload->data('full_path');
-    								 $img = imagecreatefromjpeg($filename);
-    								 imagejpeg($img, $filename, 80);
-    						 }
+                  $this->load->library('image_lib', $rconfig);
+                  $this->image_lib->resize();
 
-    						 $filename = $data['file_name'];
-    						 $url = 'uploads/blog/posts_body/'.$filename;
+              }
 
-    						 $jsondata = array('uploaded'=> 1, 'fileName'=> $filename, 'location'=> $url);
-    						 echo json_encode($jsondata);
+              if($data['file_ext'] === '.jpg') {
+                  imagejpeg(imagecreatefromjpeg($data['full_path']), $data['full_path'], 80);
+              }
+
+                 $data['file_size'] = number_format((filesize($data['full_path'])/1024), 2);
+                 $this->user_model->update_upload($data);
+
+    						 $url = base_url().'uploads/blog/posts_body/'.$data['file_name'];
+
+                 $jsondata = array('uploaded'=> 1, 'fileName'=> $data['file_name'], 'location'=> $url,'status'=>'Enviado com sucesso.');
+    						 $this->output->set_output(json_encode($jsondata));
     				 }
-    		 } else{
-    				 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    				 // Form Upload
-    				 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    				 $this->load->library('upload', $config);
 
-    				 if ( !$this->upload->do_upload("file")){
-    						 echo "<script>alert('Send Fail".$this->upload->display_errors('','')."')</script>";
-
-    				 }else{
-
-    						 $CKEditorFuncNum = $this->input->get('CKEditorFuncNum');
-    						 $data = $this->upload->data();
-
-    						 // JPG compression
-    						 if($this->upload->data('file_ext') === '.jpg') {
-    								 $filename = $this->upload->data('full_path');
-    								 $img = imagecreatefromjpeg($filename);
-    								 imagejpeg($img, $filename, 80);
-    						 }
-
-    						 $filename = $data['file_name'];
-
-    						 $url = 'uploads/blog/posts_body/'.$filename;
-    						 echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction('".$CKEditorFuncNum."', '".$url."', 'Send OK')</script>";
-    				 }
-    		 }
-
-    		 ob_end_flush();
      }
 }

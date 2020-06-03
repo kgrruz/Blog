@@ -19,7 +19,7 @@ $id = isset($post->id_post) ? $post->id_post : '';
 
 ?>
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-6">
 
 <div class="card">
 <div class="card-body">
@@ -47,13 +47,19 @@ $id = isset($post->id_post) ? $post->id_post : '';
       </select>
                     <span class='help-inline'><?php echo form_error('category'); ?></span>
             </div>
-
 <div class="form-group">
-  <input type="checkbox" value="1" name="enable_comments" <?php echo (isset($post) && $post->enable_comments)? 'checked':''; ?> >   <?php echo lang('blog_enable_comments'); ?>
+            <div class="form-check">
+<input type="checkbox" id="Check_en_comment" class="form-check-input check_co" value="1" name="enable_comments" <?php echo (isset($post) && $post->enable_comments)? 'checked':''; ?> >
+        <label class="form-check-label" for="Check_en_comment">
+<?php echo lang('blog_enable_comments'); ?>
+        </label>
 </div>
-<div class="form-group">
-  <input type="checkbox" value="1" name="enable_attach" <?php echo (isset($post) && $post->enable_attach)? 'checked':''; ?> >   <?php echo lang('blog_enable_attach'); ?>
-
+<div class="form-check">
+<input type="checkbox" id="Check_en_uploads" class="form-check-input check_co" value="1" name="enable_attach" <?php echo (isset($post) && $post->enable_attach)? 'checked':''; ?> >
+<label class="form-check-label" for="Check_en_uploads">
+<?php echo lang('blog_enable_attach'); ?>
+</label>
+</div>
 </div>
 
             <div class="form-group<?php echo form_error('body_post') ? ' error' : ''; ?>">
@@ -66,7 +72,7 @@ $id = isset($post->id_post) ? $post->id_post : '';
             </div>
 
 
-                      <input type='submit' name='save' class='btn btn-sm btn-primary' value="<?php echo lang('blog_action_create'); ?>" />
+                      <input type='submit' name='save' class='btn btn-sm btn-primary' value="<?php echo $toolbar_title; ?>" />
                       <?php echo lang('bf_or'); ?>
                       <?php echo anchor('admin/content/blog', lang('blog_cancel'), 'class="btn btn-sm btn-warning"'); ?>
 
@@ -77,20 +83,26 @@ $id = isset($post->id_post) ? $post->id_post : '';
 
 
 
-        <div class="col-md-4">
+        <div class="col-md-3">
 
           <div class="card mb-3">
             <div class="card-header">
               <?php echo lang('blog_roles'); ?>
             </div>
-            <div class="card-body">
+            <ul class="list-group">
 
               <?php foreach ($roles as $role) : ?>
-      <input type="checkbox" name="roles_access[]" <?php echo (!empty($id) and in_array($role->role_id,explode(",",$post->roles_access)) or $current_user->role_id == $role->role_id)? 'checked':''; ?> value="<?php echo $role->role_id; ?>" >
-      <?php echo role_user_by_id($role->role_id); ?>
+                <li class="list-group-item">
+                  <div class="form-check">
+      <input type="checkbox" id="Check<?php echo $role->role_id; ?>" class="form-check-input" name="roles_access[]" <?php echo (!empty($id) and in_array($role->role_id,explode(",",$post->roles_access)) or $current_user->role_id == $role->role_id)? 'checked':''; ?> value="<?php echo $role->role_id; ?>" />
+        <label class="form-check-label" for="Check<?php echo $role->role_id; ?>">
+          <?php echo role_user_by_id($role->role_id); ?>
+        </label>
+    </div>
+    </li>
           <?php endforeach; ?>
 
-            </div>
+        </ul>
           </div>
 
           <div class="card">
@@ -101,6 +113,9 @@ $id = isset($post->id_post) ? $post->id_post : '';
 
               <label for="exampleFormControlFile1" style="display:none" class="btn btn-primary btn-sm" ><i class="fa fa-image"></i> <?php echo lang('blog_field_upload_picture'); ?></label>
               <input type="file" class="form-control-file" xid="exampleFormControlFile1" name="prev_image">
+              <small class="help-inline text-muted">
+              Tipos: jpg,png,jpeg,gif - <?php echo lang('blog_max_filesize'); ?> : <?php echo $this->settings_lib->item('blog.maxsize_preview_image'); ?> MB</br>
+              </small>
               <input type="hidden" name="preview_image" value="<?php echo (isset($post))? $post->preview_image:''; ?>" />
                 <?php if(!empty($id)){ ?>
                   <div class="text-danger"><?php echo lang("blog_image_preview_edit_overwrite"); ?></div>
@@ -108,6 +123,23 @@ $id = isset($post->id_post) ? $post->id_post : '';
 
             </div>
           </div>
+
+<?php if(!isset($post)){ ?>
+
+          <div class="card mt-2">
+          <div class="card-body">
+
+            <div class="form-check">
+  <input class="form-check-input" name="send_newsletter" type="checkbox" value="1" checked id="send_newsletter">
+  <label class="form-check-label" for="send_newsletter">
+    <?php echo lang('blog_send_newsletter'); ?>
+  </label>
+</div>
+
+          </div>
+        </div>
+  <?php } ?>
+
         </div>
 
     </div>
